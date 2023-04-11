@@ -1,1 +1,1 @@
-console.log('Testing commits from razvantamsa');
+console.log('Testing commits from razvantamsa v2');
