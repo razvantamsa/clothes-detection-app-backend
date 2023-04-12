@@ -1,0 +1,24 @@
+{
+  "name": "sneaker-app-backend",
+  "version": "1.0.0",
+  "description": "<br>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/razvantamsa/sneaker-app-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/razvantamsa/sneaker-app-backend/issues"
+  },
+  "homepage": "https://github.com/razvantamsa/sneaker-app-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "serverless-http": "^3.2.0"
+  }
+}

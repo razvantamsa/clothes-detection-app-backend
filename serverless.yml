@@ -9,4 +9,9 @@ provider:
 
 functions:
   healthcheck:
-    handler: lambda/healthcheck/index.handler
+    handler: src/lambda/healthcheck/index.handler
+    events:
+      - http:
+          path: healthcheck
+          method: get
+          cors: true
