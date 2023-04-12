@@ -1,0 +1,12 @@
+service: sneaker-api
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: sneaker-app
+  region: us-west-2
+
+functions:
+  healthcheck:
+    handler: lambda/healthcheck/index.handler

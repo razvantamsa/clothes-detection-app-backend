@@ -1,0 +1,14 @@
+module.exports.handler = async (event) => {
+    return {
+      statusCode: 200,
+      body: JSON.stringify(
+        {
+          message: 'Sneaker API Running...',
+          input: event,
+        },
+        null,
+        2
+      ),
+    };
+  };
+  
