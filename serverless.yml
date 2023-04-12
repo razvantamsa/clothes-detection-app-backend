@@ -11,7 +11,4 @@ functions:
   healthcheck:
     handler: src/lambda/healthcheck/index.handler
     events:
-      - http:
-          path: healthcheck
-          method: get
-          cors: true
+      - httpApi: '*'
