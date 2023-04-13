@@ -25,11 +25,11 @@ functions:
           path: /sneakers
           method: post
       - httpApi:
-          path: /sneakers/:id
+          path: /sneakers/{sneakerId}
           method: get
       - httpApi:
-          path: /sneakers/:id
+          path: /sneakers/{sneakerId}
           method: put
       - httpApi:
-          path: /sneakers/:id
+          path: /sneakers/{sneakerId}
           method: delete
