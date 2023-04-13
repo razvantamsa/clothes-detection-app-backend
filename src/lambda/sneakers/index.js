@@ -20,18 +20,18 @@ app.post('/sneakers/', (req, res) => {
 });
 
 // GET one sneaker
-app.get('/sneakers/:id', (req, res) => {
-    res.status(200).send(`Get a sneaker with id: ${req.params.id}`);
+app.get('/sneakers/:sneakerId', (req, res) => {
+    res.status(200).send(`Get a sneaker with sneakerId: ${req.params.sneakerId}`);
 });
 
 // PUT one sneaker
-app.put('/sneakers/:id', (req, res) => {
-    res.status(200).send(`Update a sneaker with id: ${req.params.id}`);
+app.put('/sneakers/:sneakerId', (req, res) => {
+    res.status(200).send(`Update a sneaker with sneakerId: ${req.params.sneakerId}`);
 });
 
 // DELETE one sneaker
-app.delete('/sneakers/:id', (req, res) => {
-    res.status(200).send(`Delete a sneaker with id: ${req.params.id}`);
+app.delete('/sneakers/:sneakerId', (req, res) => {
+    res.status(200).send(`Delete a sneaker with sneakerId: ${req.params.sneakerId}`);
 });
 
 
