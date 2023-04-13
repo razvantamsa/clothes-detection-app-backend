@@ -1,0 +1,19 @@
+openapi: 3.0.3
+info:
+  title: Healthcheck
+  version: 1.0.0
+  description: Healtcheck Operations
+
+paths:
+  /healthcheck:
+    get:
+      description: GET Healthcheck Status
+      responses:
+        '200':
+          description: Sneaker Backend is Up
+      tags:
+        - Healthcheck
+
+tags:
+  - name: Healthcheck
+    description: Operations related to healthcheck
