@@ -1,11 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const serverless = require('serverless-http');
+const morgan = require('morgan');
 
 const app = express();
 
 // Enable CORS
 app.use(cors());
+app.use(morgan('combined'));
 
 // Define route handlers
 
