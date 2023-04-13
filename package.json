@@ -20,5 +20,8 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "serverless-http": "^3.2.0"
+  },
+  "devDependencies": {
+    "openapi-to-postmanv2": "^4.10.2"
   }
 }

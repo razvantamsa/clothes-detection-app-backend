@@ -1,0 +1,79 @@
+openapi: 3.0.3
+info:
+  title: Sneakers
+  version: 1.0.0
+  description: Sneakers Operations
+
+paths:
+  /sneakers:
+    get:
+      description: Get a list of sneakers
+      responses:
+        '200':
+      tags:
+        - Sneakers
+
+    post:
+      description: Create a new sneaker
+      responses:
+        '201':
+          description: Sneaker created successfully
+        '400':
+          description: Bad request
+      tags:
+        - Sneakers
+
+  /sneakers/{sneakerId}:
+    get:
+      description: Get a sneaker by ID
+      parameters:
+        - name: sneakerId
+          in: path
+          description: ID of the sneaker to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Sneaker not found
+      tags:
+        - Sneakers
+
+    put:
+      description: Update a sneaker by ID
+      parameters:
+        - name: sneakerId
+          in: path
+          description: ID of the sneaker to update
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Sneaker updated successfully
+        '400':
+          description: Bad request
+        '404':
+          description: Sneaker not found
+      tags:
+        - Sneakers
+
+    delete:
+      description: Delete a sneaker by ID
+      parameters:
+        - name: sneakerId
+          in: path
+          description: ID of the sneaker to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Sneaker deleted successfully
+        '404':
+          description: Sneaker not found
+      tags:
+        - Sneakers
+
+tags:
+  - name: Sneakers
+    description: Operations related to sneakers
