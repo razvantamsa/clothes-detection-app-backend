@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 
 // Define route handlers
-app.get('/', (req, res) => {
+app.get('/healthcheck', (req, res) => {
   res.status(200).send('Sneaker API Running!');
 });
 
