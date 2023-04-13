@@ -6,6 +6,7 @@ provider:
   runtime: nodejs18.x
   profile: sneaker-app
   region: us-west-2
+  logRetentionInDays: 14
 
 functions:
   healthcheck:
