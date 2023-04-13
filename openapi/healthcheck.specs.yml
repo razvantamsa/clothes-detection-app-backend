@@ -7,7 +7,7 @@ info:
 paths:
   /healthcheck:
     get:
-      description: Get a list of users
+      description: GET Healthcheck Status
       responses:
         '200':
           description: Sneaker Backend is Up

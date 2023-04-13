@@ -1,6 +1,7 @@
 service: sneaker-api
 frameworkVersion: '3'
 
+
 provider:
   name: aws
   runtime: nodejs18.x
@@ -8,6 +9,9 @@ provider:
   region: us-west-2
   logRetentionInDays: 14
 
+plugins:
+  - serverless-offline
+  
 functions:
   healthcheck:
     handler: src/lambda/healthcheck/index.handler
