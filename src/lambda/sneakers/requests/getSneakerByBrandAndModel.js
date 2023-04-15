@@ -4,7 +4,6 @@ const router = express.Router();
 
 router.get('/:brand/:model', async (req, res) => {
     try {
-        console.log(req.params);
         const result = await getItem('sneakers', req.params);
         res.status(200).send(result);
     } catch (err) {
