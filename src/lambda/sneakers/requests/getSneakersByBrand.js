@@ -1,9 +1,10 @@
 const express = require('express');
+const { getItemByPk } = require('../../../utils/aws/dynamodb');
 const router = express.Router();
 
-router.get('/:brand', (req, res) => {
-    // await postItem('sneakers', req.body);
-    res.status(200).send(`Posted one sneaker: ${JSON.stringify(req.body)}`);
+router.get('/:brand', async (req, res) => {
+    const result = await getItemByPk('sneakers', 'brand', req.params.brand);
+    res.status(200).send(result);
 });
   
 module.exports = router;
