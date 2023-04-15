@@ -15,39 +15,106 @@ paths:
 
     post:
       description: Create a new sneaker
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                brand:
+                  type: string
+                  description: Brand of the item
+                model:
+                  type: string
+                  description: Model of the item
+                price:
+                  type: number
+                  description: Price of the item
       responses:
         '201':
-          description: Sneaker created successfully
+          description: Item created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                    description: ID of the created item
+                  brand:
+                    type: string
+                    description: Brand of the created item
+                  model:
+                    type: string
+                    description: Model of the created item
+                  price:
+                    type: number
+                    description: Price of the created item
         '400':
           description: Bad request
+        '500':
+          description: Internal server error
       tags:
         - Sneakers
 
-  /sneakers/{sneakerId}:
+  /sneakers/{brand}:
     get:
-      description: Get a sneaker by ID
+      description: Get sneakers by brand
       parameters:
-        - name: sneakerId
+        - name: brand
           in: path
-          description: ID of the sneaker to retrieve
+          description: Brand of the sneakers to retrieve
           schema:
-            type: integer
+            type: string
       responses:
         '200':
           description: OK
         '404':
           description: Sneaker not found
+        '500':
+          description: Internal server error
+      tags:
+        - Sneakers
+
+  /sneakers/{brand}/{model}:
+    get:
+      description: Get sneakers by brand and model
+      parameters:
+        - in: path
+          name: brand
+          description: Brand of the sneakers to retrieve
+          schema:
+            type: string
+        - in: path
+          name: model
+          description: Model of the sneakers to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Sneaker not found
+        '500':
+          description: Internal server error
       tags:
         - Sneakers
 
     put:
-      description: Update a sneaker by ID
+      description: Update sneakers by brand and model
       parameters:
-        - name: sneakerId
-          in: path
-          description: ID of the sneaker to update
+        - in: path
+          name: brand
+          description: Brand of the sneakers to update
           schema:
-            type: integer
+            type: string
+        - in: path
+          name: model
+          description: Model of the sneakers to update
+          schema:
+            type: string
       responses:
         '200':
           description: Sneaker updated successfully
@@ -55,22 +122,31 @@ paths:
           description: Bad request
         '404':
           description: Sneaker not found
+        '500':
+          description: Internal server error
       tags:
         - Sneakers
 
     delete:
-      description: Delete a sneaker by ID
+      description: Delete sneakers by brand and model
       parameters:
-        - name: sneakerId
-          in: path
-          description: ID of the sneaker to delete
+        - in: path
+          name: brand
+          description: Brand of the sneakers to delete
           schema:
-            type: integer
+            type: string
+        - in: path
+          name: model
+          description: Model of the sneakers to delete
+          schema:
+            type: string
       responses:
         '204':
           description: Sneaker deleted successfully
         '404':
           description: Sneaker not found
+        '500':
+          description: Internal server error
       tags:
         - Sneakers
 
