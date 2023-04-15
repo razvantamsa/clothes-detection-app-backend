@@ -16,28 +16,18 @@ functions:
   healthcheck:
     handler: src/lambda/healthcheck/index.handler
     events:
-      - httpApi:
-          path: /healthcheck
-          method: get
+    - httpApi: 'GET /healthcheck'
+
 
   sneakers:
     handler: src/lambda/sneakers/index.handler
     events:
-      - httpApi:
-          path: /sneakers
-          method: get
-      - httpApi:
-          path: /sneakers
-          method: post
-      - httpApi:
-          path: /sneakers/{sneakerId}
-          method: get
-      - httpApi:
-          path: /sneakers/{sneakerId}
-          method: put
-      - httpApi:
-          path: /sneakers/{sneakerId}
-          method: delete
+    - httpApi: 'GET /sneakers'
+    - httpApi: 'POST /sneakers'
+    - httpApi: 'GET /sneakers/{brand}'
+    - httpApi: 'GET /sneakers/{brand}/{model}'
+    - httpApi: 'PUT /sneakers/{brand}/{model}'
+    - httpApi: 'DELETE /sneakers/{brand}/{model}'
 
 resources:
   Resources:
