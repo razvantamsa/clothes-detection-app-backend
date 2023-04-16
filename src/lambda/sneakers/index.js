@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-const getAllSneakers = require('./requests/getAllSneakers');
+const getAllSneakerBrands = require('./requests/getAllSneakerBrands');
 const getSneakerByBrandAndModel = require('./requests/getSneakerByBrandAndModel');
 const getSneakersByBrand = require('./requests/getSneakersByBrand');
 const getSneaker = require('./requests/getSneakersByBrand');
@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 
 // Define route handlers
 app.use('/sneakers', 
-    getAllSneakers,
+    getAllSneakerBrands,
     getSneakerByBrandAndModel,
     getSneakersByBrand,
     getSneaker, 

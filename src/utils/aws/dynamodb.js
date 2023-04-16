@@ -16,6 +16,16 @@ const postItem = async (TableName, Item) => {
     await dynamoDB.put(params).promise();
 };
 
+const getAttributeSet = async (TableName, attribute) => {
+  const params = {
+    TableName,
+    ProjectionExpression: attribute,
+  };
+
+  const result = await dynamoDB.scan(params).promise();
+  return [...new Set(result.Items.map(item => item[attribute]))];
+}
+
 const getItem = async (TableName, Key) => {
     const params = {
       TableName,
@@ -76,6 +86,7 @@ const deleteItem = async (TableName, Key) => {
 module.exports = {
   getItem,
   getItemByPk,
+  getAttributeSet,
   postItem,
   updateItem,
   deleteItem,
