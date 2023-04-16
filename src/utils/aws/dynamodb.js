@@ -37,6 +37,34 @@ const getItemByPk = async (TableName, pkName, pkValue) => {
   return result.Items;
 };
 
+const updateItem = async (TableName, Key, updatedAttributes) => {
+  let UpdateExpression = 'set', 
+    ExpressionAttributeNames = {}, 
+    ExpressionAttributeValues = {};
+  
+  Object.entries(updatedAttributes).forEach(([key, value], index) => {
+    UpdateExpression += ` #attr${index} = :attr${index}`;
+    ExpressionAttributeNames[`#attr${index}`] = key;
+    ExpressionAttributeValues[`:attr${index}`] = value;
+
+    if(index+1 !== Object.entries(updatedAttributes).length) {
+      UpdateExpression += ',';
+    }
+  });
+
+  const params = {
+    TableName,
+    Key,
+    UpdateExpression,
+    ExpressionAttributeNames,
+    ExpressionAttributeValues,
+    ReturnValues: 'ALL_NEW'
+  };
+
+  const result = await dynamoDB.update(params).promise();
+  return result.Attributes;
+}
+
 const deleteItem = async (TableName, Key) => {
   const params = {
     TableName,
@@ -49,5 +77,6 @@ module.exports = {
   getItem,
   getItemByPk,
   postItem,
+  updateItem,
   deleteItem,
 }
