@@ -7,13 +7,23 @@ provider:
   profile: sneaker-app
   region: us-west-2
   logRetentionInDays: 14
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource: "*"
 
 plugins:
   - serverless-offline
 
 functions:
   healthcheck: ${file(./serverless/healthcheck-function.yml):healthcheck}
-  sneakers: ${file(./serverless/sneakers-function.yml):sneakers}
+  sneakers-get: ${file(./serverless/sneakers-function.yml):sneakers-get}
+  sneakers-post: ${file(./serverless/sneakers-function.yml):sneakers-post}
+  sneakers-get-brand: ${file(./serverless/sneakers-function.yml):sneakers-get-brand}
+  sneakers-get-brand-model: ${file(./serverless/sneakers-function.yml):sneakers-get-brand-model}
+  sneakers-put-brand-model: ${file(./serverless/sneakers-function.yml):sneakers-put-brand-model}
+  sneakers-delete-brand-model: ${file(./serverless/sneakers-function.yml):sneakers-delete-brand-model}
 
 resources:
   Resources:
