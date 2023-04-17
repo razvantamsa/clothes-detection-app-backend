@@ -1,7 +1,6 @@
 service: sneaker-api
 frameworkVersion: '3'
 
-
 provider:
   name: aws
   runtime: nodejs18.x
@@ -13,38 +12,9 @@ plugins:
   - serverless-offline
 
 functions:
-  healthcheck:
-    handler: src/lambda/healthcheck/index.handler
-    events:
-    - httpApi: 'GET /healthcheck'
-
-
-  sneakers:
-    handler: src/lambda/sneakers/index.handler
-    events:
-    - httpApi: 'GET /sneakers'
-    - httpApi: 'POST /sneakers'
-    - httpApi: 'GET /sneakers/{brand}'
-    - httpApi: 'GET /sneakers/{brand}/{model}'
-    - httpApi: 'PUT /sneakers/{brand}/{model}'
-    - httpApi: 'DELETE /sneakers/{brand}/{model}'
+  healthcheck: ${file(./serverless/healthcheck-function.yml):healthcheck}
+  sneakers: ${file(./serverless/sneakers-function.yml):sneakers}
 
 resources:
   Resources:
-    MyDynamoDBTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: sneakers
-        AttributeDefinitions:
-          - AttributeName: brand
-            AttributeType: S
-          - AttributeName: model
-            AttributeType: S
-        KeySchema:
-          - AttributeName: brand
-            KeyType: HASH
-          - AttributeName: model
-            KeyType: RANGE
-        ProvisionedThroughput:
-          ReadCapacityUnits: 5
-          WriteCapacityUnits: 5
+    SneakersTable: ${file(./serverless/sneakers-table.yml):SneakersTable}
