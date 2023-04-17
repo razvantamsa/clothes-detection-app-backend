@@ -1,9 +1,21 @@
 sneakers:
   handler: src/lambda/sneakers/index.handler
   events:
-  - httpApi: 'GET /sneakers'
-  - httpApi: 'POST /sneakers'
-  - httpApi: 'GET /sneakers/{brand}'
-  - httpApi: 'GET /sneakers/{brand}/{model}'
-  - httpApi: 'PUT /sneakers/{brand}/{model}'
-  - httpApi: 'DELETE /sneakers/{brand}/{model}'
+    - http:
+        method: get
+        path: sneakers
+    - http:
+        method: post
+        path: sneakers
+    - http:
+        method: get
+        path: sneakers/{brand}
+    - http:
+        method: get
+        path: sneakers/{brand}/{model}
+    - http:
+        method: put
+        path: sneakers/{brand}/{model}
+    - http:
+        method: delete
+        path: sneakers/{brand}/{model}

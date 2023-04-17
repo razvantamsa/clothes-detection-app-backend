@@ -1,4 +1,6 @@
 healthcheck:
   handler: src/lambda/healthcheck/index.handler
   events:
-  - httpApi: 'GET /healthcheck'
+    - http:
+        method: get
+        path: healthcheck
