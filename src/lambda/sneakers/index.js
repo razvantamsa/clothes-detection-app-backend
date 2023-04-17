@@ -6,13 +6,12 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-const getAllSneakerBrands = require('./requests/getAllSneakerBrands');
-const getSneakerByBrandAndModel = require('./requests/getSneakerByBrandAndModel');
-const getSneakersByBrand = require('./requests/getSneakersByBrand');
-const getSneaker = require('./requests/getSneakersByBrand');
-const postSneaker = require('./requests/postSneaker');
-const updateSneaker = require('./requests/updateSneaker');
-const deleteSneaker = require('./requests/deleteSneaker');
+const createSneaker = require('./requests/createSneaker');
+const listSneakerBrands = require('./requests/listSneakerBrands');
+const listSneakersByBrand = require('./requests/listSneakersByBrand');
+const getOneSneaker = require('./requests/getOneSneaker');
+const updateOneSneaker = require('./requests/updateOneSneaker');
+const deleteOneSneaker = require('./requests/deleteOneSneaker');
 
 app.use(cors());
 app.use(morgan('combined'));
@@ -20,13 +19,12 @@ app.use(bodyParser.json());
 
 // Define route handlers
 app.use('/sneakers', 
-    getAllSneakerBrands,
-    getSneakerByBrandAndModel,
-    getSneakersByBrand,
-    getSneaker, 
-    postSneaker, 
-    updateSneaker, 
-    deleteSneaker
+    createSneaker, 
+    listSneakerBrands,
+    listSneakersByBrand,
+    getOneSneaker,
+    updateOneSneaker, 
+    deleteOneSneaker
 );
 
 module.exports.handler = serverless(app);

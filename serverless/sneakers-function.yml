@@ -1,39 +1,39 @@
-sneakers-get:
-  handler: src/lambda/sneakers/index.handler
-  events:
-    - http:
-        method: get
-        path: sneakers
-
-sneakers-post:
+createSneaker:
   handler: src/lambda/sneakers/index.handler
   events:
     - http:
         method: post
         path: sneakers
 
-sneakers-get-brand:
+listSneakerBrands:
+  handler: src/lambda/sneakers/index.handler
+  events:
+    - http:
+        method: get
+        path: sneakers
+
+listSneakersByBrand:
   handler: src/lambda/sneakers/index.handler
   events:
     - http:
         method: get
         path: sneakers/{brand}
 
-sneakers-get-brand-model:
+getOneSneaker:
   handler: src/lambda/sneakers/index.handler
   events:
     - http:
         method: get
         path: sneakers/{brand}/{model}
 
-sneakers-put-brand-model:
+updateOneSneaker:
   handler: src/lambda/sneakers/index.handler
   events:
     - http:
         method: put
         path: sneakers/{brand}/{model}
 
-sneakers-delete-brand-model:
+deleteOneSneaker:
   handler: src/lambda/sneakers/index.handler
   events:
     - http:

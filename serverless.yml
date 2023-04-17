@@ -18,12 +18,12 @@ plugins:
 
 functions:
   healthcheck: ${file(./serverless/healthcheck-function.yml):healthcheck}
-  sneakers-get: ${file(./serverless/sneakers-function.yml):sneakers-get}
-  sneakers-post: ${file(./serverless/sneakers-function.yml):sneakers-post}
-  sneakers-get-brand: ${file(./serverless/sneakers-function.yml):sneakers-get-brand}
-  sneakers-get-brand-model: ${file(./serverless/sneakers-function.yml):sneakers-get-brand-model}
-  sneakers-put-brand-model: ${file(./serverless/sneakers-function.yml):sneakers-put-brand-model}
-  sneakers-delete-brand-model: ${file(./serverless/sneakers-function.yml):sneakers-delete-brand-model}
+  createSneaker: ${file(./serverless/sneakers-function.yml):createSneaker}
+  listSneakerBrands: ${file(./serverless/sneakers-function.yml):listSneakerBrands}
+  listSneakersByBrand: ${file(./serverless/sneakers-function.yml):listSneakersByBrand}
+  getOneSneaker: ${file(./serverless/sneakers-function.yml):getOneSneaker}
+  updateOneSneaker: ${file(./serverless/sneakers-function.yml):updateOneSneaker}
+  deleteOneSneaker: ${file(./serverless/sneakers-function.yml):deleteOneSneaker}
 
 resources:
   Resources:
