@@ -2,39 +2,29 @@ const express = require('express');
 const cors = require('cors');
 const serverless = require('serverless-http');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
 const app = express();
 
-// Enable CORS
+const createSneaker = require('./requests/createSneaker');
+const listSneakerBrands = require('./requests/listSneakerBrands');
+const listSneakersByBrand = require('./requests/listSneakersByBrand');
+const getOneSneaker = require('./requests/getOneSneaker');
+const updateOneSneaker = require('./requests/updateOneSneaker');
+const deleteOneSneaker = require('./requests/deleteOneSneaker');
+
 app.use(cors());
 app.use(morgan('combined'));
+app.use(bodyParser.json());
 
 // Define route handlers
-
-// GET all sneakers
-app.get('/sneakers/', (req, res) => {
-  res.status(200).send('Get all sneakers');
-});
-
-// POST all sneakers
-app.post('/sneakers/', (req, res) => {
-    res.status(200).send('Post one sneaker');
-});
-
-// GET one sneaker
-app.get('/sneakers/:sneakerId', (req, res) => {
-    res.status(200).send(`Get a sneaker with sneakerId: ${req.params.sneakerId}`);
-});
-
-// PUT one sneaker
-app.put('/sneakers/:sneakerId', (req, res) => {
-    res.status(200).send(`Update a sneaker with sneakerId: ${req.params.sneakerId}`);
-});
-
-// DELETE one sneaker
-app.delete('/sneakers/:sneakerId', (req, res) => {
-    res.status(200).send(`Delete a sneaker with sneakerId: ${req.params.sneakerId}`);
-});
-
+app.use('/sneakers', 
+    createSneaker, 
+    listSneakerBrands,
+    listSneakersByBrand,
+    getOneSneaker,
+    updateOneSneaker, 
+    deleteOneSneaker
+);
 
 module.exports.handler = serverless(app);

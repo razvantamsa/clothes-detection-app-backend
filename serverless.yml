@@ -1,40 +1,30 @@
 service: sneaker-api
 frameworkVersion: '3'
 
-
 provider:
   name: aws
   runtime: nodejs18.x
   profile: sneaker-app
   region: us-west-2
   logRetentionInDays: 14
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource: "*"
 
 plugins:
   - serverless-offline
-  
-functions:
-  healthcheck:
-    handler: src/lambda/healthcheck/index.handler
-    events:
-      - httpApi:
-          path: /healthcheck
-          method: get
 
-  sneakers:
-    handler: src/lambda/sneakers/index.handler
-    events:
-      - httpApi:
-          path: /sneakers
-          method: get
-      - httpApi:
-          path: /sneakers
-          method: post
-      - httpApi:
-          path: /sneakers/{sneakerId}
-          method: get
-      - httpApi:
-          path: /sneakers/{sneakerId}
-          method: put
-      - httpApi:
-          path: /sneakers/{sneakerId}
-          method: delete
+functions:
+  healthcheck: ${file(./serverless/healthcheck-function.yml):healthcheck}
+  createSneaker: ${file(./serverless/sneakers-function.yml):createSneaker}
+  listSneakerBrands: ${file(./serverless/sneakers-function.yml):listSneakerBrands}
+  listSneakersByBrand: ${file(./serverless/sneakers-function.yml):listSneakersByBrand}
+  getOneSneaker: ${file(./serverless/sneakers-function.yml):getOneSneaker}
+  updateOneSneaker: ${file(./serverless/sneakers-function.yml):updateOneSneaker}
+  deleteOneSneaker: ${file(./serverless/sneakers-function.yml):deleteOneSneaker}
+
+resources:
+  Resources:
+    SneakersTable: ${file(./serverless/sneakers-table.yml):SneakersTable}

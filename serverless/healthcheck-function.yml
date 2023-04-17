@@ -1,0 +1,6 @@
+healthcheck:
+  handler: src/lambda/healthcheck/index.handler
+  events:
+    - http:
+        method: get
+        path: healthcheck
