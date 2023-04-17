@@ -11,6 +11,7 @@ provider:
     - Effect: Allow
       Action:
         - dynamodb:*
+        - s3:*
       Resource: "*"
 
 plugins:
@@ -28,3 +29,4 @@ functions:
 resources:
   Resources:
     SneakersTable: ${file(./serverless/sneakers-table.yml):SneakersTable}
+    SneakersBucket: ${file(./serverless/sneakers-bucket.yml):SneakersBucket}
