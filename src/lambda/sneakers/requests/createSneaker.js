@@ -9,7 +9,7 @@ const { DYNAMODB_SNEAKERS_TABLE, S3_BUCKET_NAME } = process.env;
 router.post('/', async (req, res) => {
     const { files, ...body} = await parser.parse(req);
     const { brand, model } = body;
-    updatedFiles = [];
+    const updatedFiles = [];
 
     for(const file of files) {
         const key = `${brand}/${model}/${file.fieldname}`;
@@ -24,7 +24,6 @@ router.post('/', async (req, res) => {
     }
 
     await postDynamoDB(DYNAMODB_SNEAKERS_TABLE, body);
-
     res.status(200).send({ body, updatedFiles });
 });
 
