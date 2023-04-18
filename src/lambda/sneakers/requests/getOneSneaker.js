@@ -23,7 +23,6 @@ router.get('/:brand/:model', async (req, res) => {
         console.log(err);
         res.status(400).send(err);
     }
-
 });
   
 module.exports = router;

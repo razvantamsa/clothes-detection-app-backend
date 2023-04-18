@@ -5,8 +5,12 @@ const router = express.Router();
 const { DYNAMODB_SNEAKERS_TABLE } = process.env;
 
 router.get('/:brand', async (req, res) => {
-    const result = await getItemByPk(DYNAMODB_SNEAKERS_TABLE, 'brand', req.params.brand);
-    res.status(200).send(result);
+    try {
+        const result = await getItemByPk(DYNAMODB_SNEAKERS_TABLE, 'brand', req.params.brand);
+        res.status(200).send(result);
+    } catch (err) {
+        res.status(400).send(err);
+    }
 });
   
 module.exports = router;
