@@ -25,9 +25,9 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Sneaker'
+              $ref: '#/components/schemas/createSneaker'
       responses:
         '200':
           description: OK
@@ -108,9 +108,9 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Sneaker'
+              $ref: '#/components/schemas/updateSneaker'
       responses:
         '200':
           description: OK
@@ -152,7 +152,7 @@ paths:
 
 components:
   schemas:
-    Sneaker:
+    createSneaker:
       type: object
       properties:
         brand:
@@ -161,3 +161,32 @@ components:
           type: string
         price:
           type: number
+        pic1:
+          type: string
+          format: binary
+        pic2:
+          type: string
+          format: binary
+        pic3:
+          type: string
+          format: binary
+        pic4:
+          type: string
+          format: binary
+    updateSneaker:
+      type: object
+      properties:
+        price:
+          type: number
+        pic1:
+          type: string
+          format: binary
+        pic2:
+          type: string
+          format: binary
+        pic3:
+          type: string
+          format: binary
+        pic4:
+          type: string
+          format: binary
