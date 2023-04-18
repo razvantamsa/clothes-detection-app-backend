@@ -21,6 +21,15 @@ const postItem = async (Bucket, Key, Body, ContentLength) => {
     return s3.putObject(params).promise();
 };
 
+const getItem = async (Bucket, Key) => {
+  const params = {
+      Bucket,
+      Key,
+  };
+  return s3.getSignedUrlPromise('getObject', params);
+};
+
 module.exports = {
-    postItem
+    postItem,
+    getItem
 }
