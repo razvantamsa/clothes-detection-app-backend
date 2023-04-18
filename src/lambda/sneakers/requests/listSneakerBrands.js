@@ -9,6 +9,7 @@ router.get('/', async (req, res) => {
         const result = await getAttributeSet(DYNAMODB_SNEAKERS_TABLE, 'brand');
         res.status(200).send(result);
     } catch (err) {
+        console.log(err);
         res.status(400).send(err);
     }
 });
