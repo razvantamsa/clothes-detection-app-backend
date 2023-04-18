@@ -29,7 +29,16 @@ const getItem = async (Bucket, Key) => {
   return s3.getSignedUrlPromise('getObject', params);
 };
 
+const deleteItem = async (Bucket, Key) => {
+  const params = {
+      Bucket,
+      Key,
+  };
+  return s3.deleteObject(params).promise();
+};
+
 module.exports = {
     postItem,
-    getItem
+    getItem,
+    deleteItem,
 }
