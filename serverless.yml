@@ -7,11 +7,10 @@ provider:
   profile: sneaker-app
   region: us-west-2
   logRetentionInDays: 14
-  timeout: 30 # 3minutes 
-  # apiGateway:
-  #   restApiId: <your_rest_api_id>
-  #   restApiRootResourceId: <your_rest_api_root_resource_id>
-  #   timeout: 60 # Set the timeout value to 60 seconds
+  timeout: 30
+  apiGateway:
+    binaryMediaTypes:
+      - 'multipart/form-data'
   environment:
     DYNAMODB_SNEAKERS_TABLE: 'sneakers'
     S3_BUCKET_NAME: 'sneakers-bucket'
