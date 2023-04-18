@@ -15,7 +15,11 @@ const postItem = async (TableName, Item) => {
       TableName,
       Item
     };
-    await dynamoDB.put(params).promise();
+    try {
+      await dynamoDB.put(params).promise();
+    } catch (err) {
+      throw new Error(err);
+    }
 };
 
 const getAttributeSet = async (TableName, attribute) => {
@@ -23,9 +27,12 @@ const getAttributeSet = async (TableName, attribute) => {
     TableName,
     ProjectionExpression: attribute,
   };
-
-  const result = await dynamoDB.scan(params).promise();
-  return [...new Set(result.Items.map(item => item[attribute]))];
+  try {
+    const result = await dynamoDB.scan(params).promise();
+    return [...new Set(result.Items.map(item => item[attribute]))];
+  } catch (err) {
+    throw new Error(err);
+  }
 }
 
 const getItem = async (TableName, Key) => {
@@ -33,8 +40,12 @@ const getItem = async (TableName, Key) => {
       TableName,
       Key
     };
-    const result = await dynamoDB.get(params).promise();
-    return result.Item;
+    try {
+      const result = await dynamoDB.get(params).promise();
+      return result.Item;
+    } catch (err) {
+      throw new Error(err);
+    }
 };
 
 const getItemByPk = async (TableName, pkName, pkValue) => {
@@ -45,8 +56,12 @@ const getItemByPk = async (TableName, pkName, pkValue) => {
       [`:${pkName}`]: pkValue
     }
   };
-  const result = await dynamoDB.query(params).promise();
-  return result.Items;
+  try {
+    const result = await dynamoDB.query(params).promise();
+    return result.Items;
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
 const updateItem = async (TableName, Key, updatedAttributes) => {
@@ -72,9 +87,12 @@ const updateItem = async (TableName, Key, updatedAttributes) => {
     ExpressionAttributeValues,
     ReturnValues: 'ALL_NEW'
   };
-
-  const result = await dynamoDB.update(params).promise();
-  return result.Attributes;
+  try {
+    const result = await dynamoDB.update(params).promise();
+    return result.Attributes;
+  } catch (err) {
+    throw new Error(err);
+  }
 }
 
 const deleteItem = async (TableName, Key) => {
@@ -82,7 +100,11 @@ const deleteItem = async (TableName, Key) => {
     TableName,
     Key
   };
-  await dynamoDB.delete(params).promise();
+  try {
+    await dynamoDB.delete(params).promise();
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
 module.exports = {

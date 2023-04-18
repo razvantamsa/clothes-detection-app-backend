@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const serverless = require('serverless-http');
-const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 
 const app = express();
 
@@ -14,8 +14,8 @@ const updateOneSneaker = require('./requests/updateOneSneaker');
 const deleteOneSneaker = require('./requests/deleteOneSneaker');
 
 app.use(cors());
-app.use(morgan('combined'));
 app.use(bodyParser.json());
+app.use(fileUpload());
 
 // Define route handlers
 app.use('/sneakers', 

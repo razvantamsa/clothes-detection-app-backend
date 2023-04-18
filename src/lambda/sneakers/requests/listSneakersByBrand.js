@@ -1,10 +1,30 @@
 const express = require('express');
-const { getItemByPk } = require('../../../utils/aws/dynamodb');
+const { getItemByPk: getDynamoDBByPK } = require('../../../utils/aws/dynamodb');
+const { getItem: getS3 } = require('../../../utils/aws/s3');
 const router = express.Router();
 
+const { DYNAMODB_SNEAKERS_TABLE, S3_BUCKET_NAME } = process.env;
+
 router.get('/:brand', async (req, res) => {
-    const result = await getItemByPk('sneakers', 'brand', req.params.brand);
-    res.status(200).send(result);
+    try {
+        const entries = await getDynamoDBByPK(DYNAMODB_SNEAKERS_TABLE, 'brand', req.params.brand);
+        
+        const files = ['pic1', 'pic2', 'pic3', 'pic4'];
+        for(const [index, entry] of entries.entries()) {
+            console.log(index, entry);
+            entries[index].files = [];
+            for(const file of files) {
+                const key = `${entry.brand}/${entry.model}/${file}`;
+                const result = await getS3(S3_BUCKET_NAME, key);
+                entries[index].files.push(result);
+            }
+        }
+
+        res.status(200).send(entries);
+    } catch (err) {
+        console.log(err);
+        res.status(400).send(err);
+    }
 });
   
 module.exports = router;
