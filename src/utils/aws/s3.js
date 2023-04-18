@@ -18,7 +18,7 @@ const postItem = async (Bucket, Key, Body, ContentLength) => {
         ContentLength,
         ContentType: 'image/jpeg',
     };
-    return s3.putObject(params).promise();
+    return s3.upload(params).promise();
 };
 
 const getItem = async (Bucket, Key) => {
