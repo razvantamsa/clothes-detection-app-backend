@@ -11,14 +11,18 @@ if (!process.env.AWS_EXECUTION_ENV) {
 const s3 = new AWS.S3();
 
 const postItem = async (Bucket, Key, Body, ContentLength) => {
-    const params = {
-        Bucket,
-        Key,
-        Body,
-        ContentLength,
-        ContentType: 'image/jpeg',
-    };
+  const params = {
+      Bucket,
+      Key,
+      Body,
+      ContentLength,
+      ContentType: 'image/jpeg',
+  };
+  try {
     return s3.upload(params).promise();
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
 const getItem = async (Bucket, Key) => {
@@ -26,7 +30,11 @@ const getItem = async (Bucket, Key) => {
       Bucket,
       Key,
   };
-  return s3.getSignedUrlPromise('getObject', params);
+  try {
+    return s3.getSignedUrlPromise('getObject', params);
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
 const deleteItem = async (Bucket, Key) => {
@@ -34,7 +42,11 @@ const deleteItem = async (Bucket, Key) => {
       Bucket,
       Key,
   };
-  return s3.deleteObject(params).promise();
+  try {
+    return s3.deleteObject(params).promise();
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
 module.exports = {
