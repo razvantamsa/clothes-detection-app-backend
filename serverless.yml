@@ -12,6 +12,9 @@ provider:
   #   restApiId: <your_rest_api_id>
   #   restApiRootResourceId: <your_rest_api_root_resource_id>
   #   timeout: 60 # Set the timeout value to 60 seconds
+  environment:
+    DYNAMODB_SNEAKERS_TABLE: 'sneakers'
+    S3_BUCKET_NAME: 'sneakers-bucket'
   iamRoleStatements:
     - Effect: Allow
       Action:

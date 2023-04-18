@@ -4,8 +4,7 @@ const router = express.Router();
 const { postItem: postDynamoDB } = require('../../../utils/aws/dynamodb');
 const { postItem: postS3 } = require('../../../utils/aws/s3');
 
-const DYNAMODB_SNEAKERS_TABLE = 'sneakers';
-const S3_BUCKET_NAME = 'sneakers-bucket';
+const { DYNAMODB_SNEAKERS_TABLE, S3_BUCKET_NAME } = process.env;
 
 router.post('/', async (req, res) => {
     const { files, ...body} = await parser.parse(req);
