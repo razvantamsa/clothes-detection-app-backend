@@ -9,10 +9,11 @@ const S3_BUCKET_NAME = 'sneakers-bucket';
 
 router.post('/', async (req, res) => {
     const { files, ...body} = await parser.parse(req);
-    body.files = [];
+    const { brand, model } = body;
+    updatedFiles = [];
 
     for(const file of files) {
-        const key = `${body.brand}/${body.model}/${file.filename}`;
+        const key = `${brand}/${model}/${file.fieldname}`;
         const s3Body = file.content;
         const contentLength = file.content.length;
         const result = await postS3(
@@ -20,12 +21,12 @@ router.post('/', async (req, res) => {
             key, 
             s3Body, 
             contentLength);
-        body.files.push(result.ETag);
+        updatedFiles.push(result.ETag);
     }
 
     await postDynamoDB(DYNAMODB_SNEAKERS_TABLE, body);
 
-    res.status(200).send(JSON.stringify(body));
+    res.status(200).send({ body, updatedFiles });
 });
 
 module.exports = router;
