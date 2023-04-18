@@ -7,6 +7,11 @@ provider:
   profile: sneaker-app
   region: us-west-2
   logRetentionInDays: 14
+  timeout: 30 # 3minutes 
+  # apiGateway:
+  #   restApiId: <your_rest_api_id>
+  #   restApiRootResourceId: <your_rest_api_root_resource_id>
+  #   timeout: 60 # Set the timeout value to 60 seconds
   iamRoleStatements:
     - Effect: Allow
       Action:
