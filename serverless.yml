@@ -26,12 +26,15 @@ plugins:
 
 functions:
   healthcheck: ${file(./serverless/healthcheck-function.yml):healthcheck}
+
   createSneaker: ${file(./serverless/sneakers-function.yml):createSneaker}
   listSneakerBrands: ${file(./serverless/sneakers-function.yml):listSneakerBrands}
   listSneakersByBrand: ${file(./serverless/sneakers-function.yml):listSneakersByBrand}
   getOneSneaker: ${file(./serverless/sneakers-function.yml):getOneSneaker}
   updateOneSneaker: ${file(./serverless/sneakers-function.yml):updateOneSneaker}
   deleteOneSneaker: ${file(./serverless/sneakers-function.yml):deleteOneSneaker}
+
+  scrapeUrl: ${file(./serverless/webscraper-function.yml):scrapeUrl}
 
 resources:
   Resources:
