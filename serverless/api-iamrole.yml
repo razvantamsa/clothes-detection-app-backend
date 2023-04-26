@@ -1,0 +1,22 @@
+IamApiRole:
+  Type: "AWS::IAM::Role"
+  Properties:
+    AssumeRolePolicyDocument:
+      Statement:
+      - Effect: Allow
+        Principal:
+          Service:
+          - lambda.amazonaws.com
+          - states.amazonaws.com
+        Action:
+        - sts:AssumeRole
+    Policies:
+    - PolicyName: IamApiRolePolicy
+      PolicyDocument:
+        Statement:
+        - Effect: Allow
+          Action:
+          - dynamodb:*
+          - s3:*
+          - lambda:*
+          Resource: "*"
