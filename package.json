@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/razvantamsa/sneaker-app-backend#readme",
   "dependencies": {
+    "@sparticuz/chromium": "^109.0.5",
     "aws-sdk": "^2.1359.0",
     "axios": "^1.3.5",
     "body-parser": "^1.20.2",
@@ -27,6 +28,7 @@
     "lambda-multipart-parser": "^1.0.1",
     "morgan": "^1.10.0",
     "puppeteer": "^19.9.1",
+    "puppeteer-core": "^19.4.1",
     "serverless-http": "^3.2.0"
   },
   "devDependencies": {
