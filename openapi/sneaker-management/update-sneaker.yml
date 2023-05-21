@@ -1,0 +1,32 @@
+tags:
+  - Sneaker Management
+summary: Update details of a sneaker
+operationId: Update-details-of-a-sneaker
+parameters:
+  - in: path
+    name: brand
+    required: true
+    description: Sneaker brand
+    schema:
+      type: string
+  - in: path
+    name: model
+    required: true
+    description: Sneaker model
+    schema:
+      type: string
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        $ref: './openapi/components/update-sneaker-schema.yml'
+responses:
+  '200':
+    description: OK
+  '400':
+    description: Bad request
+  '404':
+    description: Not found
+  '500':
+    description: Internal server error

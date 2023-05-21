@@ -1,0 +1,13 @@
+tags:
+  - Healthcheck
+summary: Get Healthcheck Status
+operationId: Get-Healthcheck-Status
+responses:
+  '200':
+    description: OK
+  '400':
+    description: Bad request
+  '404':
+    description: Not found
+  '500':
+    description: Internal server error

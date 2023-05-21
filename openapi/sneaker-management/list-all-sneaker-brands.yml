@@ -1,0 +1,13 @@
+tags:
+  - Sneaker Management
+summary: List all sneaker brands
+operationId: List-all-sneaker-brands
+responses:
+  '200':
+    description: OK
+  '400':
+    description: Bad request
+  '404':
+    description: Not found
+  '500':
+    description: Internal server error

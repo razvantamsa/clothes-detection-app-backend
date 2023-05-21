@@ -1,0 +1,19 @@
+tags:
+  - Sneaker Management
+summary: Create a sneaker
+operationId: Create-a-sneaker
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        $ref: './openapi/components/create-sneaker-schema.yml'
+responses:
+  '200':
+    description: OK
+  '400':
+    description: Bad request
+  '404':
+    description: Not found
+  '500':
+    description: Internal server error
