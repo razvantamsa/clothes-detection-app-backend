@@ -25,7 +25,7 @@ const postItem = async (Bucket, Key, Body, ContentLength) => {
   }
 };
 
-const getItem = async (Bucket, Key) => {
+const getSignedUrl = async (Bucket, Key) => {
   const params = {
       Bucket,
       Key,
@@ -36,6 +36,18 @@ const getItem = async (Bucket, Key) => {
     throw new Error(err);
   }
 };
+
+const getItem = async (Bucket, Key) => {
+  const params = {
+    Bucket,
+    Key,
+  };
+  try {
+    return s3.getObject(params).promise();
+  } catch (err) {
+    throw new Error(err);
+  }
+}
 
 const deleteItem = async (Bucket, Key) => {
   const params = {
@@ -51,6 +63,7 @@ const deleteItem = async (Bucket, Key) => {
 
 module.exports = {
     postItem,
+    getSignedUrl,
     getItem,
     deleteItem,
 }

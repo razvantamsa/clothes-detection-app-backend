@@ -32,5 +32,5 @@ paths:
         $ref: ./openapi/sneaker-management/get-sneaker.yml
       put: 
         $ref: ./openapi/sneaker-management/update-sneaker.yml
-      post:
+      delete:
         $ref: ./openapi/sneaker-management/delete-sneaker.yml

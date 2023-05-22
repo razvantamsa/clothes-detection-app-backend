@@ -1,17 +1,12 @@
 const express = require('express');
+const { getItem } = require('../../../utils/aws/s3');
 const router = express.Router();
-const { S3 } = require('../../../utils/aws/clients');
 
 const { S3_DOCS_BUCKET } = process.env;
 
 router.get('/', async (req, res) => {
     try {
-        const params = {
-            Bucket: S3_DOCS_BUCKET,
-            Key: 'openapi.html',
-        };
-        const data = await S3.getObject(params).promise();
-
+        const data = await getItem(S3_DOCS_BUCKET, 'openapi.html');
         const htmlContent = data.Body.toString('utf-8');
         return res
             .status(200)
