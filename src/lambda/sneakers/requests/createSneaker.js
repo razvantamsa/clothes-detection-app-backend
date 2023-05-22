@@ -3,7 +3,7 @@ const router = express.Router();
 const { postItem: postDynamoDB } = require('../../../utils/aws/dynamodb');
 const { postItem: postS3 } = require('../../../utils/aws/s3');
 
-const { DYNAMODB_SNEAKERS_TABLE, S3_BUCKET_NAME } = process.env;
+const { DYNAMODB_SNEAKERS_TABLE, S3_SNEAKERS_BUCKET } = process.env;
 
 router.post('/', async (req, res) => {
     try {
@@ -12,10 +12,10 @@ router.post('/', async (req, res) => {
     
         const { brand, model } = req.body;
         const updatedFiles = [];
-    
+
         for(const file of files) {
             const result = await postS3(
-                S3_BUCKET_NAME, 
+                S3_SNEAKERS_BUCKET, 
                 `${brand}/${model}/${file.name}`, 
                 file.data,
                 file.data.length);
@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
         res.status(200).send({ body: req.body, updatedFiles });
     } catch (err) {
         console.log(err);
-        res.status(400).send(err);
+        res.status(400).send(err.message);
     }
 });
 

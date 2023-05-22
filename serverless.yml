@@ -13,7 +13,7 @@ provider:
       - 'multipart/form-data'
   environment:
     DYNAMODB_SNEAKERS_TABLE: 'sneakers'
-    S3_SNEAKERS_BUCKET: 'sneakers-bucket'
+    S3_SNEAKERS_BUCKET: 'sneaker-api-sneakers-bucket'
     S3_DOCS_BUCKET: 'sneaker-api-docs-bucket'
   iamRoleStatements:
     - Effect: Allow
