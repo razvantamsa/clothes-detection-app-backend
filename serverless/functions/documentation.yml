@@ -1,0 +1,6 @@
+getDocs:
+  handler: src/lambda/docs/index.handler
+  events:
+    - http:
+        method: get
+        path: docs

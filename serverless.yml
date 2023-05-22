@@ -13,12 +13,14 @@ provider:
       - 'multipart/form-data'
   environment:
     DYNAMODB_SNEAKERS_TABLE: 'sneakers'
-    S3_BUCKET_NAME: 'sneakers-bucket'
+    S3_SNEAKERS_BUCKET: 'sneakers-bucket'
+    S3_DOCS_BUCKET: 'sneaker-api-docs-bucket'
   iamRoleStatements:
     - Effect: Allow
       Action:
         - dynamodb:*
         - s3:*
+        - lambda:*
       Resource: "*"
 
 plugins:
@@ -27,6 +29,8 @@ plugins:
 functions:
   healthcheck: ${file(./serverless/healthcheck-function.yml):healthcheck}
 
+  getDocs: ${file(./serverless/functions/documentation.yml):getDocs}
+
   createSneaker: ${file(./serverless/sneakers-function.yml):createSneaker}
   listSneakerBrands: ${file(./serverless/sneakers-function.yml):listSneakerBrands}
   listSneakersByBrand: ${file(./serverless/sneakers-function.yml):listSneakersByBrand}
@@ -34,9 +38,15 @@ functions:
   updateOneSneaker: ${file(./serverless/sneakers-function.yml):updateOneSneaker}
   deleteOneSneaker: ${file(./serverless/sneakers-function.yml):deleteOneSneaker}
 
-  scrapeUrl: ${file(./serverless/webscraper-function.yml):scrapeUrl}
+  # startScrapingProcess: ${file(./serverless/webscraper-function.yml):startScrapingProcess}
+  # scrapeNikeDashboard: ${file(./serverless/webscraper-function.yml):scrapeNikeDashboard}
+  # scrapeNikeBatch: ${file(./serverless/webscraper-function.yml):scrapeNikeBatch}
+  # scrapeNotImplemented: ${file(./serverless/webscraper-function.yml):scrapeNotImplemented}
 
 resources:
   Resources:
-    SneakersTable: ${file(./serverless/sneakers-table.yml):SneakersTable}
-    SneakersBucket: ${file(./serverless/sneakers-bucket.yml):SneakersBucket}
+    DocsBucket: ${file(./serverless/resources/docs-bucket.yml):DocsBucket}
+    SneakersTable: ${file(./serverless/resources/sneakers-table.yml):SneakersTable}
+    SneakersBucket: ${file(./serverless/resources/sneakers-bucket.yml):SneakersBucket}
+    IamApiRole: ${file(./serverless/resources/api-iamrole.yml):IamApiRole}
+  #   WebScraperStateMachine: ${file(./serverless/webscraper-statemachine.yml):WebScraperStateMachine}
