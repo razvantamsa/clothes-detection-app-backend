@@ -1,5 +1,5 @@
 startScrapingProcess:
-  handler: src/lambda/webscraper/index.handler
+  handler: src/webscraper/index.handler
   events:
     - http:
         method: post
@@ -7,9 +7,9 @@ startScrapingProcess:
   timeout: 30
 
 scrapeUrl:
-  handler: src/lambda/webscraper/lambdas/scrapeUrl.handler
+  handler: src/webscraper/lambdas/scrapeUrl.handler
   timeout: 600
 
 scrapeIndividual:
-  handler: src/lambda/webscraper/lambdas/scrapeIndividual.handler
+  handler: src/webscraper/lambdas/scrapeIndividual.handler
   timeout: 600

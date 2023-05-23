@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { postItem: postDynamoDB } = require('../../../utils/aws/dynamodb');
-const { postItem: postS3 } = require('../../../utils/aws/s3');
+const { postItem: postDynamoDB } = require('../../utils/aws/dynamodb');
+const { postItem: postS3 } = require('../../utils/aws/s3');
 
 const { DYNAMODB_SNEAKERS_TABLE, S3_SNEAKERS_BUCKET } = process.env;
 

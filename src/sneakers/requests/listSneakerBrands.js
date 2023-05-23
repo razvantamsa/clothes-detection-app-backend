@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAttributeSet } = require('../../../utils/aws/dynamodb');
+const { getAttributeSet } = require('../../utils/aws/dynamodb');
 const router = express.Router();
 
 const { DYNAMODB_SNEAKERS_TABLE } = process.env;

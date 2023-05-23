@@ -1,8 +1,8 @@
 const express = require('express');
 const parser = require('lambda-multipart-parser');
 const router = express.Router();
-const { updateItem: updateDynamoDB } = require('../../../utils/aws/dynamodb');
-const { postItem: postS3 } = require('../../../utils/aws/s3');
+const { updateItem: updateDynamoDB } = require('../../utils/aws/dynamodb');
+const { postItem: postS3 } = require('../../utils/aws/s3');
 
 const { DYNAMODB_SNEAKERS_TABLE, S3_SNEAKERS_BUCKET } = process.env;
 

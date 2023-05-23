@@ -1,40 +1,40 @@
 createSneaker:
-  handler: src/lambda/sneakers/index.handler
+  handler: src/sneakers/index.handler
   events:
     - http:
         method: post
         path: sneakers
 
 listSneakerBrands:
-  handler: src/lambda/sneakers/index.handler
+  handler: src/sneakers/index.handler
   events:
     - http:
         method: get
         path: sneakers
 
 listSneakersByBrand:
-  handler: src/lambda/sneakers/index.handler
+  handler: src/sneakers/index.handler
   events:
     - http:
         method: get
         path: sneakers/{brand}
 
 getOneSneaker:
-  handler: src/lambda/sneakers/index.handler
+  handler: src/sneakers/index.handler
   events:
     - http:
         method: get
         path: sneakers/{brand}/{model}
 
 updateOneSneaker:
-  handler: src/lambda/sneakers/index.handler
+  handler: src/sneakers/index.handler
   events:
     - http:
         method: put
         path: sneakers/{brand}/{model}
 
 deleteOneSneaker:
-  handler: src/lambda/sneakers/index.handler
+  handler: src/sneakers/index.handler
   events:
     - http:
         method: delete

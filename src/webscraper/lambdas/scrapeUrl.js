@@ -1,4 +1,4 @@
-const { invokeAsyncFunction } = require("../../../utils/aws/lambda");
+const { invokeAsyncFunction } = require("../../utils/aws/lambda");
 
 exports.handler = async (event, context) => {
     console.log('Event payload:', event);  

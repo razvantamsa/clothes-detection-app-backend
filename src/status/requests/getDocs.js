@@ -1,5 +1,5 @@
 const express = require('express');
-const { getItem } = require('../../../utils/aws/s3');
+const { getItem } = require('../../utils/aws/s3');
 const router = express.Router();
 
 const { S3_DOCS_BUCKET } = process.env;

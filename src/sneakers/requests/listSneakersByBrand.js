@@ -1,6 +1,6 @@
 const express = require('express');
-const { getItemByPk: getDynamoDBByPK } = require('../../../utils/aws/dynamodb');
-const { getSignedUrl: getS3 } = require('../../../utils/aws/s3');
+const { getItemByPk: getDynamoDBByPK } = require('../../utils/aws/dynamodb');
+const { getSignedUrl: getS3 } = require('../../utils/aws/s3');
 const router = express.Router();
 
 const { DYNAMODB_SNEAKERS_TABLE, S3_SNEAKERS_BUCKET } = process.env;

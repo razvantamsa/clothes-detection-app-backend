@@ -1,5 +1,5 @@
 const express = require('express');
-const { invokeAsyncFunction } = require('../../../utils/aws/lambda');
+const { invokeAsyncFunction } = require('../../utils/aws/lambda');
 const router = express.Router();
 
 /**
