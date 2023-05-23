@@ -6,14 +6,14 @@ const fileUpload = require('express-fileupload');
 
 const app = express();
 
-const scrapeUrl = require('./requests/scrapeUrl');
+const startScrapingProcess = require('./requests/startScrapingProcess');
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(fileUpload());
 
 app.use('/scrape',
-    scrapeUrl
+    startScrapingProcess
 );
 
 module.exports.handler = serverless(app);

@@ -38,15 +38,12 @@ functions:
   updateOneSneaker: ${file(./serverless/functions/sneakers.yml):updateOneSneaker}
   deleteOneSneaker: ${file(./serverless/functions/sneakers.yml):deleteOneSneaker}
 
-  startScrapingProcess: ${file(./serverless/webscraper-function.yml):startScrapingProcess}
-  scrapeNikeDashboard: ${file(./serverless/webscraper-function.yml):scrapeNikeDashboard}
-  scrapeNikeBatch: ${file(./serverless/webscraper-function.yml):scrapeNikeBatch}
-  scrapeNotImplemented: ${file(./serverless/webscraper-function.yml):scrapeNotImplemented}
+  startScrapingProcess: ${file(./serverless/functions/scrapers.yml):startScrapingProcess}
+  scrapeUrl: ${file(./serverless/functions/scrapers.yml):scrapeUrl}
+  scrapeIndividual: ${file(./serverless/functions/scrapers.yml):scrapeIndividual}
 
 resources:
   Resources:
     DocsBucket: ${file(./serverless/resources/docs-bucket.yml):DocsBucket}
     SneakersTable: ${file(./serverless/resources/sneakers-table.yml):SneakersTable}
     SneakersBucket: ${file(./serverless/resources/sneakers-bucket.yml):SneakersBucket}
-    IamApiRole: ${file(./serverless/resources/api-iamrole.yml):IamApiRole}
-  #   WebScraperStateMachine: ${file(./serverless/webscraper-statemachine.yml):WebScraperStateMachine}

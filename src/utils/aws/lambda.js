@@ -10,18 +10,17 @@ if (!process.env.AWS_EXECUTION_ENV) {
 
 const lambda = new AWS.Lambda();
 
-async function invokeAsyncFunction(FunctionName, Payload) {
+async function invokeAsyncFunction(FunctionName, payload) {
     try {
       const params = {
         FunctionName,
         InvocationType: 'Event', // Invoke asynchronously
-        Payload,
+        Payload: JSON.stringify(payload),
       };
   
       // Invoke the function asynchronously
-      const result = await lambda.invoke(params).promise();
-  
-      console.log(result);
+      const response = await lambda.invoke(params).promise();
+      console.log(response);
     } catch (error) {
       console.error('Error:', error);
       throw error;
