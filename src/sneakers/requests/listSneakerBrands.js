@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAttributeSet } = require('../../../utils/aws/dynamodb');
+const { getAttributeSet } = require('../../utils/aws/dynamodb');
 const router = express.Router();
 
 const { DYNAMODB_SNEAKERS_TABLE } = process.env;
@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
         res.status(200).send(result);
     } catch (err) {
         console.log(err);
-        res.status(400).send(err);
+        res.status(400).send(err.message);
     }
 });
   

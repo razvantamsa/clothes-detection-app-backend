@@ -1,4 +1,4 @@
 SneakersBucket:
   Type: AWS::S3::Bucket
   Properties:
-    BucketName: sneakers-bucket
+    BucketName: sneaker-api-sneakers-bucket

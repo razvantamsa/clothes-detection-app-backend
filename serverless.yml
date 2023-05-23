@@ -13,27 +13,36 @@ provider:
       - 'multipart/form-data'
   environment:
     DYNAMODB_SNEAKERS_TABLE: 'sneakers'
-    S3_BUCKET_NAME: 'sneakers-bucket'
+    S3_SNEAKERS_BUCKET: 'sneaker-api-sneakers-bucket'
+    S3_DOCS_BUCKET: 'sneaker-api-docs-bucket'
   iamRoleStatements:
     - Effect: Allow
       Action:
         - dynamodb:*
         - s3:*
+        - lambda:*
       Resource: "*"
 
 plugins:
   - serverless-offline
 
 functions:
-  healthcheck: ${file(./serverless/healthcheck-function.yml):healthcheck}
-  createSneaker: ${file(./serverless/sneakers-function.yml):createSneaker}
-  listSneakerBrands: ${file(./serverless/sneakers-function.yml):listSneakerBrands}
-  listSneakersByBrand: ${file(./serverless/sneakers-function.yml):listSneakersByBrand}
-  getOneSneaker: ${file(./serverless/sneakers-function.yml):getOneSneaker}
-  updateOneSneaker: ${file(./serverless/sneakers-function.yml):updateOneSneaker}
-  deleteOneSneaker: ${file(./serverless/sneakers-function.yml):deleteOneSneaker}
+  healthcheck: ${file(./serverless/functions/status.yml):healthcheck}
+  getDocs: ${file(./serverless/functions/status.yml):getDocs}
+
+  createSneaker: ${file(./serverless/functions/sneakers.yml):createSneaker}
+  listSneakerBrands: ${file(./serverless/functions/sneakers.yml):listSneakerBrands}
+  listSneakersByBrand: ${file(./serverless/functions/sneakers.yml):listSneakersByBrand}
+  getOneSneaker: ${file(./serverless/functions/sneakers.yml):getOneSneaker}
+  updateOneSneaker: ${file(./serverless/functions/sneakers.yml):updateOneSneaker}
+  deleteOneSneaker: ${file(./serverless/functions/sneakers.yml):deleteOneSneaker}
+
+  startScrapingProcess: ${file(./serverless/functions/scrapers.yml):startScrapingProcess}
+  scrapeUrl: ${file(./serverless/functions/scrapers.yml):scrapeUrl}
+  scrapeIndividual: ${file(./serverless/functions/scrapers.yml):scrapeIndividual}
 
 resources:
   Resources:
-    SneakersTable: ${file(./serverless/sneakers-table.yml):SneakersTable}
-    SneakersBucket: ${file(./serverless/sneakers-bucket.yml):SneakersBucket}
+    DocsBucket: ${file(./serverless/resources/docs-bucket.yml):DocsBucket}
+    SneakersTable: ${file(./serverless/resources/sneakers-table.yml):SneakersTable}
+    SneakersBucket: ${file(./serverless/resources/sneakers-bucket.yml):SneakersBucket}

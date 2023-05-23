@@ -1,0 +1,16 @@
+type: object
+properties:
+  price:
+    type: number
+  pic1:
+    type: string
+    format: binary
+  pic2:
+    type: string
+    format: binary
+  pic3:
+    type: string
+    format: binary
+  pic4:
+    type: string
+    format: binary
