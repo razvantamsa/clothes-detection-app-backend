@@ -27,9 +27,8 @@ plugins:
   - serverless-offline
 
 functions:
-  healthcheck: ${file(./serverless/functions/healthcheck.yml):healthcheck}
-
-  getDocs: ${file(./serverless/functions/documentation.yml):getDocs}
+  healthcheck: ${file(./serverless/functions/status.yml):healthcheck}
+  getDocs: ${file(./serverless/functions/status.yml):getDocs}
 
   createSneaker: ${file(./serverless/functions/sneakers.yml):createSneaker}
   listSneakerBrands: ${file(./serverless/functions/sneakers.yml):listSneakerBrands}

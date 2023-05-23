@@ -1,0 +1,13 @@
+getDocs:
+  handler: src/lambda/status/index.handler
+  events:
+    - http:
+        method: get
+        path: docs
+
+healthcheck:
+  handler: src/lambda/status/index.handler
+  events:
+    - http:
+        method: get
+        path: healthcheck
