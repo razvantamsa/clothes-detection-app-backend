@@ -1,4 +1,4 @@
-service: sneaker-api
+service: sneaker-api-sneaker-management
 frameworkVersion: '3'
 
 provider:
@@ -23,26 +23,10 @@ provider:
         - lambda:*
       Resource: "*"
 
-plugins:
-  - serverless-offline
-
 functions:
-  healthcheck: ${file(./serverless/functions/status.yml):healthcheck}
-  getDocs: ${file(./serverless/functions/status.yml):getDocs}
-
   createSneaker: ${file(./serverless/functions/sneakers.yml):createSneaker}
   listSneakerBrands: ${file(./serverless/functions/sneakers.yml):listSneakerBrands}
   listSneakersByBrand: ${file(./serverless/functions/sneakers.yml):listSneakersByBrand}
   getOneSneaker: ${file(./serverless/functions/sneakers.yml):getOneSneaker}
   updateOneSneaker: ${file(./serverless/functions/sneakers.yml):updateOneSneaker}
   deleteOneSneaker: ${file(./serverless/functions/sneakers.yml):deleteOneSneaker}
-
-  startScrapingProcess: ${file(./serverless/functions/scrapers.yml):startScrapingProcess}
-  scrapeUrl: ${file(./serverless/functions/scrapers.yml):scrapeUrl}
-  scrapeIndividual: ${file(./serverless/functions/scrapers.yml):scrapeIndividual}
-
-resources:
-  Resources:
-    DocsBucket: ${file(./serverless/resources/docs-bucket.yml):DocsBucket}
-    SneakersTable: ${file(./serverless/resources/sneakers-table.yml):SneakersTable}
-    SneakersBucket: ${file(./serverless/resources/sneakers-bucket.yml):SneakersBucket}

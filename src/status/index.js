@@ -13,4 +13,10 @@ app.use(morgan('combined'));
 app.use('/healthcheck', getStatus);
 app.use('/docs', getDocs);
 
+if(process.env.ENVIRONMENT === 'local'){
+    app.listen(process.env.STATUS_API_PORT, () => {
+        console.log(`Status API listening on ${process.env.STATUS_API_PORT}`)
+    });
+}
+
 module.exports.handler = serverless(app);
