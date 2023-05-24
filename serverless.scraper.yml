@@ -1,0 +1,32 @@
+service: sneaker-api-scraper
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: sneaker-app
+  region: us-west-2
+  logRetentionInDays: 14
+  timeout: 30
+  apiGateway:
+    binaryMediaTypes:
+      - 'multipart/form-data'
+  environment:
+    DYNAMODB_SNEAKERS_TABLE: 'sneakers'
+    S3_SNEAKERS_BUCKET: 'sneaker-api-sneakers-bucket'
+    S3_DOCS_BUCKET: 'sneaker-api-docs-bucket'
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+        - s3:*
+        - lambda:*
+      Resource: "*"
+
+plugins:
+  - serverless-offline
+
+functions:
+  startScrapingProcess: ${file(./serverless/functions/scrapers.yml):startScrapingProcess}
+  scrapeUrl: ${file(./serverless/functions/scrapers.yml):scrapeUrl}
+  scrapeIndividual: ${file(./serverless/functions/scrapers.yml):scrapeIndividual}
