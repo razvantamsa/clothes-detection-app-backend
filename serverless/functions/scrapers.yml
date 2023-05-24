@@ -3,12 +3,12 @@ startScrapingProcess:
   events:
     - http:
         method: post
-        path: scrape/url
+        path: scrape/{domain}
   timeout: 30
 
 scrapeUrl:
   handler: src/webscraper/lambdas/scrapeUrl.handler
-  timeout: 600
+  timeout: 900
 
 scrapeIndividual:
   handler: src/webscraper/lambdas/scrapeIndividual.handler
