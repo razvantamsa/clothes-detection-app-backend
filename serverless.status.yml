@@ -23,9 +23,6 @@ provider:
         - lambda:*
       Resource: "*"
 
-plugins:
-  - serverless-offline
-
 functions:
   healthcheck: ${file(./serverless/functions/status.yml):healthcheck}
   getDocs: ${file(./serverless/functions/status.yml):getDocs}

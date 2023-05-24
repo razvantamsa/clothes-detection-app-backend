@@ -23,9 +23,6 @@ provider:
         - lambda:*
       Resource: "*"
 
-plugins:
-  - serverless-offline
-
 functions:
   startScrapingProcess: ${file(./serverless/functions/scrapers.yml):startScrapingProcess}
   scrapeUrl: ${file(./serverless/functions/scrapers.yml):scrapeUrl}

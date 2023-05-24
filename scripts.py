@@ -63,7 +63,6 @@ List of available commands:
     deploy-resources        - deploy resources to aws
     
     ### development
-    dev                     - run dev environment locally
     dev-status              - run status functions locally
     dev-sneakers            - run sneaker management functions locally
     dev-scraper             - run scraper functions locally
