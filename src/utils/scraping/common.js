@@ -25,7 +25,15 @@ async function scrollToBottomOfPage(page) {
 }
 
 async function uploadShoeDataToDatabase(brand, model, price, imageLinks) {
-    await postDynamoDB(DYNAMODB_SNEAKERS_TABLE, {brand, model, price});
+    try {
+        await postDynamoDB(DYNAMODB_SNEAKERS_TABLE, {brand, model, price});
+    } catch (err) {
+        try {
+            await postDynamoDB(DYNAMODB_SNEAKERS_TABLE, {brand, model, price});
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
 
     for(const [index, imageLink] of imageLinks.entries()) {
         const response = await axios({
@@ -36,11 +44,15 @@ async function uploadShoeDataToDatabase(brand, model, price, imageLinks) {
         const uploadStream = new stream.PassThrough();
         response.data.pipe(uploadStream);
 
-        await uploadStreamToS3(
-            S3_SNEAKERS_BUCKET, 
-            `${brand}/${model}/pic${index+1}`, 
-            uploadStream,
-        );
+        try {
+            await uploadStreamToS3(S3_SNEAKERS_BUCKET, `${brand}/${model}/pic${index+1}`, uploadStream );
+        } catch (err) {
+            try {
+                await uploadStreamToS3(S3_SNEAKERS_BUCKET, `${brand}/${model}/pic${index+1}`, uploadStream );
+            } catch (err) {
+                console.log(err.message);
+            }
+        }
     }
 }
 

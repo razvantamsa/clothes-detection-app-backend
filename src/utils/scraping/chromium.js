@@ -8,6 +8,7 @@ async function getChromiumParams() {
         ignoreHTTPSErrors: true,
         defaultViewport: chromium.defaultViewport,
         args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+        timeout: 300000,
     }
 }
 

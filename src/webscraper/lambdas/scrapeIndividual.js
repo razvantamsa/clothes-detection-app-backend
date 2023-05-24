@@ -1,20 +1,33 @@
+const { invokeAsyncFunction } = require("../../utils/aws/lambda");
 const { uploadShoeDataToDatabase } = require("../../utils/scraping/common");
 const { urlList } = require("../../utils/scraping/constants");
 
 exports.handler = async (event, context) => {
     console.log('Event payload:', event);
 
-    const { domain } = event;
+    const { productHrefs, domain } = event;
 
     if(!Object.keys(urlList).includes(domain)) {
         console.log('Not implemented');
         return;
     }
 
+    const product = productHrefs.shift();
+    if(!product) {
+        return 'Scraping Process Ended';
+    }
+    
+    // scrape first product of array
     const scrapingConfig = urlList[domain];
-    const productData = await scrapingConfig.extractShoeDataFunction(event.productHref);
-    const model = productData.productName.toLowerCase().replace(/\s+/g, '-');
-    await uploadShoeDataToDatabase(domain, model, productData.productPrice, productData.sources)
+    const { productName, productPrice, sources } = await scrapingConfig.extractShoeDataFunction(product);
+    const model = productName.toLowerCase().replace(/\s+/g, '-');
+    const price = parseFloat(productPrice.replace("$", ""));
+    await uploadShoeDataToDatabase(domain, model, price, sources);
+
+    await invokeAsyncFunction(
+        `sneaker-api-dev-scrapeIndividual`, 
+        { productHrefs, domain }
+    );
 
     return;
 };

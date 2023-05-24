@@ -20,11 +20,27 @@ async function extractShoeListFunction(url) {
     return productHrefs;
 }
 
-async function extractShoeDataFunction(url) {
+async function launchPuppeteer(url) {
     const chromiumParams = await getChromiumParams();
     const browser = await puppeteer.launch(chromiumParams);
     const page = await browser.newPage();
+    page.setDefaultTimeout(300000);
     await page.goto(url);
+    return { browser, page };
+}
+
+async function extractShoeDataFunction(url) {
+    let browser, page;
+    try {
+        ({ browser, page } = await launchPuppeteer(url));
+    } catch (err) {
+        try {
+            ({ browser, page } = await launchPuppeteer(url));
+        } catch (err) {
+            console.log(err.message);
+            return;
+        }
+    }
     await page.waitForSelector('#pdp_product_title');
 
     const productName = await page.$eval('#pdp_product_title', element => element.innerText);
