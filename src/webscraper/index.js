@@ -16,4 +16,11 @@ app.use('/scrape',
     startScrapingProcess
 );
 
+if(process.env.ENVIRONMENT === 'local'){
+    app.listen(process.env.SCRAPER_API_PORT, () => {
+        console.log(`Web Scraper API listening on ${process.env.SCRAPER_API_PORT}`)
+    });
+}
+
+
 module.exports.handler = serverless(app);
