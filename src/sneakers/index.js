@@ -27,4 +27,10 @@ app.use('/sneakers',
     deleteOneSneaker
 );
 
+if(process.env.ENVIRONMENT === 'local'){
+    app.listen(process.env.SNEAKERS_API_PORT, () => {
+        console.log(`Sneaker Management API listening on ${process.env.SNEAKERS_API_PORT}`)
+    });
+}
+
 module.exports.handler = serverless(app);
