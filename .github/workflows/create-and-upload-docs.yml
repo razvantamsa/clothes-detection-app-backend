@@ -1,0 +1,23 @@
+name: Create and upload openapi.html to AWS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'  # Replace with the desired Python version
+
+      - name: Run Python Script
+        run: |
+          python modify_file.py path/to/file.txt "New line to append"
