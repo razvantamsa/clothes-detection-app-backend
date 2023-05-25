@@ -1,5 +1,6 @@
 const express = require('express');
 const { invokeAsyncFunction } = require('../../utils/aws/lambda');
+const { urlList } = require('../../utils/scraping/constants');
 const router = express.Router();
 
 /**
@@ -13,17 +14,17 @@ const router = express.Router();
  * newbalance
 */
 
-router.post('/:domain', async (req, res) => {
+router.post('/:brand', async (req, res) => {
     try {
-        const { domain } = req.params;
-        const domainList = ['nike', 'adidas', 'puma', 'converse', 'rebook', 'vans', 'newbalance']
+        const { brand } = req.params;
 
-        if(!domainList.includes(domain)) {
-            return res.status(400).send(`Not implemented for ${domain}`);
+        if(!Object.keys(urlList).some(key => key.includes(brand))) {
+            console.log('Not implemented');
+            return;
         }
 
-        await invokeAsyncFunction(`sneaker-api-scraper-dev-scrapeUrl`, { domain });
-        return res.status(200).send(`Started scraping on ${domain}'s website`);
+        await invokeAsyncFunction(`sneaker-api-scraper-dev-scrapeUrl`, { brand });
+        return res.status(200).send(`Started scraping on ${brand}'s website`);
     } catch (err) {
         console.log(err);
         res.status(400).send(err.message);

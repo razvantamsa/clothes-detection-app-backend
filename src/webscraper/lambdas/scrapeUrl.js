@@ -1,26 +1,29 @@
 const { invokeAsyncFunction } = require('../../utils/aws/lambda');
 const { urlList } = require('../../utils/scraping/constants');
+const { extractShoeList } = require('../../utils/scraping/extractShoeList');
 
 exports.handler = async (event, context) => {
     console.log('Event payload:', event);
-    const { domain } = event;
+    const { brand } = event;
 
-    if(!Object.keys(urlList).includes(domain)) {
-        console.log('Not implemented');
-        return;
-    }
+    const menUrl = urlList[`${brand}Men`];
+    const womenUrl = urlList[`${brand}Women`];
 
-    const scrapingConfig = urlList[domain];
-    console.log(scrapingConfig.url);
+    const hrefsForMen = await extractShoeList(menUrl);
+    const hrefsForWomen = await extractShoeList(womenUrl);
+    const hrefs = [ ...new Set([...hrefsForMen, ...hrefsForWomen]) ];
+    console.log('Products found: ', hrefs.length);
 
-    const productHrefs = await scrapingConfig.extractShoeListFunction(scrapingConfig.url);
-    console.log(productHrefs.length);
-
-    for(const productHref of productHrefs) {
-        await invokeAsyncFunction(
+    let successfullyInvokedLambdas = 0;
+    for(const href of hrefs) {
+        const invocation = await invokeAsyncFunction(
             `sneaker-api-scraper-dev-scrapeIndividual`, 
-            { productHref, domain }
+            { href, brand }
         );
+        if(invocation.StatusCode === 202);
+        successfullyInvokedLambdas++;
     }
+
+    console.log('Lambdas invoked: ', successfullyInvokedLambdas);
     return;
 };
