@@ -22,7 +22,7 @@ router.post('/:domain', async (req, res) => {
             return res.status(400).send(`Not implemented for ${domain}`);
         }
 
-        await invokeAsyncFunction(`sneaker-api-dev-scrapeUrl`, { domain });
+        await invokeAsyncFunction(`sneaker-api-scraper-dev-scrapeUrl`, { domain });
         return res.status(200).send(`Started scraping on ${domain}'s website`);
     } catch (err) {
         console.log(err);

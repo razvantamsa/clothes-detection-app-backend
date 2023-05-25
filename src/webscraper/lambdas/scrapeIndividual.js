@@ -18,14 +18,19 @@ exports.handler = async (event, context) => {
     }
     
     // scrape first product of array
-    const scrapingConfig = urlList[domain];
-    const { productName, productPrice, sources } = await scrapingConfig.extractShoeDataFunction(product);
-    const model = productName.toLowerCase().replace(/\s+/g, '-');
-    const price = parseFloat(productPrice.replace("$", ""));
-    await uploadShoeDataToDatabase(domain, model, price, sources);
+    try {
+        const scrapingConfig = urlList[domain];
+        const { productName, productPrice, sources } = await scrapingConfig.extractShoeDataFunction(product);
+        const model = productName.toLowerCase().replace(/\s+/g, '-');
+        const price = parseFloat(productPrice.replace("$", ""));
+        await uploadShoeDataToDatabase(domain, model, price, sources);
+    } catch (err) {
+        console.error(err.message);
+        console.log('Skipping:', product);
+    }
 
     await invokeAsyncFunction(
-        `sneaker-api-dev-scrapeIndividual`, 
+        `sneaker-api-scraper-dev-scrapeIndividual`, 
         { productHrefs, domain }
     );
 
