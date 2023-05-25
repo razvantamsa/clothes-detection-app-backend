@@ -19,9 +19,7 @@ async function invokeAsyncFunction(FunctionName, payload) {
         Payload: JSON.stringify(payload),
       };
   
-      // Invoke the function asynchronously
-      const response = await lambda.invoke(params).promise();
-      console.log(response);
+      await lambda.invoke(params).promise(); // Invoke the function asynchronously
     } catch (error) {
       console.error('Error:', error);
       throw error;

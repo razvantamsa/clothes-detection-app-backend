@@ -26,6 +26,19 @@ const postItem = async (Bucket, Key, Body, ContentLength) => {
   }
 };
 
+const uploadStreamToS3 = async (Bucket, Key, Body) => {
+  const params = {
+      Bucket,
+      Key,
+      Body,
+  };
+  try {
+    return s3.upload(params).promise();
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 const getSignedUrl = async (Bucket, Key) => {
   const params = {
       Bucket,
@@ -64,6 +77,7 @@ const deleteItem = async (Bucket, Key) => {
 
 module.exports = {
     postItem,
+    uploadStreamToS3,
     getSignedUrl,
     getItem,
     deleteItem,
