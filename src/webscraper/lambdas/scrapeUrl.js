@@ -1,13 +1,9 @@
 const { invokeAsyncFunction } = require('../../utils/aws/lambda');
-const { urlList } = require('../../utils/scraping/constants');
 const { extractShoeList } = require('../../utils/scraping/extractShoeList');
 
 exports.handler = async (event, context) => {
     console.log('Event payload:', event);
-    const { brand } = event;
-
-    const menUrl = urlList[`${brand}Men`];
-    const womenUrl = urlList[`${brand}Women`];
+    const { brand, menUrl, womenUrl } = event;
 
     const hrefsForMen = await extractShoeList(menUrl);
     const hrefsForWomen = await extractShoeList(womenUrl);
