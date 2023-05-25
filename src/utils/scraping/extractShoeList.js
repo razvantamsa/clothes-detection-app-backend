@@ -8,13 +8,14 @@ async function extractShoeList(url) {
     const browser = await puppeteer.launch(chromiumParams);
     const page = await browser.newPage();
     await page.goto(url);
+    console.log(url);
     
     let hrefs = []
     while(hrefs.length < MIN_HREFS_TO_FIND) {
 
         await page.waitForSelector('.s-product-image-container');
         await new Promise((resolve) => {
-            setTimeout(resolve, 3000);
+            setTimeout(resolve, 5000);
         });
         const foundHrefs = await page.$$eval('.s-product-image-container > span > a.a-link-normal.s-no-outline', links => links.map(link => link.href));
         hrefs.push(...foundHrefs);
