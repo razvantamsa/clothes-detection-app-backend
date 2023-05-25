@@ -14,9 +14,12 @@ async function extractShoeListFunction(url) {
 
     await page.waitForSelector('.product-card__link-overlay');
 
-    const productHrefs = await page.$$eval('.product-card__link-overlay', links => links.map(link => link.href));
+    const hrefs = await page.$$eval('.product-card__link-overlay', links => links.map(link => link.href));
     await browser.close();
     
+    const regex = /^https:\/\/www\.nike\.com\/[a-z]\/[a-zA-Z0-9-]+\/[A-Z0-9-]+$/;
+    const productHrefs = hrefs.filter(href => regex.test(href));
+
     return productHrefs;
 }
 
@@ -33,20 +36,18 @@ async function extractShoeDataFunction(url) {
     let browser, page;
     try {
         ({ browser, page } = await launchPuppeteer(url));
+        await page.waitForSelector('#pdp_product_title');
     } catch (err) {
         try {
             ({ browser, page } = await launchPuppeteer(url));
+            await page.waitForSelector('#pdp_product_title');
         } catch (err) {
-            console.log(err.message);
-            return;
+            throw new Error(err.message);
         }
     }
-    await page.waitForSelector('#pdp_product_title');
 
     const productName = await page.$eval('#pdp_product_title', element => element.innerText);
     const productPrice = await page.$eval('.product-price', element => element.innerText);
-
-    
     let sources = await page.$$eval('picture source:first-of-type', sources => {
         return sources.map(source => source.getAttribute('srcset'));
         });

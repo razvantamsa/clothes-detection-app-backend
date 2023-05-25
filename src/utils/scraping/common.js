@@ -31,7 +31,8 @@ async function uploadShoeDataToDatabase(brand, model, price, imageLinks) {
         try {
             await postDynamoDB(DYNAMODB_SNEAKERS_TABLE, {brand, model, price});
         } catch (err) {
-            console.log(err.message);
+            console.log(err);
+            throw new Error(err.message);
         }
     }
 
@@ -50,7 +51,8 @@ async function uploadShoeDataToDatabase(brand, model, price, imageLinks) {
             try {
                 await uploadStreamToS3(S3_SNEAKERS_BUCKET, `${brand}/${model}/pic${index+1}`, uploadStream );
             } catch (err) {
-                console.log(err.message);
+                console.log(err);
+                throw new Error(err.message);
             }
         }
     }

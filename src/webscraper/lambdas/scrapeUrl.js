@@ -17,7 +17,7 @@ exports.handler = async (event, context) => {
     console.log(productHrefs.length);
     
     await invokeAsyncFunction(
-        `sneaker-api-dev-scrapeIndividual`, 
+        `sneaker-api-scraper-dev-scrapeIndividual`, 
         { productHrefs, domain }
     );
     return;
