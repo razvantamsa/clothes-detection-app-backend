@@ -12,4 +12,4 @@ scrapeUrl:
 
 scrapeIndividual:
   handler: src/webscraper/lambdas/scrapeIndividual.handler
-  timeout: 600
+  timeout: 900

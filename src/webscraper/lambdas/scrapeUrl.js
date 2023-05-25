@@ -15,10 +15,12 @@ exports.handler = async (event, context) => {
 
     const productHrefs = await scrapingConfig.extractShoeListFunction(scrapingConfig.url);
     console.log(productHrefs.length);
-    
-    await invokeAsyncFunction(
-        `sneaker-api-scraper-dev-scrapeIndividual`, 
-        { productHrefs, domain }
-    );
+
+    for(const productHref of productHrefs) {
+        await invokeAsyncFunction(
+            `sneaker-api-scraper-dev-scrapeIndividual`, 
+            { productHref, domain }
+        );
+    }
     return;
 };

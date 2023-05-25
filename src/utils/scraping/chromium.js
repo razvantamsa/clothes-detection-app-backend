@@ -7,7 +7,7 @@ async function getChromiumParams() {
         headless: chromium.headless,
         ignoreHTTPSErrors: true,
         defaultViewport: chromium.defaultViewport,
-        args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+        args: [...chromium.args, "--hide-scrollbars", "--disable-web-security", '--no-sandbox', '--disable-setuid-sandbox'],
         timeout: 300000,
     }
 }
