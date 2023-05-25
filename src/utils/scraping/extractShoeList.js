@@ -13,7 +13,7 @@ async function extractShoeList(url) {
     let hrefs = []
     while(hrefs.length < MIN_HREFS_TO_FIND) {
 
-        await page.waitForSelector('.s-product-image-container');
+        await page.waitForSelector('.s-product-image-container', { timeout: 300000 });
         await new Promise((resolve) => {
             setTimeout(resolve, 5000);
         });
