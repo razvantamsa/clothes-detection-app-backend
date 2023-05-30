@@ -24,6 +24,4 @@ provider:
       Resource: "*"
 
 functions:
-  startScrapingProcess: ${file(./serverless/functions/scrapers.yml):startScrapingProcess}
-  scrapeUrl: ${file(./serverless/functions/scrapers.yml):scrapeUrl}
   scrapeIndividual: ${file(./serverless/functions/scrapers.yml):scrapeIndividual}

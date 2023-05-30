@@ -1,15 +1,3 @@
-startScrapingProcess:
-  handler: src/webscraper/index.handler
-  events:
-    - http:
-        method: post
-        path: scrape/{domain}
-  timeout: 30
-
-scrapeUrl:
-  handler: src/webscraper/lambdas/scrapeUrl.handler
-  timeout: 900
-
 scrapeIndividual:
   handler: src/webscraper/lambdas/scrapeIndividual.handler
   timeout: 900
