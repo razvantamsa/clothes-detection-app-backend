@@ -65,8 +65,6 @@ async function getProductPrice(page) {
 
 async function getProductImageLinks(page) {
     const thumbnails = await page.$$('li.a-spacing-small.item.imageThumbnail.a-declarative');
-    console.log(thumbnails.length);
-
     const imageLinks = [];
 
     for(const thumbnail of thumbnails) {
