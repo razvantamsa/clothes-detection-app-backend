@@ -15,7 +15,7 @@ provider:
     DYNAMODB_SNEAKERS_TABLE: 'sneakers'
     S3_SNEAKERS_BUCKET: 'sneaker-api-sneakers-bucket'
     S3_DOCS_BUCKET: 'sneaker-api-docs-bucket'
-    MAX_SHOES_LIMIT: 400
+    MAX_PRODUCT_LIMIT: 400
   iamRoleStatements:
     - Effect: Allow
       Action:

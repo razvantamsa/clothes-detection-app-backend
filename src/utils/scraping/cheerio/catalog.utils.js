@@ -1,14 +1,12 @@
 function scrapeProductsFromPage($) {
-    const shoes = [];
+    const products = [];
     $('div.sg-col-4-of-12.s-result-item.s-asin.sg-col-4-of-16.sg-col.sg-col-4-of-20').each((_idx, el) => {
-        const shoe = $(el);
-        const rawModel = shoe.find('span.a-size-base-plus.a-color-base.a-text-normal').text();
-        const model = rawModel.toLowerCase().replace(/[\W\s]+/g, '-')
-        const rawLink = shoe.find('a.a-link-normal.a-text-normal').attr('href');
+        const product = $(el);
+        const rawLink = product.find('a.a-link-normal.a-text-normal').attr('href');
         const link = 'https://amazon.com' + rawLink.replace(/\/ref.*$/, '');
-        shoes.push({model, link});
+        products.push(link);
     });
-    return shoes;
+    return products;
 }
 
 function scrapeNextPageHref($) {
