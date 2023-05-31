@@ -70,6 +70,9 @@ List of available commands:
     ### docs
     html-docs               - bundle openapi.yml specs to get webpage of documentation
     postman-docs            - bundle openapi.yml specs to get postman collection
+
+    ### authorization
+    get-apikey              - get latest apiket stored in secretsmanager
     
     ### help
     help                    - list available commands
@@ -96,7 +99,7 @@ elif command == 'deploy-scraper':
 elif command == 'deploy-resources':
     execution_command = 'sls deploy --config serverless.resources.yml'
 
-# local development
+# development
 elif command == 'dev-status':
     execution_command = ['nodemon', 'src/status']
     run_continuous_process(execution_command)
@@ -106,11 +109,16 @@ elif command == 'dev-sneakers':
 elif command == 'dev-scraper':
     execution_command = ['nodemon', 'src/webscraper']
     run_continuous_process(execution_command)
+
 # docs
 elif command == 'html-docs':
     execution_command = 'redoc-cli bundle openapi.yml -o openapi.html'
 elif command == 'postman-docs':
     execution_command = 'npx openapi-to-postmanv2 convert -s openapi.yml -o openapi.json'
+
+# authorization
+elif command == 'get-apikey':
+    execution_command = 'aws secretsmanager get-secret-value --secret-id authorization --query SecretString --output text | tr -d \'"\''
 else:
     print('Command does not exist - try checking out available commands using "help"')
     sys.exit()
