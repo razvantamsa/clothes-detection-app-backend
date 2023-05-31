@@ -57,14 +57,14 @@ list_of_commands = '''
 List of available commands:
 
     ### deployment
-    deploy-status           - deploy resources to aws
-    deploy-sneakers         - deploy sneaker management functions to aws
+    deploy-status           - deploy status functions to aws
+    deploy-rest             - deploy rest api functions to aws
     deploy-scraper          - deploy scraper functions to aws
     deploy-resources        - deploy resources to aws
     
     ### development
     dev-status              - run status functions locally
-    dev-sneakers            - run sneaker management functions locally
+    dev-rest                - run rest api functions locally
     dev-scraper             - run scraper functions locally
 
     ### docs
@@ -92,8 +92,8 @@ if 'dev' in command:
 # deployment
 if command == 'deploy-status':
     execution_command = 'sls deploy --config serverless.status.yml'
-elif command == 'deploy-sneakers':
-    execution_command = 'sls deploy --config serverless.sneakers.yml'
+elif command == 'deploy-rest':
+    execution_command = 'sls deploy --config serverless.rest.yml'
 elif command == 'deploy-scraper':
     execution_command = 'sls deploy --config serverless.scraper.yml'
 elif command == 'deploy-resources':
@@ -103,8 +103,8 @@ elif command == 'deploy-resources':
 elif command == 'dev-status':
     execution_command = ['nodemon', 'src/status']
     run_continuous_process(execution_command)
-elif command == 'dev-sneakers':
-    execution_command = ['nodemon', 'src/sneakers']
+elif command == 'dev-rest':
+    execution_command = ['nodemon', 'src/rest']
     run_continuous_process(execution_command)
 elif command == 'dev-scraper':
     execution_command = ['nodemon', 'src/webscraper']
