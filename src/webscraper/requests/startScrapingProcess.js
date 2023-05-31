@@ -16,9 +16,9 @@ const router = express.Router();
 router.post('/:brand', async (req, res) => {
     try {
         const { brand } = req.params;
-        const { menUrl, womenUrl } = req.body;
+        const { baseUrl } = req.body;
 
-        await invokeAsyncFunction(`sneaker-api-scraper-dev-scrapeUrl`, { brand, menUrl, womenUrl });
+        await invokeAsyncFunction(`sneaker-api-scraper-dev-scrapeProductCatalog`, { brand, baseUrl });
         return res.status(200).send(`Started scraping on ${brand}'s website`);
     } catch (err) {
         console.log(err);
