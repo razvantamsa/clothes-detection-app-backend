@@ -1,4 +1,4 @@
 DocsBucket:
   Type: AWS::S3::Bucket
   Properties:
-    BucketName: sneaker-api-docs-bucket
+    BucketName: clothes-detection-docs-bucket
