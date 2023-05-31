@@ -1,0 +1,17 @@
+service: sneaker-api-object-detection
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: us-west-2
+  logRetentionInDays: 14
+  timeout: 30
+
+functions:
+  getImageLabels:
+    handler: src/object-detection/handler.hello
+    events:
+    - http:
+        path: hello
+        method: get
