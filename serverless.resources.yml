@@ -4,11 +4,21 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: nodejs18.x
-  profile: sneaker-app
+  profile: clothes-detection-app
   region: us-west-2
+  iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - lambda:*
+      - secretsmanager:*
+    Resource: "*"
+
+functions:
+  apikeyRotation: ${file(./serverless/resources/auth-secret.yml):ApikeyRotation}
 
 resources:
   Resources:
+    ApikeySecret: ${file(./serverless/resources/auth-secret.yml):ApikeySecret}
     DocsBucket: ${file(./serverless/resources/docs-bucket.yml):DocsBucket}
     ShirtsTable: ${file(./serverless/resources/shirts-table.yml):ShirtsTable}
     ShirtsBucket: ${file(./serverless/resources/shirts-bucket.yml):ShirtsBucket}
