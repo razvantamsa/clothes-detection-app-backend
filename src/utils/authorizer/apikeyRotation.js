@@ -6,14 +6,14 @@ module.exports.handler = async (event, context) => {
     console.log('Event payload: ', event);
     try {
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let apiKey = '';
+        let apikey = '';
       
         for (let i = 0; i < SECRET_LENGTH; i++) {
           const randomIndex = Math.floor(Math.random() * characters.length);
-          apiKey += characters.charAt(randomIndex);
+          apikey += characters.charAt(randomIndex);
         }
 
-        await updateSecretValue('authorization', apiKey);
+        await updateSecretValue('authorization', apikey);
     } catch (err) {
         console.log('Error rotating secret: ', err.message);
     }
