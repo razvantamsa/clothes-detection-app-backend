@@ -23,11 +23,10 @@ exports.handler = async (event, context) => {
     }
 
     console.log(shoes.length);
-    return 'ok';
 
-    // await invokeAsyncFunction(
-    //     'sneaker-api-scraper-dev-scrapeIndividual',
-    //     { href: shoe.link, brand },
-    // );
+    await invokeAsyncFunction(
+        'sneaker-api-scraper-dev-scrapeProductDetail',
+        { hrefs: shoes, brand },
+    );
 
 };
