@@ -26,4 +26,4 @@ provider:
 
 functions:
   scrapeProductCatalog: ${file(./serverless/functions/scrapers.yml):scrapeProductCatalog}
-  scrapeIndividual: ${file(./serverless/functions/scrapers.yml):scrapeIndividual}
+  scrapeProductDetail: ${file(./serverless/functions/scrapers.yml):scrapeProductDetail}

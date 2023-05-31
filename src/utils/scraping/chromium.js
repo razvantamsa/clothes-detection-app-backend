@@ -8,7 +8,7 @@ async function getChromiumParams() {
         executablePath: await chromium.executablePath(),
         headless: chromium.headless,
         ignoreHTTPSErrors: true,
-        timeout: 300000,
+        timeout: 120000,
     }
 }
 

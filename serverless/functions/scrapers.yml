@@ -1,5 +1,5 @@
-scrapeIndividual:
-  handler: src/webscraper/lambdas/scrapeIndividual.handler
+scrapeProductDetail:
+  handler: src/webscraper/lambdas/scrapeProductDetail.handler
   timeout: 900
 
 scrapeProductCatalog:
