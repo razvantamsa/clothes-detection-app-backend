@@ -1,5 +1,5 @@
 {
-  "name": "sneaker-app-backend",
+  "name": "clothes-detection-backend",
   "version": "1.0.0",
   "description": "<br>",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/razvantamsa/sneaker-app-backend.git"
+    "url": "git+https://github.com/razvantamsa/clothes-detection-backend.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/razvantamsa/sneaker-app-backend/issues"
+    "url": "https://github.com/razvantamsa/clothes-detection-backend/issues"
   },
-  "homepage": "https://github.com/razvantamsa/sneaker-app-backend#readme",
+  "homepage": "https://github.com/razvantamsa/clothes-detection-backend#readme",
   "dependencies": {
     "@sparticuz/chromium": "^109.0.5",
     "aws-sdk": "^2.1359.0",
