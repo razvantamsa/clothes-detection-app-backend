@@ -1,4 +1,4 @@
-service: clothes-detection-api-resources
+service: clothes-detection-resources
 frameworkVersion: '3'
 
 provider:

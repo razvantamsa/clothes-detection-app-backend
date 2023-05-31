@@ -1,4 +1,4 @@
-service: clothes-detection-api-status
+service: clothes-detection-status
 frameworkVersion: '3'
 
 provider:
