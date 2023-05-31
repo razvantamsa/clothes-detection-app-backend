@@ -1,24 +1,20 @@
-service: sneaker-api-status
+service: clothes-detection-api-status
 frameworkVersion: '3'
 
 provider:
   name: aws
   runtime: nodejs18.x
-  profile: sneaker-app
+  profile: clothes-detection-app
   region: us-west-2
-  logRetentionInDays: 14
   timeout: 30
   apiGateway:
     binaryMediaTypes:
       - 'multipart/form-data'
   environment:
-    DYNAMODB_SNEAKERS_TABLE: 'sneakers'
-    S3_SNEAKERS_BUCKET: 'sneaker-api-sneakers-bucket'
-    S3_DOCS_BUCKET: 'sneaker-api-docs-bucket'
+    S3_DOCS_BUCKET: 'clothes-detection-docs-bucket'
   iamRoleStatements:
     - Effect: Allow
       Action:
-        - dynamodb:*
         - s3:*
         - lambda:*
       Resource: "*"
@@ -26,3 +22,4 @@ provider:
 functions:
   healthcheck: ${file(./serverless/functions/status.yml):healthcheck}
   getDocs: ${file(./serverless/functions/status.yml):getDocs}
+  postDocs: ${file(./serverless/functions/status.yml):postDocs}
