@@ -25,5 +25,6 @@ provider:
       Resource: "*"
 
 functions:
+  startScrapingProcess: ${file(./serverless/functions/scrapers.yml):startScrapingProcess}
   scrapeProductCatalog: ${file(./serverless/functions/scrapers.yml):scrapeProductCatalog}
   scrapeProductDetail: ${file(./serverless/functions/scrapers.yml):scrapeProductDetail}
