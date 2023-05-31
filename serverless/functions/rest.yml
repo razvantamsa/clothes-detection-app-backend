@@ -1,0 +1,48 @@
+create:
+  handler: src/rest/index.handler
+  events:
+    - http:
+        method: post
+        path: api/{type}
+
+# createSneaker:
+#   handler: src/api/index.handler
+#   events:
+#     - http:
+#         method: post
+#         path: api
+
+# listSneakerBrands:
+#   handler: src/api/index.handler
+#   events:
+#     - http:
+#         method: get
+#         path: api
+
+# listapiByBrand:
+#   handler: src/api/index.handler
+#   events:
+#     - http:
+#         method: get
+#         path: api/{brand}
+
+# getOneSneaker:
+#   handler: src/api/index.handler
+#   events:
+#     - http:
+#         method: get
+#         path: api/{brand}/{model}
+
+# updateOneSneaker:
+#   handler: src/api/index.handler
+#   events:
+#     - http:
+#         method: put
+#         path: api/{brand}/{model}
+
+# deleteOneSneaker:
+#   handler: src/api/index.handler
+#   events:
+#     - http:
+#         method: delete
+#         path: api/{brand}/{model}

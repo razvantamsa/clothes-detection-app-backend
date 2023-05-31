@@ -1,0 +1,39 @@
+service: clothes-detection-rest
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: clothes-detection-app
+  region: us-west-2
+  logRetentionInDays: 14
+  timeout: 30
+  apiGateway:
+    binaryMediaTypes:
+      - 'multipart/form-data'
+  environment:
+    DYNAMODB_SHIRTS_TABLE: 'shirts-table'
+    S3_SHIRTS_BUCKET: 'clothes-detection-shirts-bucket'
+
+    DYNAMODB_TROUSERS_TABLE: 'trousers-table'
+    S3_TROUSERS_BUCKET: 'clothes-detection-trousers-bucket'
+
+    DYNAMODB_SHOES_TABLE: 'shoes-table'
+    S3_SHOES_BUCKET: 'clothes-detection-shoes-bucket'
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+        - s3:*
+        - lambda:*
+        - secretsmanager:*
+      Resource: "*"
+
+functions:
+  create: ${file(./serverless/functions/rest.yml):create}
+  # createSneaker: ${file(./serverless/functions/sneakers.yml):createSneaker}
+  # listSneakerBrands: ${file(./serverless/functions/sneakers.yml):listSneakerBrands}
+  # listSneakersByBrand: ${file(./serverless/functions/sneakers.yml):listSneakersByBrand}
+  # getOneSneaker: ${file(./serverless/functions/sneakers.yml):getOneSneaker}
+  # updateOneSneaker: ${file(./serverless/functions/sneakers.yml):updateOneSneaker}
+  # deleteOneSneaker: ${file(./serverless/functions/sneakers.yml):deleteOneSneaker}
