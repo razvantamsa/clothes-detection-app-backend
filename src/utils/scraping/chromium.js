@@ -1,14 +1,14 @@
 const chromium = require("@sparticuz/chromium");
 
 async function getChromiumParams() {
-    const executablePath = await chromium.executablePath();
+
     return {
-        executablePath,
+        args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(),
         headless: chromium.headless,
         ignoreHTTPSErrors: true,
-        defaultViewport: chromium.defaultViewport,
-        args: [...chromium.args, "--hide-scrollbars", "--disable-web-security", '--no-sandbox', '--disable-setuid-sandbox'],
-        timeout: 300000,
+        timeout: 120000,
     }
 }
 

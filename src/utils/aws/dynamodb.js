@@ -17,7 +17,7 @@ const postItem = async (TableName, Item) => {
       Item
     };
     try {
-      await dynamoDB.put(params).promise();
+      return dynamoDB.put(params).promise();
     } catch (err) {
       throw new Error(err);
     }
