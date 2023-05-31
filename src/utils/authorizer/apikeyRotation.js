@@ -1,6 +1,6 @@
 const { updateSecretValue } = require("../aws/secrets-manager");
 
-const SECRET_LENGTH = 32;
+const SECRET_LENGTH = 64;
 
 module.exports.handler = async (event, context) => {
     console.log('Event payload: ', event);
