@@ -17,6 +17,7 @@ provider:
       Action:
         - s3:*
         - lambda:*
+        - secretsmanager:*
       Resource: "*"
 
 functions:

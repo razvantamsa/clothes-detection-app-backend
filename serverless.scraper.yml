@@ -22,6 +22,7 @@ provider:
         - dynamodb:*
         - s3:*
         - lambda:*
+        - secretsmanager:*
       Resource: "*"
 
 functions:
