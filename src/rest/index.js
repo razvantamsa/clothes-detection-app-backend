@@ -7,11 +7,11 @@ const fileUpload = require('express-fileupload');
 const app = express();
 
 const create = require('./requests/create');
+const getOne = require('./requests/getOne');
 const { authorizerMiddleware } = require('../utils/authorizer/authorizer');
 const { verifyTypeHeader } = require('../utils/middelware/verifyTypeHeader');
 // const listSneakerBrands = require('./requests/listSneakerBrands');
 // const listSneakersByBrand = require('./requests/listSneakersByBrand');
-// const getOneSneaker = require('./requests/getOneSneaker');
 // const updateOneSneaker = require('./requests/updateOneSneaker');
 // const deleteOneSneaker = require('./requests/deleteOneSneaker');
 
@@ -22,7 +22,8 @@ app.use(authorizerMiddleware, verifyTypeHeader);
 
 // Define route handlers
 app.use('/api', 
-    create, 
+    create,
+    getOne,
 //     listSneakerBrands,
 //     listSneakersByBrand,
 //     getOneSneaker,
@@ -31,8 +32,8 @@ app.use('/api',
 );
 
 if(process.env.ENVIRONMENT === 'local'){
-    app.listen(process.env.SNEAKERS_API_PORT, () => {
-        console.log(`Rest API listening on ${process.env.SNEAKERS_API_PORT}`)
+    app.listen(process.env.REST_API_PORT, () => {
+        console.log(`Rest API listening on ${process.env.REST_API_PORT}`)
     });
 }
 

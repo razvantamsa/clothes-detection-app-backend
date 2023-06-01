@@ -75,10 +75,20 @@ const deleteItem = async (Bucket, Key) => {
   }
 };
 
+const listItemsFromPath = async (Bucket, Prefix) => {
+  const params = { Bucket, Prefix };
+  try {
+    return s3.listObjectsV2(params).promise();
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
 module.exports = {
     postItem,
     uploadStreamToS3,
     getSignedUrl,
     getItem,
     deleteItem,
+    listItemsFromPath,
 }

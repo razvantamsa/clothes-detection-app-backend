@@ -3,14 +3,7 @@ create:
   events:
     - http:
         method: post
-        path: api/{type}
-
-# createSneaker:
-#   handler: src/api/index.handler
-#   events:
-#     - http:
-#         method: post
-#         path: api
+        path: api
 
 # listSneakerBrands:
 #   handler: src/api/index.handler
@@ -26,12 +19,12 @@ create:
 #         method: get
 #         path: api/{brand}
 
-# getOneSneaker:
-#   handler: src/api/index.handler
-#   events:
-#     - http:
-#         method: get
-#         path: api/{brand}/{model}
+getOne:
+  handler: src/rest/index.handler
+  events:
+    - http:
+        method: get
+        path: api/{brand}/{model}
 
 # updateOneSneaker:
 #   handler: src/api/index.handler
@@ -40,8 +33,8 @@ create:
 #         method: put
 #         path: api/{brand}/{model}
 
-# deleteOneSneaker:
-#   handler: src/api/index.handler
+# deleteOne:
+#   handler: src/rest/index.handler
 #   events:
 #     - http:
 #         method: delete
