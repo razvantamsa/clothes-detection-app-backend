@@ -31,9 +31,8 @@ provider:
 
 functions:
   create: ${file(./serverless/functions/rest.yml):create}
-  # createSneaker: ${file(./serverless/functions/sneakers.yml):createSneaker}
-  # listSneakerBrands: ${file(./serverless/functions/sneakers.yml):listSneakerBrands}
-  # listSneakersByBrand: ${file(./serverless/functions/sneakers.yml):listSneakersByBrand}
-  # getOneSneaker: ${file(./serverless/functions/sneakers.yml):getOneSneaker}
-  # updateOneSneaker: ${file(./serverless/functions/sneakers.yml):updateOneSneaker}
-  # deleteOneSneaker: ${file(./serverless/functions/sneakers.yml):deleteOneSneaker}
+  listBrands: ${file(./serverless/functions/rest.yml):listBrands}
+  listModels: ${file(./serverless/functions/rest.yml):listModels}
+  get: ${file(./serverless/functions/rest.yml):get}
+  update: ${file(./serverless/functions/rest.yml):update}
+  delete: ${file(./serverless/functions/rest.yml):delete}

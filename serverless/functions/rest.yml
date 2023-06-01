@@ -5,37 +5,37 @@ create:
         method: post
         path: api
 
-# listSneakerBrands:
-#   handler: src/api/index.handler
-#   events:
-#     - http:
-#         method: get
-#         path: api
+listBrands:
+  handler: src/rest/index.handler
+  events:
+    - http:
+        method: get
+        path: api
 
-# listapiByBrand:
-#   handler: src/api/index.handler
-#   events:
-#     - http:
-#         method: get
-#         path: api/{brand}
+listModels:
+  handler: src/rest/index.handler
+  events:
+    - http:
+        method: get
+        path: api/{brand}
 
-getOne:
+get:
   handler: src/rest/index.handler
   events:
     - http:
         method: get
         path: api/{brand}/{model}
 
-# updateOneSneaker:
-#   handler: src/api/index.handler
-#   events:
-#     - http:
-#         method: put
-#         path: api/{brand}/{model}
+update:
+  handler: src/rest/index.handler
+  events:
+    - http:
+        method: put
+        path: api/{brand}/{model}
 
-# deleteOne:
-#   handler: src/rest/index.handler
-#   events:
-#     - http:
-#         method: delete
-#         path: api/{brand}/{model}
+delete:
+  handler: src/rest/index.handler
+  events:
+    - http:
+        method: delete
+        path: api/{brand}/{model}
