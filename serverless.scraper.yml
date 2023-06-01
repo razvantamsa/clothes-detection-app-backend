@@ -1,10 +1,10 @@
-service: sneaker-api-scraper
+service: clothes-detection-scraper
 frameworkVersion: '3'
 
 provider:
   name: aws
   runtime: nodejs18.x
-  profile: sneaker-app
+  profile: clothes-detection-app
   region: us-west-2
   logRetentionInDays: 14
   timeout: 30
@@ -12,9 +12,12 @@ provider:
     binaryMediaTypes:
       - 'multipart/form-data'
   environment:
-    DYNAMODB_SNEAKERS_TABLE: 'sneakers'
-    S3_SNEAKERS_BUCKET: 'sneaker-api-sneakers-bucket'
-    S3_DOCS_BUCKET: 'sneaker-api-docs-bucket'
+    DYNAMODB_SHIRTS_TABLE: 'shirts-table'
+    S3_SHIRTS_BUCKET: 'clothes-detection-shirts-bucket'
+    DYNAMODB_TROUSERS_TABLE: 'trousers-table'
+    S3_TROUSERS_BUCKET: 'clothes-detection-trousers-bucket'
+    DYNAMODB_SHOES_TABLE: 'shoes-table'
+    S3_SHOES_BUCKET: 'clothes-detection-shoes-bucket'
     MAX_PRODUCT_LIMIT: 400
   iamRoleStatements:
     - Effect: Allow
