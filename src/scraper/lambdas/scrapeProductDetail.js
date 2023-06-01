@@ -58,6 +58,6 @@ exports.handler = async (event, context) => {
 
     await invokeAsyncFunction(
         'clothes-detection-scraper-dev-scrapeProductDetail',
-        { hrefs, brand },
+        { type, hrefs, brand },
     );
 };
