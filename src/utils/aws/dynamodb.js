@@ -23,19 +23,6 @@ const postItem = async (TableName, Item) => {
     }
 };
 
-const getAttributeSet = async (TableName, attribute) => {
-  const params = {
-    TableName,
-    ProjectionExpression: attribute,
-  };
-  try {
-    const result = await dynamoDB.scan(params).promise();
-    return [...new Set(result.Items.map(item => item[attribute]))];
-  } catch (err) {
-    throw new Error(err);
-  }
-}
-
 const getItem = async (TableName, Key) => {
     const params = {
       TableName,
@@ -111,7 +98,6 @@ const deleteItem = async (TableName, Key) => {
 module.exports = {
   getItem,
   getItemByPk,
-  getAttributeSet,
   postItem,
   updateItem,
   deleteItem,

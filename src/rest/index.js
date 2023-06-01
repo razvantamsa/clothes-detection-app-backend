@@ -10,27 +10,23 @@ const create = require('./requests/create');
 const getOne = require('./requests/getOne');
 const update = require('./requests/update');
 const deleteOne = require('./requests/delete');
+const listModels = require('./requests/listModels');
+const listBrands = require('./requests/listBrands');
 const { authorizerMiddleware } = require('../utils/authorizer/authorizer');
 const { verifyTypeHeader } = require('../utils/middelware/verifyTypeHeader');
-// const listSneakerBrands = require('./requests/listSneakerBrands');
-// const listSneakersByBrand = require('./requests/listSneakersByBrand');
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(fileUpload());
 app.use(authorizerMiddleware, verifyTypeHeader);
 
-// Define route handlers
 app.use('/api', 
     create,
     update,
     deleteOne,
     getOne,
-//     listSneakerBrands,
-//     listSneakersByBrand,
-//     getOneSneaker,
-//     updateOneSneaker, 
-//     deleteOneSneaker
+    listModels,
+    listBrands,
 );
 
 if(process.env.ENVIRONMENT === 'local'){
