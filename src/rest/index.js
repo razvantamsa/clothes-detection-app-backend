@@ -8,11 +8,11 @@ const app = express();
 
 const create = require('./requests/create');
 const getOne = require('./requests/getOne');
+const update = require('./requests/update');
 const { authorizerMiddleware } = require('../utils/authorizer/authorizer');
 const { verifyTypeHeader } = require('../utils/middelware/verifyTypeHeader');
 // const listSneakerBrands = require('./requests/listSneakerBrands');
 // const listSneakersByBrand = require('./requests/listSneakersByBrand');
-// const updateOneSneaker = require('./requests/updateOneSneaker');
 // const deleteOneSneaker = require('./requests/deleteOneSneaker');
 
 app.use(cors());
@@ -23,6 +23,7 @@ app.use(authorizerMiddleware, verifyTypeHeader);
 // Define route handlers
 app.use('/api', 
     create,
+    update,
     getOne,
 //     listSneakerBrands,
 //     listSneakersByBrand,

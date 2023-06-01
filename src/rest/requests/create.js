@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
         const { brand, model } = req.body;
         const files = Object.values(req.files);
         
-        const updatedFiles = [];
+        const images = [];
         
         for(const [index, file] of files.entries()) {
             const result = await postS3(
@@ -19,11 +19,11 @@ router.post('/', async (req, res) => {
                 file.data.length,
                 "image/jpeg"
             );
-            updatedFiles.push(result.ETag);
+            images.push(result.ETag);
         }
             
         await postDynamoDB(DYNAMODB_TABLE, req.body);
-        return res.status(200).send({ body: req.body, updatedFiles });
+        return res.status(200).send({ data: req.body, images });
     } catch (err) {
         console.log(err);
         return res.status(400).send(err.message);
