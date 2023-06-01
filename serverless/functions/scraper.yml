@@ -1,14 +1,14 @@
 startScrapingProcess:
-  handler: src/webscraper/index.handler
+  handler: src/scraper/index.handler
   events:
     - http:
         method: post
         path: scrape/{brand}
 
 scrapeProductDetail:
-  handler: src/webscraper/lambdas/scrapeProductDetail.handler
+  handler: src/scraper/lambdas/scrapeProductDetail.handler
   timeout: 900
 
 scrapeProductCatalog:
-  handler: src/webscraper/lambdas/scrapeProductCatalog.handler
+  handler: src/scraper/lambdas/scrapeProductCatalog.handler
   timeout: 900

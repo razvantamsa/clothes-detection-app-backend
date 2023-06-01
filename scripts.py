@@ -107,7 +107,7 @@ elif command == 'dev-rest':
     execution_command = ['nodemon', 'src/rest']
     run_continuous_process(execution_command)
 elif command == 'dev-scraper':
-    execution_command = ['nodemon', 'src/webscraper']
+    execution_command = ['nodemon', 'src/scraper']
     run_continuous_process(execution_command)
 
 # docs
