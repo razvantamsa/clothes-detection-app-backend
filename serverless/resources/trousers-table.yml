@@ -1,7 +1,7 @@
-SneakersTable:
+TrousersTable:
   Type: AWS::DynamoDB::Table
   Properties:
-    TableName: sneakers
+    TableName: trousers-table
     AttributeDefinitions:
       - AttributeName: brand
         AttributeType: S

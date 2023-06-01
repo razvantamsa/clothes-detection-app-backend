@@ -7,14 +7,13 @@ const { invokeAsyncFunction } = require("../../utils/aws/lambda");
 const { uploadStreamToS3 } = require('../../utils/aws/s3');
 const { postItem: postDynamoDB } = require("../../utils/aws/dynamodb");
 const { default: axios } = require('axios');
-
-const { DYNAMODB_SNEAKERS_TABLE, S3_SNEAKERS_BUCKET } = process.env;
-
+const { selectResources } = require('../../utils/middelware/selectResources');
 
 exports.handler = async (event, context) => {
     console.log('Event payload:', event);
+    let { type, hrefs, brand } = event;
+    const [DYNAMODB_TABLE, S3_BUCKET] = selectResources(type);
 
-    let { hrefs, brand } = event;
     if(!hrefs.length) {
         console.log('Finished scraping');
         return;
@@ -45,12 +44,12 @@ exports.handler = async (event, context) => {
             response.data.pipe(uploadStream);
             const key = `${brand}/${name}/pic${index}`;
             console.log({ key });
-            const result = await uploadStreamToS3(S3_SNEAKERS_BUCKET, key, uploadStream);
+            const result = await uploadStreamToS3(S3_BUCKET, key, uploadStream);
             console.log(result);
         }
         
         const uploadObject = { brand, model: name, color, rating, nrOfReviews, price, ...data };
-        const result = await postDynamoDB(DYNAMODB_SNEAKERS_TABLE, uploadObject);
+        const result = await postDynamoDB(DYNAMODB_TABLE, uploadObject);
         console.log(result);
 
     } catch (err) {
@@ -58,7 +57,7 @@ exports.handler = async (event, context) => {
     }
 
     await invokeAsyncFunction(
-        'sneaker-api-scraper-dev-scrapeProductDetail',
-        { hrefs, brand },
+        'clothes-detection-scraper-dev-scrapeProductDetail',
+        { type, hrefs, brand },
     );
 };

@@ -4,7 +4,7 @@ async function getProductImageLinks(page, closeBrowserCallback, url) {
     await delay();
     await page.goto(url);
     await delay();
-    await page.waitForSelector('#productTitle');
+    await page.waitForSelector('#productTitle', { timeout: 300000 });
 
     const thumbnails = await page.$$('li.a-spacing-small.item.imageThumbnail.a-declarative');
     const imageLinks = [];

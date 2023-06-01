@@ -1,0 +1,4 @@
+ShirtsBucket:
+  Type: AWS::S3::Bucket
+  Properties:
+    BucketName: clothes-detection-shirts-bucket

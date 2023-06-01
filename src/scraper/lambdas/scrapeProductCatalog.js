@@ -2,31 +2,31 @@ const { invokeAsyncFunction } = require('../../utils/aws/lambda');
 const utils = require('../../utils/scraping/cheerio/catalog.utils');
 const { loadHtml } = require('../../utils/scraping/cheerio/init');
 
-const { MAX_SHOES_LIMIT } = process.env;
+const { MAX_PRODUCT_LIMIT } = process.env;
 
 exports.handler = async (event, context) => {
     console.log('Event payload: ', event);
 
-    const { brand, baseUrl } = event, shoes = [];
+    const { type, brand, baseUrl } = event, products = [];
     let url = baseUrl;
 
     try {
-        while(shoes.length <= MAX_SHOES_LIMIT) {
+        while(products.length <= MAX_PRODUCT_LIMIT) {
             const $ = await loadHtml(url);
-            const foundShoes = utils.scrapeProductsFromPage($);
+            const foundProducts = utils.scrapeProductsFromPage($);
             url = utils.scrapeNextPageHref($);
-            shoes.push(...foundShoes);
-            console.log(shoes.length, url);
+            products.push(...foundProducts);
+            console.log(products.length, url);
         }
     } catch (error) {
         throw error.message;
     }
 
-    console.log(shoes.length);
+    console.log(products.length);
 
     await invokeAsyncFunction(
-        'sneaker-api-scraper-dev-scrapeProductDetail',
-        { hrefs: shoes, brand },
+        'clothes-detection-scraper-dev-scrapeProductDetail',
+        { type, hrefs: products, brand },
     );
 
 };

@@ -1,4 +1,4 @@
-service: clothes-detection-scraper
+service: clothes-detection-rest
 frameworkVersion: '3'
 
 provider:
@@ -18,7 +18,6 @@ provider:
     S3_TROUSERS_BUCKET: 'clothes-detection-trousers-bucket'
     DYNAMODB_SHOES_TABLE: 'shoes-table'
     S3_SHOES_BUCKET: 'clothes-detection-shoes-bucket'
-    MAX_PRODUCT_LIMIT: 400
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -29,6 +28,9 @@ provider:
       Resource: "*"
 
 functions:
-  startScrapingProcess: ${file(./serverless/functions/scraper.yml):startScrapingProcess}
-  scrapeProductCatalog: ${file(./serverless/functions/scraper.yml):scrapeProductCatalog}
-  scrapeProductDetail: ${file(./serverless/functions/scraper.yml):scrapeProductDetail}
+  create: ${file(./serverless/functions/rest.yml):create}
+  listBrands: ${file(./serverless/functions/rest.yml):listBrands}
+  listModels: ${file(./serverless/functions/rest.yml):listModels}
+  get: ${file(./serverless/functions/rest.yml):get}
+  update: ${file(./serverless/functions/rest.yml):update}
+  delete: ${file(./serverless/functions/rest.yml):delete}
