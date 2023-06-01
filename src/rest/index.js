@@ -9,11 +9,11 @@ const app = express();
 const create = require('./requests/create');
 const getOne = require('./requests/getOne');
 const update = require('./requests/update');
+const deleteOne = require('./requests/delete');
 const { authorizerMiddleware } = require('../utils/authorizer/authorizer');
 const { verifyTypeHeader } = require('../utils/middelware/verifyTypeHeader');
 // const listSneakerBrands = require('./requests/listSneakerBrands');
 // const listSneakersByBrand = require('./requests/listSneakersByBrand');
-// const deleteOneSneaker = require('./requests/deleteOneSneaker');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -24,6 +24,7 @@ app.use(authorizerMiddleware, verifyTypeHeader);
 app.use('/api', 
     create,
     update,
+    deleteOne,
     getOne,
 //     listSneakerBrands,
 //     listSneakersByBrand,
