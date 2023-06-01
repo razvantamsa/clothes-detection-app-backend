@@ -11,13 +11,13 @@ if (!process.env.AWS_EXECUTION_ENV) {
 
 const s3 = new AWS.S3();
 
-const postItem = async (Bucket, Key, Body, ContentLength) => {
+const postItem = async (Bucket, Key, Body, ContentLength, ContentType) => {
   const params = {
       Bucket,
       Key,
       Body,
       ContentLength,
-      ContentType: 'image/jpeg',
+      ContentType
   };
   try {
     return s3.upload(params).promise();
@@ -75,10 +75,20 @@ const deleteItem = async (Bucket, Key) => {
   }
 };
 
+const listItemsFromPath = async (Bucket, Prefix) => {
+  const params = { Bucket, Prefix };
+  try {
+    return s3.listObjectsV2(params).promise();
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
 module.exports = {
     postItem,
     uploadStreamToS3,
     getSignedUrl,
     getItem,
     deleteItem,
+    listItemsFromPath,
 }

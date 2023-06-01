@@ -7,7 +7,7 @@ const { MAX_PRODUCT_LIMIT } = process.env;
 exports.handler = async (event, context) => {
     console.log('Event payload: ', event);
 
-    const { brand, baseUrl } = event, products = [];
+    const { type, brand, baseUrl } = event, products = [];
     let url = baseUrl;
 
     try {
@@ -25,8 +25,8 @@ exports.handler = async (event, context) => {
     console.log(products.length);
 
     await invokeAsyncFunction(
-        'sneaker-api-scraper-dev-scrapeProductDetail',
-        { hrefs: products, brand },
+        'clothes-detection-scraper-dev-scrapeProductDetail',
+        { type, hrefs: products, brand },
     );
 
 };
