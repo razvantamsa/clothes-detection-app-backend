@@ -1,0 +1,17 @@
+ScanTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: scan-table
+    AttributeDefinitions:
+      - AttributeName: type
+        AttributeType: S
+      - AttributeName: id
+        AttributeType: S
+    KeySchema:
+      - AttributeName: type
+        KeyType: HASH
+      - AttributeName: id
+        KeyType: RANGE
+    ProvisionedThroughput:
+      ReadCapacityUnits: 5
+      WriteCapacityUnits: 5
