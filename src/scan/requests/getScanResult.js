@@ -7,7 +7,7 @@ const router = express.Router();
  * return status: /processed + relevant data / to be processed
  */
 
-router.get('/', async (req, res) => {
+router.get('/:dataId', async (req, res) => {
     try {
         res.status(200).send('ok');
     } catch (err) {

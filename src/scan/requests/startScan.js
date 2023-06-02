@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
 
         await postDynamoDB(DYNAMODB_SCAN_TABLE, { 
             dataId, 
-            user, 
+            userName: user, 
             status: 'unprocessed',
             fileName: file.name
         });

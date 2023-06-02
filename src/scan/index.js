@@ -9,13 +9,14 @@ const app = express();
 
 const startScan = require('./requests/startScan');
 const getScanResult = require('./requests/getScanResult');
+const getScansByUser = require('./requests/getScansByUser');
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(fileUpload());
 app.use(authorizerMiddleware);
 
-app.use('/scan', startScan, getScanResult);
+app.use('/scan', startScan, getScanResult, getScansByUser);
 
 if(process.env.ENVIRONMENT === 'local'){
     app.listen(process.env.SCAN_API_PORT, () => {
