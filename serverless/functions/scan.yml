@@ -11,3 +11,7 @@ getScanResult:
     - http:
         method: get
         path: scan/{dataId}
+
+extractFeatures:
+  handler: src/scan/lambdas/extractFeatures.handler
+  timeout: 900

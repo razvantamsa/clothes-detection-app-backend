@@ -27,3 +27,4 @@ provider:
 functions:
   startScan: ${file(./serverless/functions/scan.yml):startScan}
   getScanResult: ${file(./serverless/functions/scan.yml):getScanResult}
+  extractFeatures: ${file(./serverless/functions/scan.yml):extractFeatures}
