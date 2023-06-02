@@ -10,16 +10,23 @@ if (!process.env.AWS_EXECUTION_ENV) {
 }
 const rekognition = new AWS.Rekognition();
 
-async function detectImageLabels(image) {
+async function detectImageLabels(Bucket, Name) {
     const params = {
         Image: {
-          Bytes: image
+            S3Object: {
+                Bucket,
+                Name
+            }
         },
         MaxLabels: 10,
         MinConfidence: 70
-      };
-      const data = await rekognition.detectLabels(params).promise();
-      return data;
+    };
+    try {
+        const data = await rekognition.detectLabels(params).promise();
+        return data;
+    } catch(err) {
+        throw new Error(err);
+    }
 }
 
 module.exports = {
