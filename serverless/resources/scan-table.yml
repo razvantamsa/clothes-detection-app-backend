@@ -3,15 +3,26 @@ ScanTable:
   Properties:
     TableName: scan-table
     AttributeDefinitions:
-      - AttributeName: type
+      - AttributeName: dataId
         AttributeType: S
-      - AttributeName: id
+      - AttributeName: user
         AttributeType: S
     KeySchema:
-      - AttributeName: type
+      - AttributeName: dataId
         KeyType: HASH
-      - AttributeName: id
+      - AttributeName: user
         KeyType: RANGE
     ProvisionedThroughput:
       ReadCapacityUnits: 5
       WriteCapacityUnits: 5
+
+    GlobalSecondaryIndexes:
+      - IndexName: user-gsi
+        KeySchema:
+          - AttributeName: user
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
