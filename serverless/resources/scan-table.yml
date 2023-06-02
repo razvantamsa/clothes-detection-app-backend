@@ -5,21 +5,21 @@ ScanTable:
     AttributeDefinitions:
       - AttributeName: dataId
         AttributeType: S
-      - AttributeName: user
+      - AttributeName: userName
         AttributeType: S
     KeySchema:
       - AttributeName: dataId
         KeyType: HASH
-      - AttributeName: user
+      - AttributeName: userName
         KeyType: RANGE
     ProvisionedThroughput:
       ReadCapacityUnits: 5
       WriteCapacityUnits: 5
 
     GlobalSecondaryIndexes:
-      - IndexName: user-gsi
+      - IndexName: userName-gsi
         KeySchema:
-          - AttributeName: user
+          - AttributeName: userName
             KeyType: HASH
         Projection:
           ProjectionType: ALL

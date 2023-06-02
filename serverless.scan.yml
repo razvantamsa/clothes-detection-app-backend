@@ -12,6 +12,7 @@ provider:
     binaryMediaTypes:
       - 'multipart/form-data'
   environment:
+    SCAN_TABLE_GSI_NAME: 'userName-gsi'
     S3_SCAN_BUCKET: 'clothes-detection-scan-bucket'
     DYNAMODB_SCAN_TABLE: 'scan-table'
   iamRoleStatements:
