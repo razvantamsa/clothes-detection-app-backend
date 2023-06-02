@@ -1,0 +1,13 @@
+startScan:
+  handler: src/scan/index.handler
+  events:
+    - http:
+        method: post
+        path: scan
+
+getScanResult:
+  handler: src/scan/index.handler
+  events:
+    - http:
+        method: get
+        path: scan/{dataId}
