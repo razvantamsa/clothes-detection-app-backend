@@ -61,11 +61,13 @@ List of available commands:
     deploy-rest             - deploy rest api functions to aws
     deploy-scraper          - deploy scraper functions to aws
     deploy-resources        - deploy resources to aws
+    deploy-scan             - deploy scan functions to aws
     
     ### development
     dev-status              - run status functions locally
     dev-rest                - run rest api functions locally
     dev-scraper             - run scraper functions locally
+    dev-scan                - run scan functions locally
 
     ### docs
     html-docs               - bundle openapi.yml specs to get webpage of documentation
@@ -98,6 +100,8 @@ elif command == 'deploy-scraper':
     execution_command = 'sls deploy --config serverless.scraper.yml'
 elif command == 'deploy-resources':
     execution_command = 'sls deploy --config serverless.resources.yml'
+elif command == 'deploy-scan':
+    execution_command = 'sls deploy --config serverless.scan.yml'
 
 # development
 elif command == 'dev-status':
@@ -108,6 +112,9 @@ elif command == 'dev-rest':
     run_continuous_process(execution_command)
 elif command == 'dev-scraper':
     execution_command = ['nodemon', 'src/scraper']
+    run_continuous_process(execution_command)
+elif command == 'dev-scan':
+    execution_command = ['nodemon', 'src/scan']
     run_continuous_process(execution_command)
 
 # docs
