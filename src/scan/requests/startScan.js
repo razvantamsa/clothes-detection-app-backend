@@ -16,7 +16,7 @@ const { DYNAMODB_SCAN_TABLE, S3_SCAN_BUCKET } = process.env;
 router.post('/', async (req, res) => {
     try {
 
-        const user = req.headers.user;
+        const userName = req.headers.user;
         const file = req.files.image;
 
         const dataId = generateUniqueHashCode();
@@ -31,14 +31,14 @@ router.post('/', async (req, res) => {
 
         await postDynamoDB(DYNAMODB_SCAN_TABLE, { 
             dataId, 
-            userName: user, 
+            userName, 
             status: 'unprocessed',
             fileName: file.name
         });
 
         await invokeAsyncFunction(
             'clothes-detection-scan-dev-extractFeatures',
-            { dataId },
+            { dataId, userName },
         );
 
         return res.status(200).send({ dataId });
