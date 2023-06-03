@@ -114,6 +114,27 @@ const queryTableByGSI = async (TableName, IndexName, expressionObject) => {
   }
 }
 
+const scanTableByHash = async (TableName, expressionObject) => {
+  const [key, value] = Object.entries(expressionObject)[0];
+  const params = {
+    TableName,
+    FilterExpression: `#${key} = :${key}`,
+    ExpressionAttributeNames: {
+      [`#${key}`]: key
+    },
+    ExpressionAttributeValues: {
+      [`:${key}`]: value
+    }
+  };
+
+  try {
+    const result = await dynamoDB.scan(params).promise();
+    return result.Items;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
 module.exports = {
   getItem,
   getItemByPk,
@@ -121,4 +142,5 @@ module.exports = {
   updateItem,
   deleteItem,
   queryTableByGSI,
+  scanTableByHash,
 }
