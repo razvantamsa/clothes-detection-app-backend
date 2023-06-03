@@ -26,3 +26,5 @@ resources:
     TrousersBucket: ${file(./serverless/resources/trousers-bucket.yml):TrousersBucket}
     ShoesTable: ${file(./serverless/resources/shoes-table.yml):ShoesTable}
     ShoesBucket: ${file(./serverless/resources/shoes-bucket.yml):ShoesBucket}
+    ScanTable: ${file(./serverless/resources/scan-table.yml):ScanTable}
+    ScanBucket: ${file(./serverless/resources/scan-bucket.yml):ScanBucket}

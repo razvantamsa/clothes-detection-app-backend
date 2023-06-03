@@ -1,0 +1,32 @@
+service: clothes-detection-scan
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: clothes-detection-app
+  region: us-west-2
+  logRetentionInDays: 14
+  timeout: 30
+  apiGateway:
+    binaryMediaTypes:
+      - 'multipart/form-data'
+  environment:
+    SCAN_TABLE_GSI_NAME: 'userName-gsi'
+    S3_SCAN_BUCKET: 'clothes-detection-scan-bucket'
+    DYNAMODB_SCAN_TABLE: 'scan-table'
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+        - s3:*
+        - lambda:*
+        - rekognition:*
+        - secretsmanager:*
+      Resource: "*"
+
+functions:
+  startScan: ${file(./serverless/functions/scan.yml):startScan}
+  getScanResult: ${file(./serverless/functions/scan.yml):getScanResult}
+  getScanByUser: ${file(./serverless/functions/scan.yml):getScanByUser}
+  extractFeatures: ${file(./serverless/functions/scan.yml):extractFeatures}

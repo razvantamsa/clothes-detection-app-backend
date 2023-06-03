@@ -1,0 +1,24 @@
+startScan:
+  handler: src/scan/index.handler
+  events:
+    - http:
+        method: post
+        path: scan
+
+getScanResult:
+  handler: src/scan/index.handler
+  events:
+    - http:
+        method: get
+        path: scan/{dataId}
+
+getScanByUser:
+  handler: src/scan/index.handler
+  events:
+    - http:
+        method: get
+        path: scan
+
+extractFeatures:
+  handler: src/scan/lambdas/extractFeatures.handler
+  timeout: 900

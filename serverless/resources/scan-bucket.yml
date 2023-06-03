@@ -1,0 +1,4 @@
+ScanBucket:
+  Type: AWS::S3::Bucket
+  Properties:
+    BucketName: clothes-detection-scan-bucket

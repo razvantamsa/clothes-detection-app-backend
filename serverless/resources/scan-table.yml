@@ -1,0 +1,28 @@
+ScanTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: scan-table
+    AttributeDefinitions:
+      - AttributeName: dataId
+        AttributeType: S
+      - AttributeName: userName
+        AttributeType: S
+    KeySchema:
+      - AttributeName: dataId
+        KeyType: HASH
+      - AttributeName: userName
+        KeyType: RANGE
+    ProvisionedThroughput:
+      ReadCapacityUnits: 5
+      WriteCapacityUnits: 5
+
+    GlobalSecondaryIndexes:
+      - IndexName: userName-gsi
+        KeySchema:
+          - AttributeName: userName
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
