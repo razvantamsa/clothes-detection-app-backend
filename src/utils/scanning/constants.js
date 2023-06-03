@@ -1,4 +1,4 @@
-const shirtLabels = [
+const shirtsLabels = [
     'Shirt',
     'T-Shirt',
     'Blouse',
@@ -47,7 +47,7 @@ const trousersLabels = [
     'Flare Skirt'
 ];
 
-const shoeLabels = [
+const shoesLabels = [
     'Shoe',
     'Footwear',
     'Sneaker',
@@ -58,8 +58,8 @@ const shoeLabels = [
 ];
 
 module.exports = {
-    shirtLabels,
+    shirtsLabels,
     trousersLabels,
-    shoeLabels
+    shoesLabels
 }
     

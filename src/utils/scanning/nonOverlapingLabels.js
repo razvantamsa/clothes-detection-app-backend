@@ -40,12 +40,12 @@ function nonOverlapingLabels (foundLabels, type) {
     }
 
     if(overlapsWith === -1) {
-      instances.push(foundInstance);
+      instances.push({...foundInstance, type});
     } else {
       const instanceWithMostConfidence = 
         foundInstance.Confidence > instances[overlapsWith].Confidence 
         ? foundInstance : instances[overlapsWith];
-      instances[overlapsWith] = instanceWithMostConfidence;
+      instances[overlapsWith] = {...instanceWithMostConfidence, type};
     }
 
   }

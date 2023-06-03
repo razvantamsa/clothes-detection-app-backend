@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
 
         await postS3(
             S3_SCAN_BUCKET, 
-            `${dataId}`, 
+            dataId, 
             file.data,
             file.data.length,
             "image/jpeg"
