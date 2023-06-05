@@ -11,7 +11,7 @@ provider:
     binaryMediaTypes:
       - 'multipart/form-data'
   environment:
-    S3_DOCS_BUCKET: 'clothes-detection-docs-bucket'
+    S3_ASSETS_BUCKET: 'clothes-detection-assets-bucket'
   iamRoleStatements:
     - Effect: Allow
       Action:

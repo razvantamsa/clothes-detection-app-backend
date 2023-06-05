@@ -1,4 +1,0 @@
-DocsBucket:
-  Type: AWS::S3::Bucket
-  Properties:
-    BucketName: clothes-detection-docs-bucket

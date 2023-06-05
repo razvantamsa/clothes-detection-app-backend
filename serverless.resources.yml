@@ -19,7 +19,7 @@ functions:
 resources:
   Resources:
     ApikeySecret: ${file(./serverless/resources/auth-secret.yml):ApikeySecret}
-    DocsBucket: ${file(./serverless/resources/docs-bucket.yml):DocsBucket}
+    AssetsBucket: ${file(./serverless/resources/assets-bucket.yml):AssetsBucket}
     ShirtsTable: ${file(./serverless/resources/shirts-table.yml):ShirtsTable}
     ShirtsBucket: ${file(./serverless/resources/shirts-bucket.yml):ShirtsBucket}
     TrousersTable: ${file(./serverless/resources/trousers-table.yml):TrousersTable}
