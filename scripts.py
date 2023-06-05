@@ -1,6 +1,8 @@
 import subprocess
 import sys
 import os
+import webbrowser
+
 
 def check_for_aws_credentials():
     has_credentials = True
@@ -73,6 +75,9 @@ List of available commands:
     html-docs               - bundle openapi.yml specs to get webpage of documentation
     postman-docs            - bundle openapi.yml specs to get postman collection
 
+    # google colab
+    start-colab-brand       - start google colab brand detection notebook
+
     ### authorization
     get-apikey              - get latest apiket stored in secretsmanager
     
@@ -126,6 +131,13 @@ elif command == 'postman-docs':
 # authorization
 elif command == 'get-apikey':
     execution_command = 'aws secretsmanager get-secret-value --secret-id authorization --query SecretString --output text | tr -d \'"\''
+
+# machine learning
+elif command == 'start-colab-brand':
+    url = os.environ.get('GOOGLE_COLAB_BRAND_DETECTION')
+    webbrowser.open(url)
+    sys.exit()
+
 else:
     print('Command does not exist - try checking out available commands using "help"')
     sys.exit()
