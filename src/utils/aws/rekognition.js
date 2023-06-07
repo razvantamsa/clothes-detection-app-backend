@@ -18,7 +18,7 @@ async function detectImageLabels(Bucket, Name) {
                 Name
             }
         },
-        MaxLabels: 10,
+        MaxLabels: 20,
         MinConfidence: 70
     };
     try {

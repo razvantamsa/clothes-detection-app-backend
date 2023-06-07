@@ -1,13 +1,9 @@
 const crypto = require('crypto');
 
-function generateUniqueHashCode() {
-  const timestamp = Date.now().toString();
-  const randomString = Math.random().toString(36).substring(2);
-  const data = timestamp + randomString;
-  
+function calculateImageHash(fileData) {
   const hash = crypto.createHash('sha256');
-  hash.update(data);
+  hash.update(fileData);
   return hash.digest('hex');
 }
 
-module.exports = { generateUniqueHashCode }
+module.exports = { calculateImageHash }

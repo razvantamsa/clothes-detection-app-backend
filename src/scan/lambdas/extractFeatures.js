@@ -1,4 +1,4 @@
-const { generateUniqueHashCode } = require("../../utils/authorizer/hashCode");
+const { calculateImageHash } = require("../../utils/authorizer/hashCode");
 const { postItem: postDynamoDB, updateItem: updateDynamoDB } = require("../../utils/aws/dynamodb");
 const { detectImageLabels } = require("../../utils/aws/rekognition");
 const { getItem: getS3, postItem: postS3 } = require("../../utils/aws/s3");
@@ -12,11 +12,13 @@ exports.handler = async (event, context) => {
     const { dataId, userName } = event;
 
     const labels = await detectImageLabels(S3_SCAN_BUCKET, dataId);
+    console.log(labels);
     const filteredLabels =  [
         ...nonOverlapingLabels(labels, 'shirts'),
         ...nonOverlapingLabels(labels, 'trousers'),
         ...nonOverlapingLabels(labels, 'shoes')
     ];
+    console.log(filteredLabels);
 
     const image = await getS3(S3_SCAN_BUCKET, dataId);
     const croppedImages = await Promise.all(filteredLabels.map(async (label) => {
@@ -28,7 +30,8 @@ exports.handler = async (event, context) => {
 
     // upload to s3 & dynamodb
     await Promise.all(croppedImages.map(async (croppedImage) => {
-        const croppedDataId = generateUniqueHashCode();
+        const croppedDataId = calculateImageHash(croppedImage.data);
+
         dataIds.push(croppedDataId);
         await postS3(
             S3_SCAN_BUCKET,
