@@ -75,8 +75,11 @@ const deleteItem = async (Bucket, Key) => {
   }
 };
 
-const listItemsFromPath = async (Bucket, Prefix) => {
+const listItemsFromPath = async (Bucket, Prefix, Delimiter = '') => {
   const params = { Bucket, Prefix };
+  if(Delimiter) {
+    params.Delimiter = Delimiter;
+  }
   try {
     return s3.listObjectsV2(params).promise();
   } catch (err) {
