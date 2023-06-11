@@ -1,5 +1,8 @@
 import os
+from dotenv import load_dotenv
 import boto3
+
+load_dotenv()
 
 # Get AWS credentials from environment variables
 aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
