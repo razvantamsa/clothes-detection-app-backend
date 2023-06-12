@@ -11,9 +11,9 @@ def check_for_aws_credentials():
         lines = file.readlines()
         aws_access_key_id = lines[0].strip()
         aws_secret_access_key = lines[1].strip()
-    if not aws_access_key_id.startswith('AWS_ACCESS_KEY_ID=') or not aws_access_key_id.split('=')[1]:
+    if not aws_access_key_id.startswith('ACCESS_KEY_ID=') or not aws_access_key_id.split('=')[1]:
         has_credentials = False
-    if not aws_secret_access_key.startswith('AWS_SECRET_ACCESS_KEY=') or not aws_secret_access_key.split('=')[1]:
+    if not aws_secret_access_key.startswith('SECRET_ACCESS_KEY=') or not aws_secret_access_key.split('=')[1]:
         has_credentials =  False
     
     if not has_credentials:
