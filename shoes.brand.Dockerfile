@@ -1,12 +1,10 @@
-FROM tensorflow/tensorflow:2.12.0
+FROM public.ecr.aws/lambda/python:3.8
 
-COPY src/detection/shoe/brand/inference.py /app/inference.py
-COPY src/detection/shoe/brand/requirements.txt /app/requirements.txt
-COPY src/detection/utils /app/utils
-COPY src/utils/aws/credentials.env /app/.env
+COPY src/detection/shoe/brand/requirements.txt .
+RUN pip3 install -r requirements.txt
 
-WORKDIR /app
+COPY src/detection/utils utils
+COPY src/utils/aws/credentials.env .
+COPY src/detection/shoe/brand/app.py .
 
-RUN pip install -r requirements.txt
-
-ENTRYPOINT ["python", "inference.py"]
+CMD ["app.handler"]
