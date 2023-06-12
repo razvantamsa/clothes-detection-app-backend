@@ -1,0 +1,38 @@
+service: clothes-detection-rest
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: clothes-detection-app
+  region: us-west-2
+  logRetentionInDays: 14
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+        - s3:*
+        - lambda:*
+        - secretsmanager:*
+      Resource: "*"
+
+functions:
+  detectShoeBrand: ${file(./serverless/lambda/shoes-detection.yml):detectShoeBrand}
+  
+  ######## TODO LAMBDAS ########
+  # detectAdidasShoes: ${file(./serverless/lambda/shoes-detection.yml):detectAdidasShoes}
+  # detectNikeShoes: ${file(./serverless/lambda/shoes-detection.yml):detectNikeShoes}
+  # detectPumaShoes: ${file(./serverless/lambda/shoes-detection.yml):detectPumaShoes}
+  # detectReebokShoes: ${file(./serverless/lambda/shoes-detection.yml):detectReebokShoes}
+
+  # detectTrousersBrand
+  # detectLevisTrousers
+  # detectCalvinKleinTrousers
+  # detectUniqloTrousers
+  # detectDockersTrousers
+
+  # detectShirtsBrand
+  # detectRalphLaurenShirts
+  # detectTommyHilfigerShirts
+  # detectGapShirts
+  # detectUSPAShirts

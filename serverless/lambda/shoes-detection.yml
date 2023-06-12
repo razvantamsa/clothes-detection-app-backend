@@ -1,0 +1,24 @@
+detectShoeBrand:
+  timeout: 900
+  image:
+    name: "367859350018.dkr.ecr.us-west-2.amazonaws.com/shoes-detection:brand"
+
+detectAdidasShoes:
+  timeout: 900
+  image:
+    name: "367859350018.dkr.ecr.us-west-2.amazonaws.com/shoes-detection:adidas"
+
+detectNikeShoes:
+  timeout: 900
+  image:
+    name: "367859350018.dkr.ecr.us-west-2.amazonaws.com/shoes-detection:nike"
+
+detectPumaShoes:
+  timeout: 900
+  image:
+    name: "367859350018.dkr.ecr.us-west-2.amazonaws.com/shoes-detection:puma"
+
+detectReebokShoes:
+  timeout: 900
+  image:
+    name: "367859350018.dkr.ecr.us-west-2.amazonaws.com/shoes-detection:reebok"
