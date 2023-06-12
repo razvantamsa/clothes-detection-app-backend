@@ -26,7 +26,7 @@ provider:
       Resource: "*"
 
 functions:
-  startScan: ${file(./serverless/functions/scan.yml):startScan}
-  getScanResult: ${file(./serverless/functions/scan.yml):getScanResult}
-  getScanByUser: ${file(./serverless/functions/scan.yml):getScanByUser}
-  extractFeatures: ${file(./serverless/functions/scan.yml):extractFeatures}
+  startScan: ${file(./serverless/lambda/scan.yml):startScan}
+  getScanResult: ${file(./serverless/lambda/scan.yml):getScanResult}
+  getScanByUser: ${file(./serverless/lambda/scan.yml):getScanByUser}
+  extractFeatures: ${file(./serverless/lambda/scan.yml):extractFeatures}
