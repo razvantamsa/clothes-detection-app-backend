@@ -1,0 +1,4 @@
+ShirtsDetectionRepo:
+  Type: AWS::ECR::Repository
+  Properties:
+    RepositoryName: shirts-detection
