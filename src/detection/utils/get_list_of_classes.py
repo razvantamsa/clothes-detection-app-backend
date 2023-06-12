@@ -1,7 +1,4 @@
-from utils.s3 import handler as s3Client
-s3 = s3Client()
-
-def handler(bucket_name):
+def handler(s3, bucket_name):
 
     response = s3.list_objects_v2(Bucket=bucket_name, Delimiter="/")
 
