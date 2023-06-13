@@ -64,6 +64,7 @@ List of available commands:
     deploy-scraper          - deploy scraper functions to aws
     deploy-resources        - deploy resources to aws
     deploy-scan             - deploy scan functions to aws
+    deploy-detection        - deploy detection functions to aws
     
     ### development
     dev-status              - run status functions locally
@@ -107,6 +108,8 @@ elif command == 'deploy-resources':
     execution_command = 'sls deploy --config serverless.resources.yml'
 elif command == 'deploy-scan':
     execution_command = 'sls deploy --config serverless.scan.yml'
+elif command == 'deploy-detection':
+    execution_command = 'sls deploy --config serverless.detection.yml'
 
 # development
 elif command == 'dev-status':
