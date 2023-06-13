@@ -11,6 +11,11 @@ provider:
     images:
       inference-base-image: ${file(./serverless/ecr/base.yml):definition}
       inference-shoe-brand-image: ${file(./serverless/ecr/shoe.brand.yml):definition}
+      inference-shoe-adidas-image: ${file(./serverless/ecr/shoe.adidas.yml):definition}
+      inference-shoe-nike-image: ${file(./serverless/ecr/shoe.nike.yml):definition}
+      inference-shoe-puma-image: ${file(./serverless/ecr/shoe.puma.yml):definition}
+      inference-shoe-reebok-image: ${file(./serverless/ecr/shoe.reebok.yml):definition}
+
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -28,12 +33,22 @@ functions:
     timeout: 900
     image:
       name: inference-shoe-brand-image
-  
-  # ####### TODO LAMBDAS ########
-  # detectAdidasShoes: ${file(./serverless/lambda/shoes-detection.yml):detectAdidasShoes}
-  # detectNikeShoes: ${file(./serverless/lambda/shoes-detection.yml):detectNikeShoes}
-  # detectPumaShoes: ${file(./serverless/lambda/shoes-detection.yml):detectPumaShoes}
-  # detectReebokShoes: ${file(./serverless/lambda/shoes-detection.yml):detectReebokShoes}
+  inferenceShoeAdidas:
+    timeout: 900
+    image:
+      name: inference-shoe-adidas-image
+  inferenceShoeNike:
+    timeout: 900
+    image:
+      name: inference-shoe-nike-image
+  inferenceShoePuma:
+    timeout: 900
+    image:
+      name: inference-shoe-puma-image
+  inferenceShoeReebok:
+    timeout: 900
+    image:
+      name: inference-shoe-reebok-image
 
   # detectTrousersBrand
   # detectLevisTrousers
