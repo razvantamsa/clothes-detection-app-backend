@@ -9,13 +9,20 @@ provider:
   logRetentionInDays: 14
   ecr:
     images:
-     inference-shoe-brand-image:
+      inference-base-image:
         path: ./
+        file: base.Dockerfile
+        cacheFrom:
+          - inference-base-image
+        platform: linux/amd64
+      inference-shoe-brand-image:
+        path: ./
+        file: dev.Dockerfile
         buildArgs:
           WEIGHT_FILE_NAME: 'shoe_brand_model_weights'
           DATA_BUCKET: 'clothes-detection-shoes-bucket'
         cacheFrom:
-          - inference-shoe-brand-image:latest
+          - inference-shoe-brand-image
         platform: linux/amd64
   iamRoleStatements:
     - Effect: Allow
@@ -27,6 +34,9 @@ provider:
       Resource: "*"
 
 functions:
+  baseInferenceLambda-not-usable:
+    image:
+      name: inference-base-image
   inferenceShoeBrand:
     timeout: 900
     image:
