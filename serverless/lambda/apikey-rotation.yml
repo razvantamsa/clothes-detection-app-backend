@@ -1,0 +1,5 @@
+ApikeyRotation:
+  handler: src/utils/authorizer/apikeyRotation.handler
+  timeout: 600
+  events:
+    - schedule: rate(1 day)

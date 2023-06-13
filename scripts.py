@@ -1,6 +1,8 @@
 import subprocess
 import sys
 import os
+import webbrowser
+
 
 def check_for_aws_credentials():
     has_credentials = True
@@ -9,9 +11,9 @@ def check_for_aws_credentials():
         lines = file.readlines()
         aws_access_key_id = lines[0].strip()
         aws_secret_access_key = lines[1].strip()
-    if not aws_access_key_id.startswith('AWS_ACCESS_KEY_ID=') or not aws_access_key_id.split('=')[1]:
+    if not aws_access_key_id.startswith('ACCESS_KEY_ID=') or not aws_access_key_id.split('=')[1]:
         has_credentials = False
-    if not aws_secret_access_key.startswith('AWS_SECRET_ACCESS_KEY=') or not aws_secret_access_key.split('=')[1]:
+    if not aws_secret_access_key.startswith('SECRET_ACCESS_KEY=') or not aws_secret_access_key.split('=')[1]:
         has_credentials =  False
     
     if not has_credentials:
@@ -62,6 +64,7 @@ List of available commands:
     deploy-scraper          - deploy scraper functions to aws
     deploy-resources        - deploy resources to aws
     deploy-scan             - deploy scan functions to aws
+    deploy-inference        - deploy inference functions to aws
     
     ### development
     dev-status              - run status functions locally
@@ -72,6 +75,9 @@ List of available commands:
     ### docs
     html-docs               - bundle openapi.yml specs to get webpage of documentation
     postman-docs            - bundle openapi.yml specs to get postman collection
+
+    # google colab
+    start-colab-brand       - start google colab brand detection notebook
 
     ### authorization
     get-apikey              - get latest apiket stored in secretsmanager
@@ -102,6 +108,8 @@ elif command == 'deploy-resources':
     execution_command = 'sls deploy --config serverless.resources.yml'
 elif command == 'deploy-scan':
     execution_command = 'sls deploy --config serverless.scan.yml'
+elif command == 'deploy-inference':
+    execution_command = 'sls deploy --config serverless.inference.yml'
 
 # development
 elif command == 'dev-status':
@@ -126,6 +134,13 @@ elif command == 'postman-docs':
 # authorization
 elif command == 'get-apikey':
     execution_command = 'aws secretsmanager get-secret-value --secret-id authorization --query SecretString --output text | tr -d \'"\''
+
+# machine learning
+elif command == 'start-colab-brand':
+    url = os.environ.get('GOOGLE_COLAB_BRAND_DETECTION')
+    webbrowser.open(url)
+    sys.exit()
+
 else:
     print('Command does not exist - try checking out available commands using "help"')
     sys.exit()

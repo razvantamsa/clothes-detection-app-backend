@@ -1,0 +1,4 @@
+AssetsBucket:
+  Type: AWS::S3::Bucket
+  Properties:
+    BucketName: clothes-detection-assets-bucket

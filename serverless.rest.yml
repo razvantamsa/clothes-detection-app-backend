@@ -28,9 +28,9 @@ provider:
       Resource: "*"
 
 functions:
-  create: ${file(./serverless/functions/rest.yml):create}
-  listBrands: ${file(./serverless/functions/rest.yml):listBrands}
-  listModels: ${file(./serverless/functions/rest.yml):listModels}
-  get: ${file(./serverless/functions/rest.yml):get}
-  update: ${file(./serverless/functions/rest.yml):update}
-  delete: ${file(./serverless/functions/rest.yml):delete}
+  create: ${file(./serverless/lambda/rest.yml):create}
+  listBrands: ${file(./serverless/lambda/rest.yml):listBrands}
+  listModels: ${file(./serverless/lambda/rest.yml):listModels}
+  get: ${file(./serverless/lambda/rest.yml):get}
+  update: ${file(./serverless/lambda/rest.yml):update}
+  delete: ${file(./serverless/lambda/rest.yml):delete}

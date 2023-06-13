@@ -1,0 +1,51 @@
+service: clothes-detection-inference
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: clothes-detection-app
+  region: us-west-2
+  logRetentionInDays: 14
+  ecr:
+    images:
+     inference-shoe-brand-image:
+        path: ./
+        buildArgs:
+          WEIGHT_FILE_NAME: 'shoe_brand_model_weights'
+          DATA_BUCKET: 'clothes-detection-shoes-bucket'
+        cacheFrom:
+          - inference-shoe-brand-image:latest
+        platform: linux/amd64
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+        - s3:*
+        - lambda:*
+        - secretsmanager:*
+      Resource: "*"
+
+functions:
+  inferenceShoeBrand:
+    timeout: 900
+    image:
+      name: inference-shoe-brand-image
+  
+  # ####### TODO LAMBDAS ########
+  # detectAdidasShoes: ${file(./serverless/lambda/shoes-detection.yml):detectAdidasShoes}
+  # detectNikeShoes: ${file(./serverless/lambda/shoes-detection.yml):detectNikeShoes}
+  # detectPumaShoes: ${file(./serverless/lambda/shoes-detection.yml):detectPumaShoes}
+  # detectReebokShoes: ${file(./serverless/lambda/shoes-detection.yml):detectReebokShoes}
+
+  # detectTrousersBrand
+  # detectLevisTrousers
+  # detectCalvinKleinTrousers
+  # detectUniqloTrousers
+  # detectDockersTrousers
+
+  # detectShirtsBrand
+  # detectRalphLaurenShirts
+  # detectTommyHilfigerShirts
+  # detectGapShirts
+  # detectUSPAShirts

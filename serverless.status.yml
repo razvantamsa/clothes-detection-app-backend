@@ -11,7 +11,7 @@ provider:
     binaryMediaTypes:
       - 'multipart/form-data'
   environment:
-    S3_DOCS_BUCKET: 'clothes-detection-docs-bucket'
+    S3_ASSETS_BUCKET: 'clothes-detection-assets-bucket'
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -21,6 +21,6 @@ provider:
       Resource: "*"
 
 functions:
-  healthcheck: ${file(./serverless/functions/status.yml):healthcheck}
-  getDocs: ${file(./serverless/functions/status.yml):getDocs}
-  postDocs: ${file(./serverless/functions/status.yml):postDocs}
+  healthcheck: ${file(./serverless/lambda/status.yml):healthcheck}
+  getDocs: ${file(./serverless/lambda/status.yml):getDocs}
+  postDocs: ${file(./serverless/lambda/status.yml):postDocs}

@@ -14,17 +14,20 @@ provider:
     Resource: "*"
 
 functions:
-  apikeyRotation: ${file(./serverless/resources/auth-secret.yml):ApikeyRotation}
+  apikeyRotation: ${file(./serverless/lambda/apikey-rotation.yml):ApikeyRotation}
 
 resources:
   Resources:
-    ApikeySecret: ${file(./serverless/resources/auth-secret.yml):ApikeySecret}
-    DocsBucket: ${file(./serverless/resources/docs-bucket.yml):DocsBucket}
-    ShirtsTable: ${file(./serverless/resources/shirts-table.yml):ShirtsTable}
-    ShirtsBucket: ${file(./serverless/resources/shirts-bucket.yml):ShirtsBucket}
-    TrousersTable: ${file(./serverless/resources/trousers-table.yml):TrousersTable}
-    TrousersBucket: ${file(./serverless/resources/trousers-bucket.yml):TrousersBucket}
-    ShoesTable: ${file(./serverless/resources/shoes-table.yml):ShoesTable}
-    ShoesBucket: ${file(./serverless/resources/shoes-bucket.yml):ShoesBucket}
-    ScanTable: ${file(./serverless/resources/scan-table.yml):ScanTable}
-    ScanBucket: ${file(./serverless/resources/scan-bucket.yml):ScanBucket}
+    AssetsBucket: ${file(./serverless/s3/assets-bucket.yml):AssetsBucket}
+    ShirtsBucket: ${file(./serverless/s3/shirts-bucket.yml):ShirtsBucket}
+    TrousersBucket: ${file(./serverless/s3/trousers-bucket.yml):TrousersBucket}
+    ShoesBucket: ${file(./serverless/s3/shoes-bucket.yml):ShoesBucket}
+    ScanBucket: ${file(./serverless/s3/scan-bucket.yml):ScanBucket}
+    
+    ApikeySecret: ${file(./serverless/secretsmanager/apikey-secret.yml):ApikeySecret}
+    
+    ShirtsTable: ${file(./serverless/dynamodb/shirts-table.yml):ShirtsTable}
+    TrousersTable: ${file(./serverless/dynamodb/trousers-table.yml):TrousersTable}
+    ShoesTable: ${file(./serverless/dynamodb/shoes-table.yml):ShoesTable}
+    ScanTable: ${file(./serverless/dynamodb/scan-table.yml):ScanTable}
+

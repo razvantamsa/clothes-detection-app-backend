@@ -1,5 +1,5 @@
 const express = require('express');
-const { generateUniqueHashCode } = require('../../utils/authorizer/hashCode');
+const { calculateImageHash } = require('../../utils/authorizer/hashCode');
 const { postItem: postS3 } = require('../../utils/aws/s3');
 const { postItem: postDynamoDB } = require('../../utils/aws/dynamodb');
 const { invokeAsyncFunction } = require('../../utils/aws/lambda');
@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
         const userName = req.headers.user;
         const file = req.files.image;
 
-        const dataId = generateUniqueHashCode();
+        const dataId = calculateImageHash(file.data);
 
         await postS3(
             S3_SCAN_BUCKET, 

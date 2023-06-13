@@ -3,8 +3,8 @@ const AWS = require('aws-sdk');
 
 if (!process.env.AWS_EXECUTION_ENV) {
   AWS.config.update({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.ACCESS_KEY_ID,
+    secretAccessKey: process.env.SECRET_ACCESS_KEY,
     region: process.env.AWS_REGION
   });
 }
@@ -75,8 +75,11 @@ const deleteItem = async (Bucket, Key) => {
   }
 };
 
-const listItemsFromPath = async (Bucket, Prefix) => {
+const listItemsFromPath = async (Bucket, Prefix, Delimiter = '') => {
   const params = { Bucket, Prefix };
+  if(Delimiter) {
+    params.Delimiter = Delimiter;
+  }
   try {
     return s3.listObjectsV2(params).promise();
   } catch (err) {
