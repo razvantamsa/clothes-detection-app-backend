@@ -35,21 +35,21 @@ s3 = boto3.client("s3",
 
 # Init model
 model_weights_path = f'weights/{weight_file_name}.h5'
-s3.download_file(s3_assets_bucket, model_weights_path, 'model_weights.h5')
+s3.download_file(s3_assets_bucket, model_weights_path, '/tmp/model_weights.h5')
 
 
 classes = get_list_of_classes(s3, data_bucket, prefix)
 model = model_config(classes)
-model.load_weights('model_weights.h5')
+model.load_weights('/tmp/model_weights.h5')
 print('Model initialized')
 
 def handler(event, context):
     print('Event payload: ', event)
     data_id = event['dataId']
-    s3.download_file(s3_scan_bucket, data_id, 'image.jpg')
+    s3.download_file(s3_scan_bucket, data_id, '/tmp/image.jpg')
 
     # Preprocess the photo
-    image = Image.open('image.jpg')
+    image = Image.open('/tmp/image.jpg')
     image = image.convert('RGB')
     image = image.resize((224, 224))  # Resize the image to match the model's input size
     image = np.array(image) / 255.0  # Normalize pixel values to [0, 1]
