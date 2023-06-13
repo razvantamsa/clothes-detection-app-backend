@@ -23,6 +23,7 @@ region_name = os.getenv('AWS_REGION_NAME')
 # parameters
 weight_file_name = os.getenv('WEIGHT_FILE_NAME')
 data_bucket = os.getenv('DATA_BUCKET')
+prefix = os.getenv('PREFIX')
 
 s3_scan_bucket = 'clothes-detection-scan-bucket'
 s3_assets_bucket = 'clothes-detection-assets-bucket'
@@ -36,7 +37,8 @@ s3 = boto3.client("s3",
 model_weights_path = f'weights/{weight_file_name}.h5'
 s3.download_file(s3_assets_bucket, model_weights_path, 'model_weights.h5')
 
-classes = get_list_of_classes(s3, data_bucket)
+
+classes = get_list_of_classes(s3, data_bucket, prefix)
 model = model_config(classes)
 model.load_weights('model_weights.h5')
 print('Model initialized')
