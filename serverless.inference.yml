@@ -9,21 +9,8 @@ provider:
   logRetentionInDays: 14
   ecr:
     images:
-      inference-base-image:
-        path: ./
-        file: base.Dockerfile
-        cacheFrom:
-          - inference-base-image
-        platform: linux/amd64
-      inference-shoe-brand-image:
-        path: ./
-        file: dev.Dockerfile
-        buildArgs:
-          WEIGHT_FILE_NAME: 'shoe_brand_model_weights'
-          DATA_BUCKET: 'clothes-detection-shoes-bucket'
-        cacheFrom:
-          - inference-shoe-brand-image
-        platform: linux/amd64
+      inference-base-image: ${file(./serverless/ecr/base.yml):definition}
+      inference-shoe-brand-image: ${file(./serverless/ecr/shoe.brand.yml):definition}
   iamRoleStatements:
     - Effect: Allow
       Action:
