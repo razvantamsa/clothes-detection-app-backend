@@ -1,4 +1,0 @@
-ShoesDetectionRepo:
-  Type: AWS::ECR::Repository
-  Properties:
-    RepositoryName: shoes-detection

@@ -31,7 +31,3 @@ resources:
     ShoesTable: ${file(./serverless/dynamodb/shoes-table.yml):ShoesTable}
     ScanTable: ${file(./serverless/dynamodb/scan-table.yml):ScanTable}
 
-    ShirtsDetectionRepo: ${file(./serverless/ecr/shirts-repo.yml):ShirtsDetectionRepo}
-    TrousersDetectionRepo: ${file(./serverless/ecr/trousers-repo.yml):TrousersDetectionRepo}
-    ShoesDetectionRepo: ${file(./serverless/ecr/shoes-repo.yml):ShoesDetectionRepo}
-

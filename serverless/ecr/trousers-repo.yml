@@ -1,4 +1,0 @@
-TrousersDetectionRepo:
-  Type: AWS::ECR::Repository
-  Properties:
-    RepositoryName: trousers-detection
