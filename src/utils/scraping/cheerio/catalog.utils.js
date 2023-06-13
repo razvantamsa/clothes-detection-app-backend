@@ -11,8 +11,8 @@ function scrapeProductsFromPage($) {
 
 function scrapeNextPageHref($) {
     const nextButton = $('a.s-pagination-item.s-pagination-next.s-pagination-button.s-pagination-separator');
-    const nextPageHref = 'https://amazon.com' + nextButton.attr('href');
-    return nextPageHref;
+    const nextButtonHref = nextButton.attr('href');
+    return nextButtonHref ? 'https://amazon.com' + nextButtonHref : undefined;
 }
 
 module.exports = {

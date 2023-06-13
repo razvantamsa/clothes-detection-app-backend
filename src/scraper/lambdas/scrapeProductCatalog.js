@@ -11,7 +11,7 @@ exports.handler = async (event, context) => {
     let url = baseUrl;
 
     try {
-        while(products.length <= MAX_PRODUCT_LIMIT) {
+        while(products.length <= MAX_PRODUCT_LIMIT && url) {
             const $ = await loadHtml(url);
             const foundProducts = utils.scrapeProductsFromPage($);
             url = utils.scrapeNextPageHref($);
