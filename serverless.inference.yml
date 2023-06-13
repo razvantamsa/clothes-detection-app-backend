@@ -29,23 +29,23 @@ functions:
   baseInferenceLambda-not-usable:
     image:
       name: inference-base-image
-  inferenceShoeBrand:
+  inferenceShoesBrand:
     timeout: 900
     image:
       name: inference-shoe-brand-image
-  inferenceShoeAdidas:
+  inferenceShoesAdidas:
     timeout: 900
     image:
       name: inference-shoe-adidas-image
-  inferenceShoeNike:
+  inferenceShoesNike:
     timeout: 900
     image:
       name: inference-shoe-nike-image
-  inferenceShoePuma:
+  inferenceShoesPuma:
     timeout: 900
     image:
       name: inference-shoe-puma-image
-  inferenceShoeReebok:
+  inferenceShoesReebok:
     timeout: 900
     image:
       name: inference-shoe-reebok-image
