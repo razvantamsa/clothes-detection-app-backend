@@ -30,3 +30,4 @@ functions:
   getScanResult: ${file(./serverless/lambda/scan.yml):getScanResult}
   getScanByUser: ${file(./serverless/lambda/scan.yml):getScanByUser}
   extractFeatures: ${file(./serverless/lambda/scan.yml):extractFeatures}
+  detection: ${file(./serverless/lambda/scan.yml):detection}

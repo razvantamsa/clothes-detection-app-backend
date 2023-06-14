@@ -22,3 +22,7 @@ getScanByUser:
 extractFeatures:
   handler: src/scan/lambdas/extractFeatures.handler
   timeout: 900
+
+detection:
+  handler: src/scan/lambdas/detection.handler
+  timeout: 900
