@@ -1,5 +1,6 @@
 const { calculateImageHash } = require("../../utils/authorizer/hashCode");
 const { postItem: postDynamoDB, updateItem: updateDynamoDB } = require("../../utils/aws/dynamodb");
+const { invokeAsyncFunction } = require("../../utils/aws/lambda");
 const { detectImageLabels } = require("../../utils/aws/rekognition");
 const { getItem: getS3, postItem: postS3 } = require("../../utils/aws/s3");
 const { cropImage } = require("../../utils/scanning/cropImage");
@@ -26,13 +27,10 @@ exports.handler = async (event, context) => {
         return {...label, data: croppedImage};
     }));
 
-    const dataIds = [];
-
     // upload to s3 & dynamodb
     await Promise.all(croppedImages.map(async (croppedImage) => {
         const croppedDataId = calculateImageHash(croppedImage.data);
 
-        dataIds.push(croppedDataId);
         await postS3(
             S3_SCAN_BUCKET,
             croppedDataId,
@@ -47,13 +45,21 @@ exports.handler = async (event, context) => {
             status: 'processing',
             type: croppedImage.type
         });
+
+        // invoke scanning lambda for image
+        await invokeAsyncFunction(
+            'clothes-detection-scan-dev-detection',
+            {   
+                parentDataId: dataId, 
+                dataId: croppedDataId,
+                type: croppedImage.type
+            }
+        );
     }));
 
     // update main dataId entry in dynamodb
     await updateDynamoDB(DYNAMODB_SCAN_TABLE,
         { dataId, userName },
-        { status: 'processing' },
+        { status: 'processed' },
     );
-
-    // invoke scanning lambda
 };
