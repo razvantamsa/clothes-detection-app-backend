@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { getItem: getDynamoDB, queryTableByGSI, scanTableByHash } = require('../../utils/aws/dynamodb');
+const { getItem: getDynamoDB, queryTableByGSI, scanTableByHash, getItem } = require('../../utils/aws/dynamodb');
 const { getSignedUrl } = require('../../utils/aws/s3');
+const { selectResources } = require('../../utils/middelware/selectResources');
 
 // workflow:
 /**
@@ -10,6 +11,29 @@ const { getSignedUrl } = require('../../utils/aws/s3');
  */
 
 const { DYNAMODB_SCAN_TABLE, S3_SCAN_BUCKET, SCAN_TABLE_GSI_NAME } = process.env;
+
+async function getChildren (dataId) {
+    const children = await queryTableByGSI(
+        DYNAMODB_SCAN_TABLE,
+        SCAN_TABLE_GSI_NAME,
+        { userName: dataId }
+    );
+
+    if(children.length){ 
+        return children.map(child => ({ dataId: child.dataId, type: child.type, status: child.status }))
+    }
+    return undefined;
+}
+
+async function getParent (userName) {
+    const parents = await scanTableByHash(
+        DYNAMODB_SCAN_TABLE,
+        { dataId: userName }
+    );
+    
+    return parents[0];
+}
+
 
 router.get('/:dataId', async (req, res) => {
     try {
@@ -20,28 +44,23 @@ router.get('/:dataId', async (req, res) => {
 
         if(scanResult.status !== 'unprocessed') {
             // scan for children
-            const children = await queryTableByGSI(
-                DYNAMODB_SCAN_TABLE,
-                SCAN_TABLE_GSI_NAME,
-                { userName: dataId }
-            );
+            scanResult.children = await getChildren(dataId);
 
-            children.length && (scanResult.children = children.map(child => child.dataId));
-        
             // scan for parent
-            const parents = await scanTableByHash(
-                DYNAMODB_SCAN_TABLE,
-                { dataId: userName }
-            )
-            parents.length && (
-                (scanResult.parent = parents[0]) &&
-                (scanResult.parent.status = undefined)
-            )
-
-            // use scan
+            scanResult.parent = await getParent(userName);
         }
 
         const image = await getSignedUrl(S3_SCAN_BUCKET, dataId);
+
+        if(!!scanResult.parent && scanResult.brand && scanResult.model) {
+            const [DYNAMODB_TABLE, S3_BUCKET] = selectResources(scanResult.type);
+            scanResult.data = await getDynamoDB(
+                DYNAMODB_TABLE,
+                { brand: scanResult.brand, model: scanResult.model }
+                );
+            scanResult.brand = undefined; 
+            scanResult.model = undefined;
+        }
 
         res.status(200).send({ scanResult, image });
     } catch (err) {

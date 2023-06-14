@@ -1,0 +1,6 @@
+definition:
+    path: ./
+    file: base.Dockerfile
+    cacheFrom:
+      - inference-base-image
+    platform: linux/amd64
