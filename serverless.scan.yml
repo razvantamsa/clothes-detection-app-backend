@@ -15,6 +15,12 @@ provider:
     SCAN_TABLE_GSI_NAME: 'userName-gsi'
     S3_SCAN_BUCKET: 'clothes-detection-scan-bucket'
     DYNAMODB_SCAN_TABLE: 'scan-table'
+    DYNAMODB_SHIRTS_TABLE: 'shirts-table'
+    S3_SHIRTS_BUCKET: 'clothes-detection-shirts-bucket'
+    DYNAMODB_TROUSERS_TABLE: 'trousers-table'
+    S3_TROUSERS_BUCKET: 'clothes-detection-trousers-bucket'
+    DYNAMODB_SHOES_TABLE: 'shoes-table'
+    S3_SHOES_BUCKET: 'clothes-detection-shoes-bucket'
   iamRoleStatements:
     - Effect: Allow
       Action:
