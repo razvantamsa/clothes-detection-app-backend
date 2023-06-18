@@ -61,9 +61,11 @@ paths:
 
 components:
   parameters:
+    type:
+      $ref: './openapi/components/parameters/type.yml'
     apikey:
-      $ref: "./openapi/components/parameters/apikey.yml"
+      $ref: './openapi/components/parameters/apikey.yml'
     brand:
-      $ref: "./openapi/components/parameters/brand.yml"
+      $ref: './openapi/components/parameters/brand.yml'
     model:
-      $ref: "./openapi/components/parameters/model.yml"
+      $ref: './openapi/components/parameters/model.yml'

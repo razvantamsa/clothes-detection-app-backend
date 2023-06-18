@@ -1,0 +1,8 @@
+name: type
+in: header
+description: The type of the product; one of shirts/trousers/shoes
+required: true
+style: simple
+schema:
+  type: string
+  example: shirts
