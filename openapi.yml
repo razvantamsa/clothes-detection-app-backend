@@ -1,18 +1,18 @@
 openapi: 3.1.0
 info:
-  title: Sneaker API
+  title: Clothes Detection API
   version: 1.0.0
-  description: Sneaker API
+  description: Clothes Detection API
 
 tags:
 - name: Status
-  description: Operations related to project version and documentation
+  description: The Status API component plays a crucial role in providing important information and documentation to users of the StyleSpotter application. Its purpose is to expose endpoints that offer API status information and access to the application's documentation. The Status API component follows a REST architecture and comprises an API Gateway and three Lambda functions serving as endpoints.
 - name: REST
-  description: Operations related to scraped clothes database management
+  description: The REST API component is a fundamental part of the StyleSpotter application, serving the purpose of managing product entries and facilitating manual CRUD operations for seamless manipulation of the database. The REST API component is designed using an API Gateway and six Lambda functions, each serving as an endpoint within a REST architecture.
 - name: Web Scraping
-  description: Operations related to web scraping
+  description: The Scraper API component plays a crucial role in the StyleSpotter application by scraping the web to gather product entries and curate a dataset for machine learning model development. This component comprises an API Gateway and three Lambdas, with one Lambda serving as an endpoint in a REST architecture, and the remaining two Lambdas serving as essential steps in the web scraping process.
 - name: Scan
-  description: Operations related to scanning an image
+  description: The Scanning API component serves as the core functionality of the StyleSpotter application, enabling users to scan an image, detect clothing items within the image, and identify matching product entries in the database. This component is comprised of an API Gateway and five Lambda functions, with three of them serving as endpoints in a REST architecture, while the other two are integral steps in the image scanning process.
 
 paths:
 
@@ -22,8 +22,6 @@ paths:
         $ref: ./openapi/status/get-status.yml
 
     /docs:
-      get: 
-        $ref: ./openapi/status/get-docs.yml
       post: 
         $ref: ./openapi/status/post-docs.yml
     
