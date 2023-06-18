@@ -8,10 +8,10 @@ async function scrapeCatalog(url) {
     let products = [];
 
     try {
-        while(products.length <= MAX_PRODUCT_LIMIT) {
+        while(products.length <= MAX_PRODUCT_LIMIT && url) {
             const $ = await loadHtml(url);
             const foundProducts = utils.scrapeProductsFromPage($);
-            url = utils.scrapeNextPageHref($);
+            url = utils.scrapeNextPageHref($)
             products.push(...foundProducts);
             console.log(products.length, url);
         }

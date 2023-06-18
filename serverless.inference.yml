@@ -9,21 +9,13 @@ provider:
   logRetentionInDays: 14
   ecr:
     images:
-      inference-base-image:
-        path: ./
-        file: base.Dockerfile
-        cacheFrom:
-          - inference-base-image
-        platform: linux/amd64
-      inference-shoe-brand-image:
-        path: ./
-        file: dev.Dockerfile
-        buildArgs:
-          WEIGHT_FILE_NAME: 'shoe_brand_model_weights'
-          DATA_BUCKET: 'clothes-detection-shoes-bucket'
-        cacheFrom:
-          - inference-shoe-brand-image
-        platform: linux/amd64
+      inference-base-image: ${file(./serverless/ecr/base.yml):definition}
+      inference-shoe-brand-image: ${file(./serverless/ecr/shoe.brand.yml):definition}
+      inference-shoe-adidas-image: ${file(./serverless/ecr/shoe.adidas.yml):definition}
+      inference-shoe-nike-image: ${file(./serverless/ecr/shoe.nike.yml):definition}
+      inference-shoe-puma-image: ${file(./serverless/ecr/shoe.puma.yml):definition}
+      inference-shoe-reebok-image: ${file(./serverless/ecr/shoe.reebok.yml):definition}
+
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -37,16 +29,26 @@ functions:
   baseInferenceLambda-not-usable:
     image:
       name: inference-base-image
-  inferenceShoeBrand:
+  inferenceShoesBrand:
     timeout: 900
     image:
       name: inference-shoe-brand-image
-  
-  # ####### TODO LAMBDAS ########
-  # detectAdidasShoes: ${file(./serverless/lambda/shoes-detection.yml):detectAdidasShoes}
-  # detectNikeShoes: ${file(./serverless/lambda/shoes-detection.yml):detectNikeShoes}
-  # detectPumaShoes: ${file(./serverless/lambda/shoes-detection.yml):detectPumaShoes}
-  # detectReebokShoes: ${file(./serverless/lambda/shoes-detection.yml):detectReebokShoes}
+  inferenceShoesAdidas:
+    timeout: 900
+    image:
+      name: inference-shoe-adidas-image
+  inferenceShoesNike:
+    timeout: 900
+    image:
+      name: inference-shoe-nike-image
+  inferenceShoesPuma:
+    timeout: 900
+    image:
+      name: inference-shoe-puma-image
+  inferenceShoesReebok:
+    timeout: 900
+    image:
+      name: inference-shoe-reebok-image
 
   # detectTrousersBrand
   # detectLevisTrousers
