@@ -1,0 +1,14 @@
+tags:
+  - Status
+summary: Get Status
+description: |
+  Endpoint for retrieving information about the status and version of the app.
+  Can be used as a Healthcheck.
+responses:
+  '200':
+    description: OK
+    content:
+      application/json:
+        schema:
+          type: string
+        example: Clothes Detection API version 1.0.0
