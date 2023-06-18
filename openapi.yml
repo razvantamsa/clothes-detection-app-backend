@@ -5,32 +5,58 @@ info:
   description: Sneaker API
 
 tags:
-- name: Healthcheck
-  description: Operations related to healthcheck
-- name: Sneaker Management
-  description: Operations related to sneaker management
+- name: Status
+  description: Operations related to project version and documentation
+- name: REST
+  description: Operations related to scraped clothes database management
+- name: Web Scraping
+  description: Operations related to web scraping
+- name: Scan
+  description: Operations related to scanning an image
 
 paths:
 
-    # healthcheck
+    # status
     /healthcheck:
       get:
-        $ref: ./openapi/healthcheck/get-healthcheck-status.yml
+        $ref: ./openapi/status/get-status.yml
 
-    # sneaker management 
-    /sneakers:
-      get:
-        $ref: ./openapi/sneaker-management/list-all-sneaker-brands.yml
+    /docs:
+      get: 
+        $ref: ./openapi/status/get-docs.yml
       post: 
-        $ref: ./openapi/sneaker-management/create-sneaker.yml
-    /sneakers/{brand}:
-      get:
-        $ref: ./openapi/sneaker-management/list-sneakers-by-brand.yml
+        $ref: ./openapi/status/post-docs.yml
+    
 
-    /sneakers/{brand}/{model}:    
+    # rest 
+    /api:
       get:
-        $ref: ./openapi/sneaker-management/get-sneaker.yml
+        $ref: ./openapi/rest/list-brands.yml
+      post: 
+        $ref: ./openapi/rest/create.yml
+    /api/{brand}:
+      get:
+        $ref: ./openapi/rest/list-models.yml
+
+    /api/{brand}/{model}:    
+      get:
+        $ref: ./openapi/rest/get.yml
       put: 
-        $ref: ./openapi/sneaker-management/update-sneaker.yml
+        $ref: ./openapi/rest/update.yml
       delete:
-        $ref: ./openapi/sneaker-management/delete-sneaker.yml
+        $ref: ./openapi/rest/delete.yml
+
+    # web scraping
+    /scrape/{brand}:
+      post: 
+        $ref: ./openapi/scraper/start-scraping.yml
+
+    # scan
+    /scan:
+      post: 
+        $ref: ./openapi/scan/start-scan.yml
+      get:
+        $ref: ./openapi/scan/get-scans-by-user.yml
+    /scan/{dataId}:
+      get:
+        $ref: ./openapi/scan/get-scan-result.yml
