@@ -87,6 +87,18 @@ const listItemsFromPath = async (Bucket, Prefix, Delimiter = '') => {
   }
 }
 
+const headItem = async (Bucket, Key) => {
+    const params = {
+      Bucket,
+      Key,
+  };
+  try {
+    return s3.headObject(params).promise();
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
 module.exports = {
     postItem,
     uploadStreamToS3,
@@ -94,4 +106,5 @@ module.exports = {
     getItem,
     deleteItem,
     listItemsFromPath,
+    headItem,
 }
