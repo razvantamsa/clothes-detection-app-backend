@@ -1,0 +1,7 @@
+in: path
+name: model
+required: true
+description: Product Model
+schema:
+  type: string
+  example: air-jordan-1-mid-se-mens-shoes

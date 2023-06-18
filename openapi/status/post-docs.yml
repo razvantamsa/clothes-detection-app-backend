@@ -5,14 +5,7 @@ description: |
   Endpoint for updating the documentation page.
   Expects HTML file with name 'openapi.html'.
 parameters:
-  - name: apikey
-    in: header
-    description: The apikey authorizes the request
-    required: true
-    style: simple
-    schema:
-      type: string
-      example: YnQUee18H22WSEPUc3UQ4Q1euV61zpPnpTgVEKDZJGI787IYletMj4HmQIXgnweK
+  - $ref: '#/components/parameters/apikey'
 requestBody:
   content:
     multipart/form-data:
@@ -30,9 +23,9 @@ responses:
         schema:
           type: string
         example: updated
-  "400":
-    $ref: "./openapi/components/errors/400.yml"
-  "401":
-    $ref: "./openapi/components/errors/401.yml"
-  "403":
-    $ref: "./openapi/components/errors/403.yml"
+  '400':
+    $ref: './openapi/components/errors/400.yml'
+  '401':
+    $ref: './openapi/components/errors/401.yml'
+  '403':
+    $ref: './openapi/components/errors/403.yml'

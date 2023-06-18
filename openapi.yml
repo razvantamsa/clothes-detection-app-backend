@@ -58,3 +58,12 @@ paths:
     /scan/{dataId}:
       get:
         $ref: ./openapi/scan/get-scan-result.yml
+
+components:
+  parameters:
+    apikey:
+      $ref: "./openapi/components/parameters/apikey.yml"
+    brand:
+      $ref: "./openapi/components/parameters/brand.yml"
+    model:
+      $ref: "./openapi/components/parameters/model.yml"
