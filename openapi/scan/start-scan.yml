@@ -1,0 +1,36 @@
+tags:
+  - Scan
+summary: Start scanning process
+description: |
+  This endpoint starts scanning for clothes in a given image.
+  The 'user' parameter will be associated with the result, and it should be provided in the headers.
+parameters:
+  - $ref: '#/components/parameters/apikey'
+  - $ref: '#/components/parameters/user'
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          image:
+            type: string
+            format: binary
+responses:
+  '200':
+    description: OK
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            dataId:
+              type: string
+              description: DataId based on sha256 of image
+  '400':
+    $ref: './openapi/components/errors/400.yml'
+  '401':
+    $ref: './openapi/components/errors/401.yml'
+  '403':
+    $ref: './openapi/components/errors/403.yml'
