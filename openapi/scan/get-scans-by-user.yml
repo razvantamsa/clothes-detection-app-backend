@@ -1,0 +1,30 @@
+tags:
+  - Scan
+summary: Get scan results by user
+description: |
+  This endpoint retrieves a list of previous scans by the user.
+parameters:
+  - $ref: '#/components/parameters/apikey'
+  - $ref: '#/components/parameters/user'
+responses:
+  '200':
+    description: OK
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              dataId:
+                type: string
+              fileName:
+                type: string
+              status:
+                type: string
+  '400':
+    $ref: './openapi/components/errors/400.yml'
+  '401':
+    $ref: './openapi/components/errors/401.yml'
+  '403':
+    $ref: './openapi/components/errors/403.yml'
