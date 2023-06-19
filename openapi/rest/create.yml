@@ -1,0 +1,53 @@
+tags:
+  - REST
+summary: Create a product
+description: |
+  This endpoint creates a product based on type, brand, model and product details.
+  The 'type' parameter should be provided in the path parameter.
+  The number of pictures is variable as the endpoint takes all the files it receives and stores them in S3
+parameters:
+  - $ref: '#/components/parameters/type'
+  - $ref: '#/components/parameters/apikey'
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          brand:
+            type: string
+          model:
+            type: string
+          price:
+            type: string
+          <picture-names>:
+            type: string
+            format: binary
+responses:
+  '200':
+    description: OK
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                brand:
+                  type: string
+                model:
+                  type: string
+                price:
+                  type: string
+            images:
+              type: array
+              items:
+                type: string
+  '400':
+    $ref: './openapi/components/errors/400.yml'
+  '401':
+    $ref: './openapi/components/errors/401.yml'
+  '403':
+    $ref: './openapi/components/errors/403.yml'

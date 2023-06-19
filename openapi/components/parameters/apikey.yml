@@ -1,0 +1,8 @@
+name: apikey
+in: header
+description: The apikey authorizes the request
+required: true
+style: simple
+schema:
+  type: string
+  example: YnQUee18H22WSEPUc3UQ4Q1euV61zpPnpTgVEKDZJGI787IYletMj4HmQIXgnweK

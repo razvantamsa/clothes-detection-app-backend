@@ -1,0 +1,7 @@
+in: path
+name: brand
+required: true
+description: Product Brand
+schema:
+  type: string
+  example: Nike

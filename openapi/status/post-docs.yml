@@ -1,0 +1,31 @@
+tags:
+  - Status
+summary: Update documentation
+description: |
+  Endpoint for updating the documentation page.
+  Expects HTML file with name 'openapi.html'.
+parameters:
+  - $ref: '#/components/parameters/apikey'
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          docs:
+            type: string
+            format: binary
+responses:
+  '200':
+    description: OK
+    content:
+      application/json:
+        schema:
+          type: string
+        example: updated
+  '400':
+    $ref: './openapi/components/errors/400.yml'
+  '401':
+    $ref: './openapi/components/errors/401.yml'
+  '403':
+    $ref: './openapi/components/errors/403.yml'

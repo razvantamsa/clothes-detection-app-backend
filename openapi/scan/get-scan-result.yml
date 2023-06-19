@@ -1,0 +1,53 @@
+tags:
+  - Scan
+summary: Get scan result
+description: |
+  This endpoint retrieves the result of a scan on an image.
+  If the image is a parent, to get its children you have to use the dataId of the parent as the 'user' and the dataId of the children in the path.
+parameters:
+  - $ref: '#/components/parameters/apikey'
+  - $ref: '#/components/parameters/user'
+  - $ref: '#/components/parameters/dataId'
+responses:
+  '200':
+    description: OK
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            scanResult:
+              type: object
+              properties:
+                userName:
+                  type: string
+                dataId:
+                  type: string
+                type:
+                  type: string
+                status:
+                  type: string
+                parent:
+                  type: object
+                  properties:
+                    userName:
+                      type: string
+                    dataId:
+                      type: string
+                    fileName:
+                      type: string
+                children:
+                  type: array
+                  items:
+                    type: string
+            image:
+              type: string
+              format: uri
+  '400':
+    $ref: './openapi/components/errors/400.yml'
+  '401':
+    $ref: './openapi/components/errors/401.yml'
+  '403':
+    $ref: './openapi/components/errors/403.yml'
+  '404':
+    $ref: './openapi/components/errors/403.yml'

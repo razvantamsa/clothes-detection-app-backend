@@ -1,0 +1,66 @@
+tags:
+  - REST
+summary: Get details of a product
+description: |
+  This endpoint retrieves a product based on type, brand and model.
+  The 'type' parameter should be provided in the path parameter.
+parameters:
+  - $ref: '#/components/parameters/type'
+  - $ref: '#/components/parameters/apikey'
+  - $ref: '#/components/parameters/brand'
+  - $ref: '#/components/parameters/model'
+responses:
+  '200':
+    description: OK
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                model:
+                  type: string
+                  description: Shoe model
+                department:
+                  type: string
+                  description: Department
+                rating:
+                  type: number
+                  description: Rating
+                nrOfReviews:
+                  type: integer
+                  description: Number of reviews
+                discontinued:
+                  type: string
+                  description: Discontinued status
+                itemModelNumber:
+                  type: string
+                  description: Item model number
+                brand:
+                  type: string
+                  description: Brand
+                dateFirstAvailable:
+                  type: string
+                  description: Date first available
+                price:
+                  type: array
+                  items:
+                    type: string
+                  description: Price range
+                color:
+                  type: string
+                  description: Shoe color
+            images:
+              type: array
+              items:
+                type: string
+  '400':
+    $ref: './openapi/components/errors/400.yml'
+  '401':
+    $ref: './openapi/components/errors/401.yml'
+  '403':
+    $ref: './openapi/components/errors/403.yml'
+  '404':
+    $ref: './openapi/components/errors/403.yml'
