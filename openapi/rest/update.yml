@@ -1,0 +1,52 @@
+tags:
+  - REST
+summary: Update details of a product
+description: |
+  This endpoint updates a product's attributes based on type, brand and model.
+  The 'type' parameter should be provided in the path parameter.
+parameters:
+  - $ref: '#/components/parameters/type'
+  - $ref: '#/components/parameters/apikey'
+  - $ref: '#/components/parameters/brand'
+  - $ref: '#/components/parameters/model'
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          price:
+            type: string
+          <picture-names>:
+            type: string
+            format: binary
+responses:
+  '200':
+    description: OK
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                brand:
+                  type: string
+                model:
+                  type: string
+                price:
+                  type: string
+            images:
+              type: array
+              items:
+                type: string
+  '400':
+    $ref: './openapi/components/errors/400.yml'
+  '401':
+    $ref: './openapi/components/errors/401.yml'
+  '403':
+    $ref: './openapi/components/errors/403.yml'
+  '404':
+    $ref: './openapi/components/errors/403.yml'

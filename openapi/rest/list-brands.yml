@@ -1,0 +1,26 @@
+tags:
+  - REST
+summary: List all product brands
+description: |
+  This endpoint retrieves a list of product brands based on type.
+  The 'type' parameter should be provided in the path parameter.
+parameters:
+  - $ref: '#/components/parameters/type'
+  - $ref: '#/components/parameters/apikey'
+responses:
+  '200':
+    description: OK
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            type: string
+  '400':
+    $ref: './openapi/components/errors/400.yml'
+  '401':
+    $ref: './openapi/components/errors/401.yml'
+  '403':
+    $ref: './openapi/components/errors/403.yml'
+  '404':
+    $ref: './openapi/components/errors/403.yml'
