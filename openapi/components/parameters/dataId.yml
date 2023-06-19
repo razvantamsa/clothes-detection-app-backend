@@ -1,0 +1,7 @@
+in: path
+name: dataId
+required: true
+description: Data Id of Image
+schema:
+  type: string
+  example: 2eb0fbad1234b08b9fd3ec344c1b1d14b559d8d36b088cec5392d5106d909270

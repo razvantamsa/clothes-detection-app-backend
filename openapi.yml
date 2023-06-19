@@ -65,6 +65,8 @@ components:
       $ref: './openapi/components/parameters/type.yml'
     apikey:
       $ref: './openapi/components/parameters/apikey.yml'
+    dataId:
+      $ref: './openapi/components/parameters/dataId.yml'
     user:
       $ref: './openapi/components/parameters/user.yml'
     brand:
