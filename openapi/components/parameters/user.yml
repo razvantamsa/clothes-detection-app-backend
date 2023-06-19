@@ -1,0 +1,8 @@
+name: type
+in: header
+description: The username associated with the scan
+required: true
+style: simple
+schema:
+  type: string
+  example: green-goblin
