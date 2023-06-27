@@ -31,3 +31,5 @@ resources:
     ShoesTable: ${file(./serverless/dynamodb/shoes-table.yml):ShoesTable}
     ScanTable: ${file(./serverless/dynamodb/scan-table.yml):ScanTable}
 
+    ScrapeDetailLogGroup: ${file(./serverless/cloudwatch/scrape-detail.yml):ScrapeDetailLogGroup}
+

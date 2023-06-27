@@ -1,0 +1,5 @@
+ScrapeDetailLogGroup:
+  Type: AWS::Logs::LogGroup
+  Properties:
+    LogGroupName: /aws/lambda/scrape-detail
+    RetentionInDays: 14
