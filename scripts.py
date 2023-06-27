@@ -153,12 +153,14 @@ elif command == 'catalog' or command == 'detail':
 
     if command == 'catalog':
         baseUrl = data["baseUrl"]
-        execution_command = f'node local-scrape/catalog.js {baseUrl}'
+        execution_command = ['node', 'local-scrape/catalog.js', baseUrl]
 
     if command == 'detail':
         type = data["type"]
         brand = data["brand"]
-        execution_command = f'node local-scrape/detail.js {type} {brand}'
+        execution_command = ['node', 'local-scrape/detail.js', type, brand]
+    
+    run_continuous_process(execution_command)
 
 else:
     print('Command does not exist - try checking out available commands using "help"')
