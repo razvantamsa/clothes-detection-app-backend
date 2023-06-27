@@ -1,7 +1,6 @@
 try:
     import os
     import json
-    from dotenv import load_dotenv
     import boto3
     import numpy as np
     from PIL import Image
@@ -13,25 +12,17 @@ try:
 except Exception as e:
     print("Error Imports : {} ".format(e))
 
-load_dotenv("credentials.env")
-
-# credentials
-aws_access_key_id = os.getenv('ACCESS_KEY_ID')
-aws_secret_access_key = os.getenv('SECRET_ACCESS_KEY')
-region_name = os.getenv('AWS_REGION_NAME')
-
 # parameters
 weight_file_name = os.getenv('WEIGHT_FILE_NAME')
 data_bucket = os.getenv('DATA_BUCKET')
-prefix = os.getenv('PREFIX')
+prefix = os.getenv('PREFIX') or ''
+
+print('here we go: ', weight_file_name, data_bucket)
 
 s3_scan_bucket = 'clothes-detection-scan-bucket'
 s3_assets_bucket = 'clothes-detection-assets-bucket'
 
-s3 = boto3.client("s3",
-            aws_access_key_id=aws_access_key_id,
-            aws_secret_access_key=aws_secret_access_key,
-            region_name=region_name)
+s3 = boto3.client("s3")
 
 # Init model
 model_weights_path = f'weights/{weight_file_name}.h5'
