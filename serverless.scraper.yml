@@ -8,6 +8,9 @@ provider:
   region: us-west-2
   logRetentionInDays: 14
   timeout: 30
+  ecr:
+    images:
+      base-image: ${file(./serverless/ecr/detail.scraper.base.yml):definition}
   apiGateway:
     binaryMediaTypes:
       - 'multipart/form-data'

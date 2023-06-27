@@ -6,8 +6,9 @@ startScrapingProcess:
         path: scrape/{brand}
 
 scrapeProductDetail:
-  handler: src/scraper/lambdas/scrapeProductDetail.handler
   timeout: 900
+  image:
+    name: base-image
 
 scrapeProductCatalog:
   handler: src/scraper/lambdas/scrapeProductCatalog.handler
