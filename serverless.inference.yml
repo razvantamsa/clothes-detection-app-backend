@@ -9,13 +9,7 @@ provider:
   logRetentionInDays: 14
   ecr:
     images:
-      inference-base-image: ${file(./serverless/ecr/base.yml):definition}
-      inference-shoe-brand-image: ${file(./serverless/ecr/shoe.brand.yml):definition}
-      inference-shoe-adidas-image: ${file(./serverless/ecr/shoe.adidas.yml):definition}
-      inference-shoe-nike-image: ${file(./serverless/ecr/shoe.nike.yml):definition}
-      inference-shoe-puma-image: ${file(./serverless/ecr/shoe.puma.yml):definition}
-      inference-shoe-reebok-image: ${file(./serverless/ecr/shoe.reebok.yml):definition}
-
+      base-image: ${file(./serverless/ecr/base.yml):definition}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -24,31 +18,15 @@ provider:
         - lambda:*
         - secretsmanager:*
       Resource: "*"
+  environment:
+    DATA_BUCKET: 'clothes-detection-shoes-bucket'
 
 functions:
-  baseInferenceLambda-not-usable:
-    image:
-      name: inference-base-image
-  inferenceShoesBrand:
-    timeout: 900
-    image:
-      name: inference-shoe-brand-image
-  inferenceShoesAdidas:
-    timeout: 900
-    image:
-      name: inference-shoe-adidas-image
-  inferenceShoesNike:
-    timeout: 900
-    image:
-      name: inference-shoe-nike-image
-  inferenceShoesPuma:
-    timeout: 900
-    image:
-      name: inference-shoe-puma-image
-  inferenceShoesReebok:
-    timeout: 900
-    image:
-      name: inference-shoe-reebok-image
+  inferenceShoesBrand: ${file(./serverless/lambda/inference.yml):inferenceShoesBrand}
+  inferenceShoesAdidas: ${file(./serverless/lambda/inference.yml):inferenceShoesAdidas}
+  inferenceShoesNike: ${file(./serverless/lambda/inference.yml):inferenceShoesNike}
+  inferenceShoesPuma: ${file(./serverless/lambda/inference.yml):inferenceShoesPuma}
+  inferenceShoesReebok: ${file(./serverless/lambda/inference.yml):inferenceShoesReebok}
 
   # detectTrousersBrand
   # detectLevisTrousers
