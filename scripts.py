@@ -76,8 +76,12 @@ List of available commands:
     html-docs               - bundle openapi.yml specs to get webpage of documentation
     postman-docs            - bundle openapi.yml specs to get postman collection
 
-    # google colab
+    ### google colab
     start-colab-brand       - start google colab brand detection notebook
+
+    ### start local scrape
+    catalog                 - start catalog scraping process
+    detail <number>         - start <number >detail scraping processes in a recursive manner
 
     ### authorization
     get-apikey              - get latest apiket stored in secretsmanager
