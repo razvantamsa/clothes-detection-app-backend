@@ -15,7 +15,7 @@ except Exception as e:
 # parameters
 weight_file_name = os.getenv('WEIGHT_FILE_NAME')
 data_bucket = os.getenv('DATA_BUCKET')
-prefix = os.getenv('PREFIX')
+prefix = os.getenv('PREFIX') or ''
 
 print('here we go: ', weight_file_name, data_bucket)
 
