@@ -1,0 +1,6 @@
+definition:
+    path: ./
+    file: ./src/scraper/base.Dockerfile
+    cacheFrom:
+      - base-image
+    platform: linux/amd64
