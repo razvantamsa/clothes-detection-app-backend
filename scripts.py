@@ -2,7 +2,7 @@ import subprocess
 import sys
 import os
 import webbrowser
-
+import json
 
 def check_for_aws_credentials():
     has_credentials = True
@@ -81,7 +81,7 @@ List of available commands:
 
     ### start local scrape
     catalog                 - start catalog scraping process
-    detail <number>         - start <number >detail scraping processes in a recursive manner
+    detail                  - start detail scraping processes in a recursive manner
 
     ### authorization
     get-apikey              - get latest apiket stored in secretsmanager
@@ -144,6 +144,21 @@ elif command == 'start-colab-brand':
     url = os.environ.get('GOOGLE_COLAB_BRAND_DETECTION')
     webbrowser.open(url)
     sys.exit()
+
+# local scraping
+elif command == 'catalog' or command == 'detail':
+    json_file_path = "local-scrape/arguments.json"
+    with open(json_file_path, "r") as file:
+        data = json.load(file)
+
+    if command == 'catalog':
+        baseUrl = data["baseUrl"]
+        execution_command = f'node local-scrape/catalog.js {baseUrl}'
+
+    if command == 'detail':
+        type = data["type"]
+        brand = data["brand"]
+        execution_command = f'node local-scrape/detail.js {type} {brand}'
 
 else:
     print('Command does not exist - try checking out available commands using "help"')
