@@ -9,7 +9,7 @@ provider:
   logRetentionInDays: 14
   ecr:
     images:
-      base-image: ${file(./serverless/ecr/base.yml):definition}
+      base-image: ${file(./serverless/ecr/inference.base.yml):definition}
   iamRoleStatements:
     - Effect: Allow
       Action:
