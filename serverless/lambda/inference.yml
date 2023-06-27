@@ -1,0 +1,38 @@
+  inferenceShoesBrand:
+    timeout: 900
+    image:
+      name: base-image
+    environment:
+      WEIGHT_FILE_NAME: 'shoe_brand_model_weights'
+
+  inferenceShoesAdidas:
+    timeout: 900
+    image:
+      name: base-image
+    environment:
+      WEIGHT_FILE_NAME: 'adidas_shoes_model_weights'
+      PREFIX: 'adidas/'
+
+  inferenceShoesNike:
+    timeout: 900
+    image:
+      name: base-image
+    environment:
+      WEIGHT_FILE_NAME: 'nike_shoes_model_weights'
+      PREFIX: 'nike/'
+
+  inferenceShoesPuma:
+    timeout: 900
+    image:
+      name: base-image
+    environment:
+      WEIGHT_FILE_NAME: 'puma_shoes_model_weights'
+      PREFIX: 'puma/'
+
+  inferenceShoesReebok:
+    timeout: 900
+    image:
+      name: base-image
+    environment:
+      WEIGHT_FILE_NAME: 'reebok_shoes_model_weights'
+      PREFIX: 'reebok/'
