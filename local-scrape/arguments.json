@@ -1,8 +1,6 @@
 {
-    "catalog": {
-        "baseUrl": ""
-    },
-    "detail": {
-        "iterations": ""
-    }
+    
+    "baseUrl": "",
+    "type": "",
+    "brand": ""
 }
