@@ -10,12 +10,12 @@ const { selectResources } = require('../../utils/middelware/selectResources');
  * return status: /processed + relevant data / to be processed
  */
 
-const { DYNAMODB_SCAN_TABLE, S3_SCAN_BUCKET, SCAN_TABLE_GSI_NAME } = process.env;
+const { APP_DYNAMODB_SCAN_TABLE, APP_S3_SCAN_BUCKET, APP_SCAN_TABLE_GSI_NAME } = process.env;
 
 async function getChildren (dataId) {
     const children = await queryTableByGSI(
-        DYNAMODB_SCAN_TABLE,
-        SCAN_TABLE_GSI_NAME,
+        APP_DYNAMODB_SCAN_TABLE,
+        APP_SCAN_TABLE_GSI_NAME,
         { userName: dataId }
     );
 
@@ -27,7 +27,7 @@ async function getChildren (dataId) {
 
 async function getParent (userName) {
     const parents = await scanTableByHash(
-        DYNAMODB_SCAN_TABLE,
+        APP_DYNAMODB_SCAN_TABLE,
         { dataId: userName }
     );
     
@@ -40,7 +40,7 @@ router.get('/:dataId', async (req, res) => {
         const { dataId } = req.params;
         const userName = req.headers.user;
 
-        const scanResult = await getDynamoDB(DYNAMODB_SCAN_TABLE, { dataId, userName });
+        const scanResult = await getDynamoDB(APP_DYNAMODB_SCAN_TABLE, { dataId, userName });
 
         if(scanResult.status !== 'unprocessed') {
             // scan for children
@@ -50,7 +50,7 @@ router.get('/:dataId', async (req, res) => {
             scanResult.parent = await getParent(userName);
         }
 
-        const image = await getSignedUrl(S3_SCAN_BUCKET, dataId);
+        const image = await getSignedUrl(APP_S3_SCAN_BUCKET, dataId);
 
         if(!!scanResult.parent && scanResult.brand && scanResult.model) {
             const [DYNAMODB_TABLE, S3_BUCKET] = selectResources(scanResult.type);

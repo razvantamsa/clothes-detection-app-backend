@@ -2,7 +2,7 @@ const { invokeAsyncFunction } = require('../../utils/aws/lambda');
 const utils = require('../../utils/scraping/cheerio/catalog.utils');
 const { loadHtml } = require('../../utils/scraping/cheerio/init');
 
-const { MAX_PRODUCT_LIMIT } = process.env;
+const { APP_MAX_PRODUCT_LIMIT } = process.env;
 
 exports.handler = async (event, context) => {
     console.log('Event payload: ', event);
@@ -11,7 +11,7 @@ exports.handler = async (event, context) => {
     let url = baseUrl;
 
     try {
-        while(products.length <= MAX_PRODUCT_LIMIT && url) {
+        while(products.length <= APP_MAX_PRODUCT_LIMIT && url) {
             const $ = await loadHtml(url);
             const foundProducts = utils.scrapeProductsFromPage($);
             url = utils.scrapeNextPageHref($);

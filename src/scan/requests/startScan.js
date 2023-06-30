@@ -11,7 +11,7 @@ const router = express.Router();
  * trigger processing lambda for s3 image
  */
 
-const { DYNAMODB_SCAN_TABLE, S3_SCAN_BUCKET } = process.env;
+const { APP_DYNAMODB_SCAN_TABLE, APP_S3_SCAN_BUCKET } = process.env;
 
 router.post('/', async (req, res) => {
     try {
@@ -22,14 +22,14 @@ router.post('/', async (req, res) => {
         const dataId = calculateImageHash(file.data);
 
         await postS3(
-            S3_SCAN_BUCKET, 
+            APP_S3_SCAN_BUCKET, 
             dataId, 
             file.data,
             file.data.length,
             "image/jpeg"
         );
 
-        await postDynamoDB(DYNAMODB_SCAN_TABLE, { 
+        await postDynamoDB(APP_DYNAMODB_SCAN_TABLE, { 
             dataId, 
             userName, 
             status: 'unprocessed',

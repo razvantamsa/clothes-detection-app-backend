@@ -2,7 +2,7 @@ const { updateItem: updateDynamoDB } = require("../../utils/aws/dynamodb");
 const { invokeSyncFunction } = require("../../utils/aws/lambda");
 const { parseResponseBody, capitalize } = require("../../utils/scanning/parse");
 
-const { DYNAMODB_SCAN_TABLE } = process.env;
+const { APP_DYNAMODB_SCAN_TABLE } = process.env;
 
 exports.handler = async (event, context) => {
     console.log('Event payload: ', event);
@@ -25,7 +25,7 @@ exports.handler = async (event, context) => {
     const inferenceModel = parseResponseBody(responseModel);
     
     // update scan entry in dynamodb
-    await updateDynamoDB(DYNAMODB_SCAN_TABLE,
+    await updateDynamoDB(APP_DYNAMODB_SCAN_TABLE,
         { dataId: dataId, userName: parentDataId },
         { status: 'processed', brand: inferenceBrand.predicted_class, model: inferenceModel.predicted_class },
     );
