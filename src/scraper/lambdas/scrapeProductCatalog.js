@@ -2,7 +2,7 @@ const { invokeAsyncFunction } = require('../../utils/aws/lambda');
 const utils = require('../../utils/scraping/cheerio/catalog.utils');
 const { loadHtml } = require('../../utils/scraping/cheerio/init');
 
-const { APP_MAX_PRODUCT_LIMIT } = process.env;
+const { APP_MAX_PRODUCT_LIMIT, APP_WORKER_PRODUCT_LIMIT } = process.env;
 
 exports.handler = async (event, context) => {
     console.log('Event payload: ', event);
@@ -23,6 +23,9 @@ exports.handler = async (event, context) => {
     }
 
     console.log(products.length);
+
+    const splitProducts = splitArray(products, APP_WORKER_PRODUCT_LIMIT);
+    console.log(splitProducts);
 
     await invokeAsyncFunction(
         'clothes-detection-scraper-dev-scrapeProductDetail',
