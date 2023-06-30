@@ -40,7 +40,44 @@ async function invokeSyncFunction(FunctionName, payload) {
   }
 }
 
+async function createLambdaFromEcr(FunctionName, Role, ImageUri, Variables) {
+  const params = {
+    FunctionName,
+    Code: { ImageUri },
+    Role,
+    PackageType: 'Image',
+    Architectures: ['x86_64'],
+    Timeout: 900,
+    MemorySize: 2048,
+    Environment: { Variables },
+    TracingConfig: { Mode: 'PassThrough' },
+  }
+
+  try {
+    const response = await lambda.createFunction(params).promise();
+    return response.FunctionArn;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+}
+
+async function deleteLambda(functionName, accountId) {
+  const params = {
+      FunctionName: `arn:aws:lambda:${process.env.AWS_REGION}:${accountId}:function:${functionName}`,
+  };
+
+  try {
+      await lambda.deleteFunction(params).promise();
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+}
+
 module.exports = {
     invokeAsyncFunction,
-    invokeSyncFunction
+    invokeSyncFunction,
+    createLambdaFromEcr,
+    deleteLambda
 }
