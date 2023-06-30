@@ -75,9 +75,21 @@ async function deleteLambda(functionName, accountId) {
   }
 }
 
+async function checkLambdaState(FunctionName) {
+  try {
+    const params = { FunctionName };
+    const response = await lambda.getFunctionConfiguration(params).promise();
+    return response.State;  
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+}
+
 module.exports = {
     invokeAsyncFunction,
     invokeSyncFunction,
     createLambdaFromEcr,
-    deleteLambda
+    deleteLambda,
+    checkLambdaState
 }
