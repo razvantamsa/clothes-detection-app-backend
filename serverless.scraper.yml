@@ -22,6 +22,7 @@ provider:
     DYNAMODB_SHOES_TABLE: 'shoes-table'
     S3_SHOES_BUCKET: 'clothes-detection-shoes-bucket'
     MAX_PRODUCT_LIMIT: 400
+    PRODUCT_RATE_LIMIT: 20
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -29,9 +30,9 @@ provider:
         - s3:*
         - lambda:*
         - secretsmanager:*
+        - sts:*
       Resource: "*"
 
 functions:
   startScrapingProcess: ${file(./serverless/lambda/scraper.yml):startScrapingProcess}
   scrapeProductCatalog: ${file(./serverless/lambda/scraper.yml):scrapeProductCatalog}
-  scrapeProductDetail: ${file(./serverless/lambda/scraper.yml):scrapeProductDetail}
