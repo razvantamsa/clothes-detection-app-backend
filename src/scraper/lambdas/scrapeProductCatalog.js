@@ -1,8 +1,13 @@
-const { invokeAsyncFunction } = require('../../utils/aws/lambda');
+const { invokeAsyncFunction, createLambdaFromEcr, checkLambdaState } = require('../../utils/aws/lambda');
+const { getCallerIdentity } = require('../../utils/aws/securitytokenservice');
 const utils = require('../../utils/scraping/cheerio/catalog.utils');
 const { loadHtml } = require('../../utils/scraping/cheerio/init');
+const { getLambdaRole, getBaseImageUri, getEnvironmentVariables } = require('../../utils/scraping/parse');
+const { splitArray } = require('../../utils/scraping/splitArray');
 
 const { APP_MAX_PRODUCT_LIMIT, APP_WORKER_PRODUCT_LIMIT } = process.env;
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 exports.handler = async (event, context) => {
     console.log('Event payload: ', event);
@@ -27,9 +32,21 @@ exports.handler = async (event, context) => {
     const splitProducts = splitArray(products, APP_WORKER_PRODUCT_LIMIT);
     console.log(splitProducts);
 
-    await invokeAsyncFunction(
-        'clothes-detection-scraper-dev-scrapeProductDetail',
-        { type, hrefs: products, brand },
-    );
+    const unixTimestamp = Math.floor(Date.now() / 1000);
+    const { Account: accountId } = await getCallerIdentity();
+    const role = getLambdaRole(accountId);
+    const imageUri = getBaseImageUri(accountId);
+    const envVars = getEnvironmentVariables('/aws/lambda/scrape-detail');
 
+    for (const [index, element] of splitProducts.entries()) {
+        const functionName = `scrape-detail-worker-${index}-${unixTimestamp}`;
+        await createLambdaFromEcr(functionName, role, imageUri, envVars);
+
+        let functionState = '';
+        while(functionState !== 'Active') {
+            await delay(5000);
+            functionState = await checkLambdaState(functionName);
+        }
+        await invokeAsyncFunction(functionName, { type, hrefs: element, brand });
+    };
 };
