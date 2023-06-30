@@ -13,3 +13,4 @@ dev:
   APP_S3_SHOES_BUCKET: 'clothes-detection-shoes-bucket'
 
   APP_MAX_PRODUCT_LIMIT: 400
+  APP_WORKER_PRODUCT_LIMIT: 20
