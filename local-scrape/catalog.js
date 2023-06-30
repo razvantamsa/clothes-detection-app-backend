@@ -2,13 +2,13 @@ const fs = require('fs').promises;
 const utils = require('../src/utils/scraping/cheerio/catalog.utils');
 const { loadHtml } = require('../src/utils/scraping/cheerio/init');
 
-const { MAX_PRODUCT_LIMIT } = process.env;
+const { APP_MAX_PRODUCT_LIMIT } = process.env;
 
 async function scrapeCatalog(url) {
     let products = [];
 
     try {
-        while(products.length <= MAX_PRODUCT_LIMIT && url) {
+        while(products.length <= APP_MAX_PRODUCT_LIMIT && url) {
             const $ = await loadHtml(url);
             const foundProducts = utils.scrapeProductsFromPage($);
             url = utils.scrapeNextPageHref($)

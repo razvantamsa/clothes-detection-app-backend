@@ -3,7 +3,7 @@ const fs = require('fs');
 const { getItem, headItem } = require('../../utils/aws/s3');
 const router = express.Router();
 
-const { S3_ASSETS_BUCKET } = process.env;
+const { APP_S3_ASSETS_BUCKET } = process.env;
 const DOCS_FILE_PATH = '/tmp/openapi.html', DOCS_FILE_NAME = 'openapi.html';
 
 let lastModified = '';
@@ -17,7 +17,7 @@ async function mountDocsLocally(data) {
 }
 
 async function getDocumentation() {
-    const fileData = await headItem(S3_ASSETS_BUCKET, DOCS_FILE_NAME);
+    const fileData = await headItem(APP_S3_ASSETS_BUCKET, DOCS_FILE_NAME);
     const unixTimestamp = new Date(fileData.LastModified).getTime() / 1000;
     
     const fileExists = fs.existsSync(DOCS_FILE_PATH);
@@ -26,7 +26,7 @@ async function getDocumentation() {
         lastModified = unixTimestamp;
         downloadToggle = true;
 
-        const data = await getItem(S3_ASSETS_BUCKET, DOCS_FILE_NAME);
+        const data = await getItem(APP_S3_ASSETS_BUCKET, DOCS_FILE_NAME);
         mountDocsLocally(data);
         return data.Body.toString('utf-8');
     }

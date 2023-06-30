@@ -3,13 +3,13 @@ const { postItem } = require('../../utils/aws/s3');
 const { authorizerMiddleware } = require('../../utils/authorizer/authorizer');
 const router = express.Router();
 
-const { S3_ASSETS_BUCKET } = process.env;
+const { APP_S3_ASSETS_BUCKET } = process.env;
 
 router.post('/', authorizerMiddleware, async (req, res) => {
     try {
         const file = req.files.docs;
         await postItem(
-            S3_ASSETS_BUCKET,
+            APP_S3_ASSETS_BUCKET,
             file.name,
             file.data,
             file.data.length,
