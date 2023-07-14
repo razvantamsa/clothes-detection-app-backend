@@ -31,3 +31,8 @@ resources:
     ShoesTable: ${file(./serverless/dynamodb/shoes-table.yml):ShoesTable}
     ScanTable: ${file(./serverless/dynamodb/scan-table.yml):ScanTable}
 
+    StatusLogGroup: ${file(./serverless/cloudwatch/status.yml):StatusLogGroup}
+    StatusLogStream: ${file(./serverless/cloudwatch/status.yml):StatusLogStream}
+    StatusSuccessMetricFilter: ${file(./serverless/cloudwatch/status.yml):StatusSuccessMetricFilter}
+    StatusErrorMetricFilter: ${file(./serverless/cloudwatch/status.yml):StatusErrorMetricFilter}
+

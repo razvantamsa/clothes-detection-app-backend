@@ -1,0 +1,31 @@
+StatusLogGroup:
+  Type: AWS::Logs::LogGroup
+  Properties:
+    LogGroupName: microservice/status
+    RetentionInDays: 30
+
+StatusLogStream:
+  Type: AWS::Logs::LogStream
+  Properties:
+    LogGroupName: microservice/status
+    LogStreamName: index
+
+StatusErrorMetricFilter:
+  Type: AWS::Logs::MetricFilter
+  Properties:
+    LogGroupName: microservice/status
+    FilterPattern: "ERROR"
+    MetricTransformations:
+      - MetricValue: "1"
+        MetricNamespace: "StatusErrorNamespace"
+        MetricName: "ErrorCount"
+
+StatusSuccessMetricFilter:
+  Type: AWS::Logs::MetricFilter
+  Properties:
+    LogGroupName: microservice/status
+    FilterPattern: "INFO"
+    MetricTransformations:
+      - MetricValue: "1"
+        MetricNamespace: "StatusSuccessNamespace"
+        MetricName: "SuccessCount"
