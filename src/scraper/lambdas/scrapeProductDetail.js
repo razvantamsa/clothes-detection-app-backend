@@ -7,7 +7,7 @@ const { invokeAsyncFunction } = require("../../utils/aws/lambda");
 const { uploadStreamToS3 } = require('../../utils/aws/s3');
 const { postItem: postDynamoDB } = require("../../utils/aws/dynamodb");
 const { default: axios } = require('axios');
-const { selectResources } = require('../../utils/middelware/selectResources');
+const { selectResources } = require('../../utils/middelware/verifyTypeHeader');
 
 exports.handler = async (event, context) => {
     console.log('Event payload:', event);

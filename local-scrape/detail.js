@@ -4,9 +4,9 @@ const { loadHtml } = require('../src/utils/scraping/cheerio/init');
 const { loadDynamicPage } = require('../src/utils/scraping/puppeteer/init');
 const staticUtils = require('../src/utils/scraping/cheerio/detail.utils');
 const dynamicUtils = require('../src/utils/scraping/puppeteer/detail.utils');
-const { selectResources } = require('../src/utils/middelware/selectResources');
 const { uploadStreamToS3 } = require('../src/utils/aws/s3');
 const { postItem } = require('../src/utils/aws/dynamodb');
+const { selectResources } = require('../src/utils/middelware/verifyTypeHeader');
 
 const fs = require('fs').promises;
 

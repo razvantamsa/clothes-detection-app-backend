@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { getItem: getDynamoDB, queryTableByGSI, scanTableByHash, getItem } = require('../../utils/aws/dynamodb');
 const { getSignedUrl } = require('../../utils/aws/s3');
-const { selectResources } = require('../../utils/middelware/selectResources');
+const { selectResources } = require('../../utils/middelware/verifyTypeHeader');
 
 // workflow:
 /**
