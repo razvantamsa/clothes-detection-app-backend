@@ -11,4 +11,27 @@ if (!process.env.AWS_EXECUTION_ENV) {
 
 const cloudWatchLogs = new AWS.CloudWatchLogs()
 
-module.exports = { cloudWatchLogs }
+const listLogGroups = async () => {
+    try {
+        const response = await cloudWatchLogs.describeLogGroups({}).promise();
+        const logGroups = response.logGroups;
+        return logGroups.map(logGroup => logGroup.logGroupName);
+    } catch (error) {
+        throw new Error(error);
+    }
+  };
+  
+
+const deleteLogGroup = async (logGroupName) => {
+    try {
+        await cloudWatchLogs.deleteLogGroup({ logGroupName }).promise();
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+module.exports = { 
+    listLogGroups,
+    deleteLogGroup,
+    cloudWatchLogs 
+}
