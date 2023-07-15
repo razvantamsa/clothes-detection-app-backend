@@ -1,6 +1,9 @@
 service: clothes-detection-status
 frameworkVersion: '3'
 
+plugins:
+  - serverless-hooks-plugin
+
 provider:
   name: aws
   runtime: nodejs18.x
@@ -21,3 +24,8 @@ provider:
 
 functions:
   status: ${file(./serverless/lambda/status.yml):status}
+
+custom:
+  hooks:
+    after:deploy:finalize:
+      - echo 'Custom hook after deployment'
