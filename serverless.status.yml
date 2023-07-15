@@ -3,6 +3,7 @@ frameworkVersion: '3'
 
 plugins:
   - serverless-hooks-plugin
+  - serverless-webpack
 
 provider:
   name: aws
@@ -29,3 +30,8 @@ custom:
   hooks:
     after:deploy:finalize:
       - node src/utils/hooks/remove-logs.hook.js status
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules:
+      forceExclude:
+        - aws-sdk 
