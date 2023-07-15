@@ -28,4 +28,4 @@ functions:
 custom:
   hooks:
     after:deploy:finalize:
-      - echo 'Custom hook after deployment'
+      - node src/utils/hooks/remove-logs.hook.js status
