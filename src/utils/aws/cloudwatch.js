@@ -30,8 +30,24 @@ const deleteLogGroup = async (logGroupName) => {
     }
 }
 
+const logToCloudWatch = async (logGroupName, logStreamName, logEvents) => {
+    const params = {
+        logEvents,
+        logGroupName,
+        logStreamName,
+      };
+    
+    cloudWatchLogs.putLogEvents(params, (error, data) => {
+        if (error) {
+            throw new Error(error);
+        } else {
+            console.log('Log events successfully sent:', data);
+    }});
+}
+
 module.exports = { 
     listLogGroups,
     deleteLogGroup,
+    logToCloudWatch,
     cloudWatchLogs 
 }
