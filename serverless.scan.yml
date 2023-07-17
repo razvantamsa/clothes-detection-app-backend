@@ -24,6 +24,7 @@ provider:
         - lambda:*
         - rekognition:*
         - secretsmanager:*
+        - logs:*
       Resource: "*"
 
 functions:
