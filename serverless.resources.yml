@@ -61,6 +61,11 @@ resources:
     ScanLogStream: ${file(./serverless/cloudwatch/scan.yml):ScanLogStream}
     ScanSuccessMetricFilter: ${file(./serverless/cloudwatch/scan.yml):ScanSuccessMetricFilter}
     ScanErrorMetricFilter: ${file(./serverless/cloudwatch/scan.yml):ScanErrorMetricFilter}
+
+    InferenceLogGroup: ${file(./serverless/cloudwatch/inference.yml):InferenceLogGroup}
+    InferenceLogStream: ${file(./serverless/cloudwatch/inference.yml):InferenceLogStream}
+    InferenceSuccessMetricFilter: ${file(./serverless/cloudwatch/inference.yml):InferenceSuccessMetricFilter}
+    InferenceErrorMetricFilter: ${file(./serverless/cloudwatch/inference.yml):InferenceErrorMetricFilter}
 custom:
   hooks:
     after:deploy:finalize:
