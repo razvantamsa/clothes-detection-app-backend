@@ -4,12 +4,12 @@ const logging = (logGroupName, logStreamName, level, message) => {
   if(!message) {
     return;
   }
-  
+
   const functionName = process.env.AWS_LAMBDA_FUNCTION_NAME || 'unknown';
-  const logEvent = {
+  const logEvent = [{
     message: `${level}: ${functionName} - ${message}`,
     timestamp: Date.now(),
-  };
+  }];
 
   logToCloudWatch(logGroupName, logStreamName, logEvent);
 };
