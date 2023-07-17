@@ -1,0 +1,34 @@
+RESTLogGroup:
+  Type: AWS::Logs::LogGroup
+  Properties:
+    LogGroupName: microservice/rest
+    RetentionInDays: 30
+
+RESTLogStream:
+  Type: AWS::Logs::LogStream
+  DependsOn: [RESTLogGroup]
+  Properties:
+    LogGroupName: microservice/rest
+    LogStreamName: index
+
+RESTErrorMetricFilter:
+  Type: AWS::Logs::MetricFilter
+  DependsOn: [RESTLogGroup, RESTLogStream]
+  Properties:
+    LogGroupName: microservice/rest
+    FilterPattern: "ERROR"
+    MetricTransformations:
+      - MetricValue: "1"
+        MetricNamespace: "RESTErrorNamespace"
+        MetricName: "ErrorCount"
+
+RESTSuccessMetricFilter:
+  Type: AWS::Logs::MetricFilter
+  DependsOn: [RESTLogGroup, RESTLogStream]
+  Properties:
+    LogGroupName: microservice/rest
+    FilterPattern: "INFO"
+    MetricTransformations:
+      - MetricValue: "1"
+        MetricNamespace: "RESTSuccessNamespace"
+        MetricName: "SuccessCount"
