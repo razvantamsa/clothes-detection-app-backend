@@ -6,12 +6,14 @@ StatusLogGroup:
 
 StatusLogStream:
   Type: AWS::Logs::LogStream
+  DependsOn: [StatusLogGroup]
   Properties:
     LogGroupName: microservice/status
     LogStreamName: index
 
 StatusErrorMetricFilter:
   Type: AWS::Logs::MetricFilter
+  DependsOn: [StatusLogGroup, StatusLogStream]
   Properties:
     LogGroupName: microservice/status
     FilterPattern: "ERROR"
@@ -22,6 +24,7 @@ StatusErrorMetricFilter:
 
 StatusSuccessMetricFilter:
   Type: AWS::Logs::MetricFilter
+  DependsOn: [StatusLogGroup, StatusLogStream]
   Properties:
     LogGroupName: microservice/status
     FilterPattern: "INFO"
