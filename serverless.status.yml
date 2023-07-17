@@ -21,6 +21,7 @@ provider:
         - s3:*
         - lambda:*
         - secretsmanager:*
+        - logs:*
       Resource: "*"
 
 functions:
