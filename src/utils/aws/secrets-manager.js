@@ -18,8 +18,7 @@ async function getSecretValue(secretName) {
         return secretValue;
   
     } catch (error) {
-      console.error('Error:', error);
-      throw error;
+      throw new Error(error);
     }
 }
 
@@ -31,8 +30,7 @@ async function updateSecretValue(SecretId, newSecret) {
         }
         await secretsManager.updateSecret(params).promise();  
     } catch (error) {
-      console.error('Error:', error);
-      throw error;
+      throw new Error(error);
     }
 }
 
