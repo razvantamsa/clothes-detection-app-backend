@@ -1,41 +1,23 @@
-create:
+rest:
   handler: src/rest/index.handler
+  environment:
+    SERVICE: rest
   events:
     - http:
         method: post
         path: api
-
-listBrands:
-  handler: src/rest/index.handler
-  events:
     - http:
         method: get
         path: api
-
-listModels:
-  handler: src/rest/index.handler
-  events:
     - http:
         method: get
         path: api/{brand}
-
-get:
-  handler: src/rest/index.handler
-  events:
     - http:
         method: get
         path: api/{brand}/{model}
-
-update:
-  handler: src/rest/index.handler
-  events:
     - http:
         method: put
         path: api/{brand}/{model}
-
-delete:
-  handler: src/rest/index.handler
-  events:
     - http:
         method: delete
         path: api/{brand}/{model}

@@ -1,28 +1,26 @@
-startScan:
+scan:
   handler: src/scan/index.handler
+  environment:
+    SERVICE: scan
   events:
     - http:
         method: post
         path: scan
-
-getScanResult:
-  handler: src/scan/index.handler
-  events:
     - http:
         method: get
         path: scan/{dataId}
-
-getScanByUser:
-  handler: src/scan/index.handler
-  events:
     - http:
         method: get
         path: scan
 
 extractFeatures:
   handler: src/scan/lambdas/extractFeatures.handler
+  environment:
+    SERVICE: scan
   timeout: 900
 
 detection:
   handler: src/scan/lambdas/detection.handler
+  environment:
+    SERVICE: scan
   timeout: 900

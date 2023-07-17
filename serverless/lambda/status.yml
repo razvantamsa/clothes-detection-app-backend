@@ -1,20 +1,14 @@
-getDocs:
-  handler: src/status/index.handler
-  events:
+status:
+    handler: src/status/index.handler
+    environment:
+        SERVICE: status
+    events:
     - http:
         method: get
         path: docs
-
-postDocs:
-  handler: src/status/index.handler
-  events:
     - http:
         method: post
         path: docs
-
-healthcheck:
-  handler: src/status/index.handler
-  events:
     - http:
         method: get
         path: healthcheck

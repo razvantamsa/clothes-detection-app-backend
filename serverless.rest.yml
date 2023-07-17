@@ -1,6 +1,10 @@
 service: clothes-detection-rest
 frameworkVersion: '3'
 
+plugins:
+  - serverless-hooks-plugin
+  - serverless-webpack
+
 provider:
   name: aws
   runtime: nodejs18.x
@@ -19,12 +23,18 @@ provider:
         - s3:*
         - lambda:*
         - secretsmanager:*
+        - logs:*
       Resource: "*"
 
 functions:
-  create: ${file(./serverless/lambda/rest.yml):create}
-  listBrands: ${file(./serverless/lambda/rest.yml):listBrands}
-  listModels: ${file(./serverless/lambda/rest.yml):listModels}
-  get: ${file(./serverless/lambda/rest.yml):get}
-  update: ${file(./serverless/lambda/rest.yml):update}
-  delete: ${file(./serverless/lambda/rest.yml):delete}
+  rest: ${file(./serverless/lambda/rest.yml):rest}
+
+custom:
+  hooks:
+    after:deploy:finalize:
+      - node src/utils/hooks/remove-logs.hook.js rest
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules:
+      forceExclude:
+        - aws-sdk 

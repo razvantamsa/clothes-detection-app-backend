@@ -137,7 +137,7 @@ elif command == 'postman-docs':
 
 # authorization
 elif command == 'get-apikey':
-    execution_command = 'aws secretsmanager get-secret-value --secret-id authorization --query SecretString --output text | tr -d \'"\''
+    execution_command = 'aws secretsmanager get-secret-value --secret-id authorization --query SecretString --output text --profile clothes-detection-app --region us-west-2 | tr -d \'"\''
 
 # machine learning
 elif command == 'start-colab-brand':

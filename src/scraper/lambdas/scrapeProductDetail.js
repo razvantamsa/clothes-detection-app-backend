@@ -7,15 +7,16 @@ const { invokeAsyncFunction } = require("../../utils/aws/lambda");
 const { uploadStreamToS3 } = require('../../utils/aws/s3');
 const { postItem: postDynamoDB } = require("../../utils/aws/dynamodb");
 const { default: axios } = require('axios');
-const { selectResources } = require('../../utils/middelware/selectResources');
+const { selectResources } = require('../../utils/middelware/verifyTypeHeader');
+const logger = require('../../utils/logger')();
 
 exports.handler = async (event, context) => {
-    console.log('Event payload:', event);
+    logger.info('Event payload:', event);
     let { type, hrefs, brand } = event;
     const [DYNAMODB_TABLE, S3_BUCKET] = selectResources(type);
 
     if(!hrefs.length) {
-        console.log('Finished scraping');
+        logger.info('Finished scraping');
         return;
     }
 
@@ -43,17 +44,17 @@ exports.handler = async (event, context) => {
             const uploadStream = new stream.PassThrough();
             response.data.pipe(uploadStream);
             const key = `${brand}/${name}/pic${index}`;
-            console.log({ key });
+            logger.info({ key });
             const result = await uploadStreamToS3(S3_BUCKET, key, uploadStream);
-            console.log(result);
+            logger.info(result);
         }
         
         const uploadObject = { brand, model: name, color, rating, nrOfReviews, price, ...data };
         const result = await postDynamoDB(DYNAMODB_TABLE, uploadObject);
-        console.log(result);
+        logger.info(result);
 
     } catch (err) {
-        console.log(err.message);
+        logger.error(err);
     }
 
     await invokeAsyncFunction(

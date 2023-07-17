@@ -1,6 +1,10 @@
 service: clothes-detection-scan
 frameworkVersion: '3'
 
+plugins:
+  - serverless-hooks-plugin
+  - serverless-webpack
+
 provider:
   name: aws
   runtime: nodejs18.x
@@ -20,11 +24,20 @@ provider:
         - lambda:*
         - rekognition:*
         - secretsmanager:*
+        - logs:*
       Resource: "*"
 
 functions:
-  startScan: ${file(./serverless/lambda/scan.yml):startScan}
-  getScanResult: ${file(./serverless/lambda/scan.yml):getScanResult}
-  getScanByUser: ${file(./serverless/lambda/scan.yml):getScanByUser}
+  scan: ${file(./serverless/lambda/scan.yml):scan}
   extractFeatures: ${file(./serverless/lambda/scan.yml):extractFeatures}
   detection: ${file(./serverless/lambda/scan.yml):detection}
+
+custom:
+  hooks:
+    after:deploy:finalize:
+      - node src/utils/hooks/remove-logs.hook.js scan
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules:
+      forceExclude:
+        - aws-sdk 

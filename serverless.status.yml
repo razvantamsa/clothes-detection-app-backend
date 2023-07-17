@@ -1,6 +1,10 @@
 service: clothes-detection-status
 frameworkVersion: '3'
 
+plugins:
+  - serverless-hooks-plugin
+  - serverless-webpack
+
 provider:
   name: aws
   runtime: nodejs18.x
@@ -17,9 +21,18 @@ provider:
         - s3:*
         - lambda:*
         - secretsmanager:*
+        - logs:*
       Resource: "*"
 
 functions:
-  healthcheck: ${file(./serverless/lambda/status.yml):healthcheck}
-  getDocs: ${file(./serverless/lambda/status.yml):getDocs}
-  postDocs: ${file(./serverless/lambda/status.yml):postDocs}
+  status: ${file(./serverless/lambda/status.yml):status}
+
+custom:
+  hooks:
+    after:deploy:finalize:
+      - node src/utils/hooks/remove-logs.hook.js status
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules:
+      forceExclude:
+        - aws-sdk 

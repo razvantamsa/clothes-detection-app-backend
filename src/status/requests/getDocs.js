@@ -2,6 +2,8 @@ const express = require('express');
 const fs = require('fs');
 const { getItem, headItem } = require('../../utils/aws/s3');
 const router = express.Router();
+const logger = require('../../utils/logger')();
+
 
 const { APP_S3_ASSETS_BUCKET } = process.env;
 const DOCS_FILE_PATH = '/tmp/openapi.html', DOCS_FILE_NAME = 'openapi.html';
@@ -38,14 +40,14 @@ async function getDocumentation() {
 
 router.get('/', async (req, res) => {
     try {
-        const htmlContent = await getDocumentation()
+        const htmlContent = await getDocumentation();
         return res
             .status(200)
             .header('Content-Type', 'text/html')
             .send(htmlContent);
 
     } catch (err) {
-        console.log(err);
+        logger.error(err);
         res.status(400).send(err);
     }
 });

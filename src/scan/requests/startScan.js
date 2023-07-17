@@ -4,6 +4,7 @@ const { postItem: postS3 } = require('../../utils/aws/s3');
 const { postItem: postDynamoDB } = require('../../utils/aws/dynamodb');
 const { invokeAsyncFunction } = require('../../utils/aws/lambda');
 const router = express.Router();
+const logger = require('../../utils/logger')();
 
 // workflow:
 /**
@@ -44,7 +45,7 @@ router.post('/', async (req, res) => {
         return res.status(200).send({ dataId });
 
     } catch (err) {
-        console.log(err);
+        logger.error(err);
         return res.status(400).send(err.message);
     }
 });

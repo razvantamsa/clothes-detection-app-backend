@@ -1,6 +1,9 @@
 service: clothes-detection-inference
 frameworkVersion: '3'
 
+plugins:
+  - serverless-hooks-plugin
+
 provider:
   name: aws
   runtime: nodejs18.x
@@ -17,6 +20,7 @@ provider:
         - s3:*
         - lambda:*
         - secretsmanager:*
+        - logs:*
       Resource: "*"
   environment:
     DATA_BUCKET: 'clothes-detection-shoes-bucket'
@@ -39,3 +43,8 @@ functions:
   # detectTommyHilfigerShirts
   # detectGapShirts
   # detectUSPAShirts
+
+custom:
+  hooks:
+    after:deploy:finalize:
+      - node src/utils/hooks/remove-logs.hook.js inference
