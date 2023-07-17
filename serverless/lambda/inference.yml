@@ -4,6 +4,7 @@
       name: base-image
     environment:
       WEIGHT_FILE_NAME: 'shoe_brand_model_weights'
+      SERVICE: inference
 
   inferenceShoesAdidas:
     timeout: 900
@@ -12,6 +13,7 @@
     environment:
       WEIGHT_FILE_NAME: 'adidas_shoes_model_weights'
       PREFIX: 'adidas/'
+      SERVICE: inference
 
   inferenceShoesNike:
     timeout: 900
@@ -20,6 +22,7 @@
     environment:
       WEIGHT_FILE_NAME: 'nike_shoes_model_weights'
       PREFIX: 'nike/'
+      SERVICE: inference
 
   inferenceShoesPuma:
     timeout: 900
@@ -28,6 +31,7 @@
     environment:
       WEIGHT_FILE_NAME: 'puma_shoes_model_weights'
       PREFIX: 'puma/'
+      SERVICE: inference
 
   inferenceShoesReebok:
     timeout: 900
@@ -36,3 +40,4 @@
     environment:
       WEIGHT_FILE_NAME: 'reebok_shoes_model_weights'
       PREFIX: 'reebok/'
+      SERVICE: inference
