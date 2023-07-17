@@ -1,6 +1,10 @@
 service: clothes-detection-scraper
 frameworkVersion: '3'
 
+plugins:
+  - serverless-hooks-plugin
+  - serverless-webpack
+
 provider:
   name: aws
   runtime: nodejs18.x
@@ -19,9 +23,20 @@ provider:
         - s3:*
         - lambda:*
         - secretsmanager:*
+        - logs:*
       Resource: "*"
 
 functions:
   startScrapingProcess: ${file(./serverless/lambda/scraper.yml):startScrapingProcess}
   scrapeProductCatalog: ${file(./serverless/lambda/scraper.yml):scrapeProductCatalog}
   scrapeProductDetail: ${file(./serverless/lambda/scraper.yml):scrapeProductDetail}
+
+custom:
+  hooks:
+    after:deploy:finalize:
+      - node src/utils/hooks/remove-logs.hook.js scraper
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules:
+      forceExclude:
+        - aws-sdk 
