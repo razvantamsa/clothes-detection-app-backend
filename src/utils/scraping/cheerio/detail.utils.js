@@ -45,7 +45,6 @@ function getProductColor($) {
         const colorElement = $('#variation_color_name > div > .selection');
         return colorElement.text().trim();
     } catch (err) {
-        console.log(err.message);
         return '-';
     }
 }

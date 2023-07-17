@@ -21,8 +21,7 @@ async function invokeAsyncFunction(FunctionName, payload) {
   
       return lambda.invoke(params).promise(); // Invoke the function asynchronously
     } catch (error) {
-      console.error('Error:', error);
-      throw error;
+      throw new Error(error);
     }
 }
 
@@ -35,8 +34,7 @@ async function invokeSyncFunction(FunctionName, payload) {
 
     return lambda.invoke(params).promise(); // Invoke the function asynchronously
   } catch (error) {
-    console.error('Error:', error);
-    throw error;
+    throw new Error(error);
   }
 }
 
