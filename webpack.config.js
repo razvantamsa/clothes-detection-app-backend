@@ -6,7 +6,7 @@ module.exports = {
     mode: 'development',
     entry: slsw.lib.entries,
     target: 'node',
-    externals: [nodeExternals()],
+    externals: [nodeExternals({ allowlist: ['aws-sdk'] })],
     output: {
         libraryTarget: 'commonjs2',
         path: path.join(__dirname, '.webpack'),
