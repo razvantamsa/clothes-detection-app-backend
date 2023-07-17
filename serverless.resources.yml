@@ -1,6 +1,10 @@
 service: clothes-detection-resources
 frameworkVersion: '3'
 
+plugins:
+  - serverless-hooks-plugin
+  - serverless-webpack
+
 provider:
   name: aws
   runtime: nodejs18.x
@@ -11,10 +15,11 @@ provider:
     Action:
       - lambda:*
       - secretsmanager:*
+      - logs:*
     Resource: "*"
 
 functions:
-  apikeyRotation: ${file(./serverless/lambda/apikey-rotation.yml):ApikeyRotation}
+  apikeyRotation: ${file(./serverless/lambda/resources.yml):ApikeyRotation}
 
 resources:
   Resources:
@@ -31,6 +36,7 @@ resources:
     ShoesTable: ${file(./serverless/dynamodb/shoes-table.yml):ShoesTable}
     ScanTable: ${file(./serverless/dynamodb/scan-table.yml):ScanTable}
 
+    ### Monitoring
     StatusLogGroup: ${file(./serverless/cloudwatch/status.yml):StatusLogGroup}
     StatusLogStream: ${file(./serverless/cloudwatch/status.yml):StatusLogStream}
     StatusSuccessMetricFilter: ${file(./serverless/cloudwatch/status.yml):StatusSuccessMetricFilter}
@@ -40,3 +46,18 @@ resources:
     RESTLogStream: ${file(./serverless/cloudwatch/rest.yml):RESTLogStream}
     RESTSuccessMetricFilter: ${file(./serverless/cloudwatch/rest.yml):RESTSuccessMetricFilter}
     RESTErrorMetricFilter: ${file(./serverless/cloudwatch/rest.yml):RESTErrorMetricFilter}
+
+    ResourcesLogGroup: ${file(./serverless/cloudwatch/resources.yml):ResourcesLogGroup}
+    ResourcesLogStream: ${file(./serverless/cloudwatch/resources.yml):ResourcesLogStream}
+    ResourcesSuccessMetricFilter: ${file(./serverless/cloudwatch/resources.yml):ResourcesSuccessMetricFilter}
+    ResourcesErrorMetricFilter: ${file(./serverless/cloudwatch/resources.yml):ResourcesErrorMetricFilter}
+
+custom:
+  hooks:
+    after:deploy:finalize:
+      - node src/utils/hooks/remove-logs.hook.js resources
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules:
+      forceExclude:
+        - aws-sdk 
