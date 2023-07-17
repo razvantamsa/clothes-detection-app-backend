@@ -36,3 +36,7 @@ resources:
     StatusSuccessMetricFilter: ${file(./serverless/cloudwatch/status.yml):StatusSuccessMetricFilter}
     StatusErrorMetricFilter: ${file(./serverless/cloudwatch/status.yml):StatusErrorMetricFilter}
 
+    RESTLogGroup: ${file(./serverless/cloudwatch/rest.yml):RESTLogGroup}
+    RESTLogStream: ${file(./serverless/cloudwatch/rest.yml):RESTLogStream}
+    RESTSuccessMetricFilter: ${file(./serverless/cloudwatch/rest.yml):RESTSuccessMetricFilter}
+    RESTErrorMetricFilter: ${file(./serverless/cloudwatch/rest.yml):RESTErrorMetricFilter}
