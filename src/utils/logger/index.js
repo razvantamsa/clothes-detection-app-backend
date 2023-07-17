@@ -1,38 +1,18 @@
-const winston = require('winston');
-const WinstonCloudWatch = require('winston-cloudwatch');
-const { cloudWatchLogs } = require('../aws/cloudwatch');
+const { logToCloudWatch } = require("../aws/cloudwatch");
 
-const initLogger = (logGroupName, logStreamName) => {
-    const logger = winston.createLogger({
-        levels: {
-          info: 'info',
-          error: 'error',
-        },
-        format: winston.format.combine(
-          winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-          winston.format((info) => {
-            info.level = info.level.toUpperCase();
-            const functionName = process.env.AWS_LAMBDA_FUNCTION_NAME || 'local';
-            info.message = `${functionName}: ${info.message}`;
-            return info;
-          })(),
-          winston.format.printf(({ level, message }) => {
-            return `${level}: ${message}`;
-          })
-        ),
-        transports: [
-          new WinstonCloudWatch({
-            cloudWatchLogs,
-            logGroupName,
-            logStreamName,
-          }),
-        ],
-      });
+const logging = (logGroupName, logStreamName, level, message) => {
+    const functionName = process.env.AWS_LAMBDA_FUNCTION_NAME || 'unknown';
+    const logEvent = [{
+      message: `${level}: ${functionName} - ${message}`,
+      timestamp: Date.now(),
+    }];
+  
+    logToCloudWatch(logGroupName, logStreamName, logEvent);
+};
 
-    logger.info = (message) => logger.log('info', message);
-    logger.error = (message) => logger.log('error', message);
+const logger = (logGroupName = `microservice/${process.env.SERVICE}`, logStreamName = 'index') => ({
+    info: (message) => logging(logGroupName, logStreamName, 'INFO', message),
+    error: (message) => logging(logGroupName, logStreamName, 'ERROR', message),
+})
 
-    return logger;
-}
-
-module.exports = { initLogger }
+module.exports = logger;
