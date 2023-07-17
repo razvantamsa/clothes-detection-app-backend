@@ -57,6 +57,10 @@ resources:
     ScraperSuccessMetricFilter: ${file(./serverless/cloudwatch/scraper.yml):ScraperSuccessMetricFilter}
     ScraperErrorMetricFilter: ${file(./serverless/cloudwatch/scraper.yml):ScraperErrorMetricFilter}
 
+    ScanLogGroup: ${file(./serverless/cloudwatch/scan.yml):ScanLogGroup}
+    ScanLogStream: ${file(./serverless/cloudwatch/scan.yml):ScanLogStream}
+    ScanSuccessMetricFilter: ${file(./serverless/cloudwatch/scan.yml):ScanSuccessMetricFilter}
+    ScanErrorMetricFilter: ${file(./serverless/cloudwatch/scan.yml):ScanErrorMetricFilter}
 custom:
   hooks:
     after:deploy:finalize:
