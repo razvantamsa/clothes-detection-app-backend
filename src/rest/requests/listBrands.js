@@ -1,5 +1,6 @@
 const express = require('express');
 const { listItemsFromPath } = require('../../utils/aws/s3');
+const logger = require('../../utils/logger')();
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -16,7 +17,7 @@ router.get('/', async (req, res) => {
 
         res.status(200).send([...brands]);
     } catch (err) {
-        console.log(err);
+        logger.error(err);
         res.status(400).send(err.message);
     }
 });
