@@ -1,0 +1,34 @@
+InferenceLogGroup:
+  Type: AWS::Logs::LogGroup
+  Properties:
+    LogGroupName: microservice/inference
+    RetentionInDays: 30
+
+InferenceLogStream:
+  Type: AWS::Logs::LogStream
+  DependsOn: [InferenceLogGroup]
+  Properties:
+    LogGroupName: microservice/inference
+    LogStreamName: index
+
+InferenceErrorMetricFilter:
+  Type: AWS::Logs::MetricFilter
+  DependsOn: [InferenceLogGroup, InferenceLogStream]
+  Properties:
+    LogGroupName: microservice/inference
+    FilterPattern: "ERROR"
+    MetricTransformations:
+      - MetricValue: "1"
+        MetricNamespace: "InferenceErrorNamespace"
+        MetricName: "ErrorCount"
+
+InferenceSuccessMetricFilter:
+  Type: AWS::Logs::MetricFilter
+  DependsOn: [InferenceLogGroup, InferenceLogStream]
+  Properties:
+    LogGroupName: microservice/inference
+    FilterPattern: "INFO"
+    MetricTransformations:
+      - MetricValue: "1"
+        MetricNamespace: "InferenceSuccessNamespace"
+        MetricName: "SuccessCount"
