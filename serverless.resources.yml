@@ -66,9 +66,18 @@ resources:
     InferenceLogStream: ${file(./serverless/cloudwatch/inference.yml):InferenceLogStream}
     InferenceSuccessMetricFilter: ${file(./serverless/cloudwatch/inference.yml):InferenceSuccessMetricFilter}
     InferenceErrorMetricFilter: ${file(./serverless/cloudwatch/inference.yml):InferenceErrorMetricFilter}
+
+
+    ### EC2
+    BaseVpc: ${file(./serverless/ec2/vpc.yml):BaseVpc}
+    BaseVpcSecurityGroup: ${file(./serverless/ec2/vpc.yml):BaseVpcSecurityGroup}
+
+    ### Cache 
+    # RedisCluster:  ${file(./serverless/elasticache/cache.yml):RedisCluster}
+
 custom:
   hooks:
-    after:deploy:finalize:
+    after:deploy:removeLogs:
       - node src/utils/hooks/remove-logs.hook.js resources
   webpack:
     webpackConfig: ./webpack.config.js
