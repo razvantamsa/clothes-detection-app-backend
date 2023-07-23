@@ -131,6 +131,24 @@ elif command == 'dev-scan':
     execution_command = ['nodemon', 'src/scan']
     run_continuous_process(execution_command)
 
+# cache
+elif command == 'enable-cache':
+    REDIS_CACHE_CLUSTER = os.environ.get('REDIS_CACHE_CLUSTER')
+    execution_command = f'aws elasticache create-cache-cluster \
+    --cache-cluster-id {REDIS_CACHE_CLUSTER} \
+    --cache-node-type cache.t2.micro \
+    --num-cache-nodes 1 \
+    --engine redis \
+    --engine-version 6.x \
+    --port 6379 \
+    --security-group-ids sg-0456d623ed5d62f0c \
+    --profile clothes-detection-app --region us-west-2'
+elif command == 'disable-cache':
+    REDIS_CACHE_CLUSTER = os.environ.get('REDIS_CACHE_CLUSTER')
+    execution_command = f'aws elasticache delete-cache-cluster \
+    --cache-cluster-id {REDIS_CACHE_CLUSTER} \
+    --profile clothes-detection-app --region us-west-2'
+
 # docs
 elif command == 'html-docs':
     execution_command = 'redoc-cli bundle openapi.yml -o openapi.html'
@@ -139,7 +157,11 @@ elif command == 'postman-docs':
 
 # authorization
 elif command == 'get-apikey':
-    execution_command = 'aws secretsmanager get-secret-value --secret-id authorization --query SecretString --output text --profile clothes-detection-app --region us-west-2 | tr -d \'"\''
+    response = secrets_manager.get_secret_value(SecretId='authorization')
+    secret_string = response['SecretString']
+    secret_string = secret_string.replace("'", "")
+    print(secret_string)
+    sys.exit()
 
 # machine learning
 elif command == 'start-colab-brand':
