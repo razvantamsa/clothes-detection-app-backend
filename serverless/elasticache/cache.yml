@@ -1,0 +1,11 @@
+RedisCluster:
+  Type: AWS::ElastiCache::CacheCluster
+  Properties:
+    ClusterName: rest-redis-cluster
+    Engine: redis
+    EngineVersion: 6.x
+    CacheNodeType: cache.t3.small
+    NumCacheNodes: 1
+    Port: 6379
+    VpcSecurityGroupIds:
+      - sg-0456d623ed5d62f0c
