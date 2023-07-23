@@ -11,6 +11,34 @@ if (!process.env.AWS_EXECUTION_ENV) {
 
 const elasticache = new AWS.ElastiCache();
 
+const CacheClusterId = 'rest-redis-cluster';
+
+async function createCluster () {
+    try {
+        const createParams = {
+          CacheClusterId,
+          CacheNodeType: 'cache.t2.micro',
+          NumCacheNodes:1,
+          Engine: 'redis',
+          EngineVersion: '6.x',
+          Port: 6379,
+          VpcSecurityGroupIds: ['sg-0456d623ed5d62f0c']
+        };
+    
+        await elasticache.createCacheCluster(createParams).promise();
+      } catch (err) {
+        console.log("Error:", err);
+      }
+}
+
+async function deleteCluster() {
+    try {    
+        await elasticache.deleteCacheCluster({ CacheClusterId }).promise();
+      } catch (err) {
+        console.log("Error:", err);
+      }
+}
+
 async function getClusters () {
     try {
         return (await elasticache.describeCacheClusters({}).promise()).CacheClusters;
@@ -30,6 +58,8 @@ async function scaleClusterNodes(CacheClusterId, NumCacheNodes) {
 }
 
 module.exports = {
+    createCluster,
+    deleteCluster,
     getClusters,
     scaleClusterNodes
 }
