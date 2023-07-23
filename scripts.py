@@ -3,22 +3,24 @@ import sys
 import os
 import webbrowser
 import json
+from dotenv import load_dotenv
+import botocore.session
 
-def check_for_aws_credentials():
-    has_credentials = True
-    env_file = './src/utils/aws/credentials.env'
-    with open(env_file, 'r') as file:
-        lines = file.readlines()
-        aws_access_key_id = lines[0].strip()
-        aws_secret_access_key = lines[1].strip()
-    if not aws_access_key_id.startswith('ACCESS_KEY_ID=') or not aws_access_key_id.split('=')[1]:
-        has_credentials = False
-    if not aws_secret_access_key.startswith('SECRET_ACCESS_KEY=') or not aws_secret_access_key.split('=')[1]:
-        has_credentials =  False
-    
-    if not has_credentials:
-        print('Set AWS credentials in src/utils/aws/credentials.env')
-        sys.exit()
+load_dotenv('./src/utils/aws/credentials.env')
+access_key = os.environ.get('ACCESS_KEY_ID')
+secret_key = os.environ.get('SECRET_ACCESS_KEY')
+region = 'us-west-2'
+
+if not access_key or not secret_key:
+    print('Set AWS credentials in src/utils/`aws/credentials.env`')
+    sys.exit()
+
+# Create a new session and set credentials and region
+session = botocore.session.get_session()
+session.set_credentials(access_key, secret_key)
+session.set_config_variable('region', region)
+
+secrets_manager = session.create_client('secretsmanager')
 
 def check_for_environmental_variables():
     environment = os.getenv('ENVIRONMENT') # only one is enough to verify if they're set
@@ -72,6 +74,10 @@ List of available commands:
     dev-scraper             - run scraper functions locally
     dev-scan                - run scan functions locally
 
+    ### cache
+    enable-cache            - create redis cluster in the cloud
+    disable-cache           - delete redis cluster from the cloud
+
     ### docs
     html-docs               - bundle openapi.yml specs to get webpage of documentation
     postman-docs            - bundle openapi.yml specs to get postman collection
@@ -96,10 +102,6 @@ if len(sys.argv) <= 1 or sys.argv[1] == 'help':
 
 command = sys.argv[1]
 execution_command = ""
-
-if 'dev' in command:
-    check_for_environmental_variables()
-    check_for_aws_credentials()
 
 # deployment
 if command == 'deploy-status':
