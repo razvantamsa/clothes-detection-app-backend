@@ -39,27 +39,7 @@ async function deleteCluster() {
       }
 }
 
-async function getClusters () {
-    try {
-        return (await elasticache.describeCacheClusters({}).promise()).CacheClusters;
-    } catch (err) {
-        console.log("Error:", err);
-    }
-}
-
-async function scaleClusterNodes(CacheClusterId, NumCacheNodes) {
-    try {
-        const updateParams = { CacheClusterId, NumCacheNodes };
-        await elasticache.modifyCacheCluster(updateParams).promise();
-        console.log(`${CacheClusterId} scaled to ${NumCacheNodes} nodes`);
-    } catch (err) {
-      console.log("Error:", err);
-    }
-}
-
 module.exports = {
     createCluster,
     deleteCluster,
-    getClusters,
-    scaleClusterNodes
 }
