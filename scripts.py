@@ -3,22 +3,26 @@ import sys
 import os
 import webbrowser
 import json
+from dotenv import load_dotenv
+import botocore.session
 
-def check_for_aws_credentials():
-    has_credentials = True
-    env_file = './src/utils/aws/credentials.env'
-    with open(env_file, 'r') as file:
-        lines = file.readlines()
-        aws_access_key_id = lines[0].strip()
-        aws_secret_access_key = lines[1].strip()
-    if not aws_access_key_id.startswith('ACCESS_KEY_ID=') or not aws_access_key_id.split('=')[1]:
-        has_credentials = False
-    if not aws_secret_access_key.startswith('SECRET_ACCESS_KEY=') or not aws_secret_access_key.split('=')[1]:
-        has_credentials =  False
-    
-    if not has_credentials:
-        print('Set AWS credentials in src/utils/aws/credentials.env')
-        sys.exit()
+load_dotenv('./src/utils/aws/credentials.env')
+access_key = os.environ.get('ACCESS_KEY_ID')
+secret_key = os.environ.get('SECRET_ACCESS_KEY')
+region = 'us-west-2'
+
+if not access_key or not secret_key:
+    print('Set AWS credentials in src/utils/`aws/credentials.env`')
+    sys.exit()
+
+# Create a new session and set credentials and region
+session = botocore.session.get_session()
+session.set_credentials(access_key, secret_key)
+session.set_config_variable('region', region)
+
+secrets_manager = session.create_client('secretsmanager')
+ec2 = session.create_client('ec2')
+elasticache = session.create_client('elasticache')
 
 def check_for_environmental_variables():
     environment = os.getenv('ENVIRONMENT') # only one is enough to verify if they're set
@@ -72,6 +76,10 @@ List of available commands:
     dev-scraper             - run scraper functions locally
     dev-scan                - run scan functions locally
 
+    ### cache
+    enable-cache            - create redis cluster in the cloud
+    disable-cache           - delete redis cluster from the cloud
+
     ### docs
     html-docs               - bundle openapi.yml specs to get webpage of documentation
     postman-docs            - bundle openapi.yml specs to get postman collection
@@ -96,10 +104,6 @@ if len(sys.argv) <= 1 or sys.argv[1] == 'help':
 
 command = sys.argv[1]
 execution_command = ""
-
-if 'dev' in command:
-    check_for_environmental_variables()
-    check_for_aws_credentials()
 
 # deployment
 if command == 'deploy-status':
@@ -129,6 +133,36 @@ elif command == 'dev-scan':
     execution_command = ['nodemon', 'src/scan']
     run_continuous_process(execution_command)
 
+# cache
+elif command == 'enable-cache':
+    response = ec2.describe_vpcs()
+    vpc_id = response['Vpcs'][0]['VpcId']
+
+    response = ec2.describe_security_groups(Filters=[
+        {'Name': 'vpc-id', 'Values': [vpc_id]},
+        {'Name': 'group-name', 'Values': ['default']}
+    ])
+    security_group_ids = [group['GroupId'] for group in response['SecurityGroups']]
+
+    REDIS_CACHE_CLUSTER = os.environ.get('REDIS_CACHE_CLUSTER')
+    elasticache.create_cache_cluster(
+        CacheClusterId=REDIS_CACHE_CLUSTER,
+        CacheNodeType='cache.t2.micro',
+        NumCacheNodes=1,
+        Engine='redis',
+        EngineVersion='6.x',
+        Port=6379,
+        SecurityGroupIds=security_group_ids
+    )
+    print(f'Creating cluster {REDIS_CACHE_CLUSTER}')
+    sys.exit()
+
+elif command == 'disable-cache':
+    REDIS_CACHE_CLUSTER = os.environ.get('REDIS_CACHE_CLUSTER')
+    elasticache.delete_cache_cluster(CacheClusterId=REDIS_CACHE_CLUSTER)
+    print(f'Deleting cluster {REDIS_CACHE_CLUSTER}')
+    sys.exit()
+
 # docs
 elif command == 'html-docs':
     execution_command = 'redoc-cli bundle openapi.yml -o openapi.html'
@@ -137,7 +171,11 @@ elif command == 'postman-docs':
 
 # authorization
 elif command == 'get-apikey':
-    execution_command = 'aws secretsmanager get-secret-value --secret-id authorization --query SecretString --output text --profile clothes-detection-app --region us-west-2 | tr -d \'"\''
+    response = secrets_manager.get_secret_value(SecretId='authorization')
+    secret_string = response['SecretString']
+    secret_string = secret_string.replace("'", "")
+    print(secret_string)
+    sys.exit()
 
 # machine learning
 elif command == 'start-colab-brand':

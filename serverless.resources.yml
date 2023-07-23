@@ -1,5 +1,5 @@
 service: clothes-detection-resources
-frameworkVersion: '3'
+frameworkVersion: "3"
 
 plugins:
   - serverless-hooks-plugin
@@ -11,12 +11,12 @@ provider:
   profile: clothes-detection-app
   region: us-west-2
   iamRoleStatements:
-  - Effect: Allow
-    Action:
-      - lambda:*
-      - secretsmanager:*
-      - logs:*
-    Resource: "*"
+    - Effect: Allow
+      Action:
+        - lambda:*
+        - secretsmanager:*
+        - logs:*
+      Resource: "*"
 
 functions:
   apikeyRotation: ${file(./serverless/lambda/resources.yml):ApikeyRotation}
@@ -28,9 +28,9 @@ resources:
     TrousersBucket: ${file(./serverless/s3/trousers-bucket.yml):TrousersBucket}
     ShoesBucket: ${file(./serverless/s3/shoes-bucket.yml):ShoesBucket}
     ScanBucket: ${file(./serverless/s3/scan-bucket.yml):ScanBucket}
-    
+
     ApikeySecret: ${file(./serverless/secretsmanager/apikey-secret.yml):ApikeySecret}
-    
+
     ShirtsTable: ${file(./serverless/dynamodb/shirts-table.yml):ShirtsTable}
     TrousersTable: ${file(./serverless/dynamodb/trousers-table.yml):TrousersTable}
     ShoesTable: ${file(./serverless/dynamodb/shoes-table.yml):ShoesTable}
@@ -66,9 +66,11 @@ resources:
     InferenceLogStream: ${file(./serverless/cloudwatch/inference.yml):InferenceLogStream}
     InferenceSuccessMetricFilter: ${file(./serverless/cloudwatch/inference.yml):InferenceSuccessMetricFilter}
     InferenceErrorMetricFilter: ${file(./serverless/cloudwatch/inference.yml):InferenceErrorMetricFilter}
+
+
 custom:
   hooks:
-    after:deploy:finalize:
+    after:deploy:removeLogs:
       - node src/utils/hooks/remove-logs.hook.js resources
   webpack:
     webpackConfig: ./webpack.config.js
