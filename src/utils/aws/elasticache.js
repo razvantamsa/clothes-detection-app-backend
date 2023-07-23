@@ -11,7 +11,7 @@ if (!process.env.AWS_EXECUTION_ENV) {
 
 const elasticache = new AWS.ElastiCache();
 
-const CacheClusterId = 'rest-redis-cluster';
+const CacheClusterId = process.env.REDIS_CACHE_CLUSTER;
 
 async function createCluster () {
     try {

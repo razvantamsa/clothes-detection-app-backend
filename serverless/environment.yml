@@ -12,4 +12,7 @@ dev:
   APP_DYNAMODB_SHOES_TABLE: 'shoes-table'
   APP_S3_SHOES_BUCKET: 'clothes-detection-shoes-bucket'
 
+  REDIS_CACHE_CLUSTER: 'redis-cache-cluster'
+
+
   APP_MAX_PRODUCT_LIMIT: 400
