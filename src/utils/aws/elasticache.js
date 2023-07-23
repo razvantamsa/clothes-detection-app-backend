@@ -19,24 +19,17 @@ async function getClusters () {
     }
 }
 
-// async function scaleClusterNodes(CacheClusterId, NumCacheNodes) {
-//     try {
-//       const describeParams = { CacheClusterId };
-//       const data = await elasticache.describeCacheClusters(describeParams).promise();
-//       const cluster = data.CacheClusters[0];
-    
-//       if (cluster.NumCacheNodes > 0) {
-//         const updateParams = { CacheClusterId, NumCacheNodes };
-//         await elasticache.modifyCacheCluster(updateParams).promise();
-//         console.log("Cluster scaled down to 0 nodes.");
-//       } else {
-//         console.log("The cluster is already scaled down to 0 nodes.");
-//       }
-//     } catch (err) {
-//       console.log("Error:", err);
-//     }
-// }
+async function scaleClusterNodes(CacheClusterId, NumCacheNodes) {
+    try {
+        const updateParams = { CacheClusterId, NumCacheNodes };
+        await elasticache.modifyCacheCluster(updateParams).promise();
+        console.log(`${CacheClusterId} scaled to ${NumCacheNodes} nodes`);
+    } catch (err) {
+      console.log("Error:", err);
+    }
+}
 
 module.exports = {
-    getClusters
+    getClusters,
+    scaleClusterNodes
 }
