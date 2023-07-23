@@ -21,7 +21,7 @@ session.set_credentials(access_key, secret_key)
 session.set_config_variable('region', region)
 
 secrets_manager = session.create_client('secretsmanager')
-# ec2 = session.create_client('ec2')
+ec2 = session.create_client('ec2')
 elasticache = session.create_client('elasticache')
 
 def check_for_environmental_variables():
@@ -135,6 +135,15 @@ elif command == 'dev-scan':
 
 # cache
 elif command == 'enable-cache':
+    response = ec2.describe_vpcs()
+    vpc_id = response['Vpcs'][0]['VpcId']
+
+    response = ec2.describe_security_groups(Filters=[
+        {'Name': 'vpc-id', 'Values': [vpc_id]},
+        {'Name': 'group-name', 'Values': ['default']}
+    ])
+    security_group_ids = [group['GroupId'] for group in response['SecurityGroups']]
+
     REDIS_CACHE_CLUSTER = os.environ.get('REDIS_CACHE_CLUSTER')
     elasticache.create_cache_cluster(
         CacheClusterId=REDIS_CACHE_CLUSTER,
@@ -143,7 +152,7 @@ elif command == 'enable-cache':
         Engine='redis',
         EngineVersion='6.x',
         Port=6379,
-        SecurityGroupIds=['sg-0456d623ed5d62f0c']
+        SecurityGroupIds=security_group_ids
     )
     print(f'Creating cluster {REDIS_CACHE_CLUSTER}')
     sys.exit()
