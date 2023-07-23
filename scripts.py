@@ -21,6 +21,8 @@ session.set_credentials(access_key, secret_key)
 session.set_config_variable('region', region)
 
 secrets_manager = session.create_client('secretsmanager')
+# ec2 = session.create_client('ec2')
+elasticache = session.create_client('elasticache')
 
 def check_for_environmental_variables():
     environment = os.getenv('ENVIRONMENT') # only one is enough to verify if they're set
@@ -134,20 +136,23 @@ elif command == 'dev-scan':
 # cache
 elif command == 'enable-cache':
     REDIS_CACHE_CLUSTER = os.environ.get('REDIS_CACHE_CLUSTER')
-    execution_command = f'aws elasticache create-cache-cluster \
-    --cache-cluster-id {REDIS_CACHE_CLUSTER} \
-    --cache-node-type cache.t2.micro \
-    --num-cache-nodes 1 \
-    --engine redis \
-    --engine-version 6.x \
-    --port 6379 \
-    --security-group-ids sg-0456d623ed5d62f0c \
-    --profile clothes-detection-app --region us-west-2'
+    elasticache.create_cache_cluster(
+        CacheClusterId=REDIS_CACHE_CLUSTER,
+        CacheNodeType='cache.t2.micro',
+        NumCacheNodes=1,
+        Engine='redis',
+        EngineVersion='6.x',
+        Port=6379,
+        SecurityGroupIds=['sg-0456d623ed5d62f0c']
+    )
+    print(f'Creating cluster {REDIS_CACHE_CLUSTER}')
+    sys.exit()
+
 elif command == 'disable-cache':
     REDIS_CACHE_CLUSTER = os.environ.get('REDIS_CACHE_CLUSTER')
-    execution_command = f'aws elasticache delete-cache-cluster \
-    --cache-cluster-id {REDIS_CACHE_CLUSTER} \
-    --profile clothes-detection-app --region us-west-2'
+    elasticache.delete_cache_cluster(CacheClusterId=REDIS_CACHE_CLUSTER)
+    print(f'Deleting cluster {REDIS_CACHE_CLUSTER}')
+    sys.exit()
 
 # docs
 elif command == 'html-docs':
