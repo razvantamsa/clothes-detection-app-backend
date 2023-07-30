@@ -1,0 +1,17 @@
+ScanTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: scrapers-website-table
+    AttributeDefinitions:
+      - AttributeName: website
+        AttributeType: S
+      - AttributeName: brand
+        AttributeType: S
+    KeySchema:
+      - AttributeName: website
+        KeyType: HASH
+      - AttributeName: brand
+        KeyType: RANGE
+    ProvisionedThroughput:
+      ReadCapacityUnits: 5
+      WriteCapacityUnits: 5
