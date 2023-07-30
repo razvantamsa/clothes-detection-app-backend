@@ -1,4 +1,4 @@
-ScanTable:
+ScraperWebsiteTable:
   Type: AWS::DynamoDB::Table
   Properties:
     TableName: scrapers-website-table
