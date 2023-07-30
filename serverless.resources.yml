@@ -35,6 +35,7 @@ resources:
     TrousersTable: ${file(./serverless/dynamodb/trousers-table.yml):TrousersTable}
     ShoesTable: ${file(./serverless/dynamodb/shoes-table.yml):ShoesTable}
     ScanTable: ${file(./serverless/dynamodb/scan-table.yml):ScanTable}
+    ScraperWebsiteTable: ${file(./serverless/dynamodb/scraper-website-table.yml):ScraperWebsiteTable}
 
     ### Monitoring
     StatusLogGroup: ${file(./serverless/cloudwatch/status.yml):StatusLogGroup}
