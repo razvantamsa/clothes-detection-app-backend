@@ -11,15 +11,21 @@ if (!process.env.AWS_EXECUTION_ENV) {
 
 const ses = new AWS.SES();
 
-const receiverEmailAddress = 'razvantamsa295@gmail.com';
-const senderEmailAddress = 'stylespotterapp@gmail.com';
-
-async function sendEmail(Subject, Body) {
+async function sendEmail(SubjectData, BodyData) {
     try {
         var params = {
-            Destination: { ToAddresses: [ receiverEmailAddress ] },
-            Message: { Subject, Body },
-            Source: senderEmailAddress,
+            Destination: { ToAddresses: [ process.env.RECEIVER_MAIL ] },
+            Message: { 
+                Subject: {
+                    Charset: "UTF-8",
+                    Data: SubjectData
+                }, 
+                Body: { Text: {
+                    Charset: "UTF-8",
+                    Data: BodyData
+                }}
+            },
+            Source: process.env.SENDER_MAIL,
           };
   
         await ses.sendEmail(params).promise();
