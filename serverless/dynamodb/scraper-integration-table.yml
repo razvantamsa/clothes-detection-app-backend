@@ -1,7 +1,7 @@
-ScraperWebsiteTable:
+ScraperIntegrationTable:
   Type: AWS::DynamoDB::Table
   Properties:
-    TableName: scraper-website-table
+    TableName: scraper-integration-table
     AttributeDefinitions:
       - AttributeName: website
         AttributeType: S
