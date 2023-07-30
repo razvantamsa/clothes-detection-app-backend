@@ -1,7 +1,7 @@
 ScraperWebsiteTable:
   Type: AWS::DynamoDB::Table
   Properties:
-    TableName: scrapers-website-table
+    TableName: scraper-website-table
     AttributeDefinitions:
       - AttributeName: website
         AttributeType: S
