@@ -9,8 +9,6 @@ if (!process.env.AWS_EXECUTION_ENV) {
   });
 }
 
-console.log(process.env.ACCESS_KEY_ID, process.env.SECRET_ACCESS_KEY, process.env.AWS_REGION)
-
 const ses = new AWS.SES();
 
 const receiverEmailAddress = 'razvantamsa295@gmail.com';
