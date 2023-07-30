@@ -1,6 +1,6 @@
 const express = require('express');
 const { invokeAsyncFunction } = require('../../utils/aws/lambda');
-const logger = require('../utils/logger')();
+const logger = require('../../utils/logger')();
 const router = express.Router();
 
 router.post('/:brand', async (req, res) => {
