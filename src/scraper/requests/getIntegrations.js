@@ -3,19 +3,24 @@ const { scanTable, getItemByPk, queryTableByGSI, getItem } = require('../../util
 const logger = require('../../utils/logger')();
 const router = express.Router();
 
+const { 
+    APP_DYNAMODB_INTEGRATIONS_TABLE,
+    APP_INTEGRATIONS_TABLE_GSI_NAME
+} = process.env;
+
 router.get('/integration', async (req, res) => {
     try {
         let items;
         const { website, brand } = req.headers;
 
         if (website && brand) {
-            items = await getItem('scraper-integration-table', { website, brand });
+            items = await getItem(APP_DYNAMODB_INTEGRATIONS_TABLE, { website, brand });
         } else if(website && !brand) {
-            items = await getItemByPk('scraper-integration-table', { website }); 
+            items = await getItemByPk(APP_DYNAMODB_INTEGRATIONS_TABLE, { website }); 
         } else if (!website && brand) {
-            items = await queryTableByGSI('scraper-integration-table', 'brand-gsi', { brand });
+            items = await queryTableByGSI(APP_DYNAMODB_INTEGRATIONS_TABLE, APP_INTEGRATIONS_TABLE_GSI_NAME, { brand });
         } else {
-            items = await scanTable('scraper-integration-table')
+            items = await scanTable(APP_DYNAMODB_INTEGRATIONS_TABLE)
         }
         return res.status(200).send(items);
     } catch (err) {
