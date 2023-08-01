@@ -8,7 +8,7 @@ router.get('/integration', async (req, res) => {
         let items;
         const { website, brand } = req.headers;
         if(website) {
-            items = await getItemByPk('scraper-integration-table', 'website', website); 
+            items = await getItemByPk('scraper-integration-table', { website }); 
         } else if (brand) {
             items = await queryTableByGSI('scraper-integration-table', 'brand-gsi', { brand });
         } else {

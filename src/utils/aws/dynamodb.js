@@ -36,12 +36,14 @@ const getItem = async (TableName, Key) => {
     }
 };
 
-const getItemByPk = async (TableName, pkName, pkValue) => {
+const getItemByPk = async (TableName, expressionObject) => {
+  const [key, value] = Object.entries(expressionObject)[0];
+
   const params = {
     TableName,
-    KeyConditionExpression: `${pkName} = :${pkName}`,
+    KeyConditionExpression: `${key} = :${key}`,
     ExpressionAttributeValues: {
-      [`:${pkName}`]: pkValue
+      [`:${key}`]: value
     }
   };
   try {
