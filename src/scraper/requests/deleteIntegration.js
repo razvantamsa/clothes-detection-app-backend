@@ -1,13 +1,13 @@
 const express = require('express');
-const { postItem } = require('../../utils/aws/dynamodb');
+const { deleteItem } = require('../../utils/aws/dynamodb');
 const logger = require('../../utils/logger')();
 const router = express.Router();
 
 const { APP_DYNAMODB_INTEGRATIONS_TABLE } = process.env;
 
-router.post('/integration', async (req, res) => {
+router.delete('/integration', async (req, res) => {
     try {
-        await postItem(APP_DYNAMODB_INTEGRATIONS_TABLE, req.body);
+        await deleteItem(APP_DYNAMODB_INTEGRATIONS_TABLE, req.body);
         return res.status(200).send(req.body);
     } catch (err) {
         logger.error(err);

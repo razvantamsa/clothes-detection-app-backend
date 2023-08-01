@@ -6,6 +6,7 @@ const fileUpload = require('express-fileupload');
 const startScrapingProcess = require('./requests/startScrapingProcess');
 const getIntegrations = require('./requests/getIntegrations');
 const addIntegration = require('./requests/addIntegration');
+const deleteIntegration = require('./requests/deleteIntegration');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use('/scraper',
     startScrapingProcess,
     addIntegration,
     getIntegrations,
+    deleteIntegration
 );
 
 if(process.env.ENVIRONMENT === 'local'){
