@@ -1,0 +1,77 @@
+tags:
+  - Web Scraping
+summary: Add Integration
+description: |
+  This endpoint adds an integration record that the app can scrape on.
+parameters:
+  - $ref: '#/components/parameters/apikey'
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          website:
+            type: string
+            description: The name of the integration website
+          brand:
+            type: string
+            description: The name of the brand for which the website is integrated
+          types: 
+            type: object
+            description: Capabilities of web scraper for this website and brand
+            properties:
+              shirts:
+                type: string
+                description: URL used by the scraper for shirts for this website and brand integration
+              trousers:
+                type: string
+                description: URL used by the scraper for trousers for this website and brand integration
+              shoes:
+                type: string
+                description: URL used by the scraper for shoes for this website and brand integration
+
+responses:
+  '200':
+    description: OK
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            website:
+              type: string
+              description: The name of the integration website.
+            brand:
+              type: string
+              description: The name of the brand for which the website is integrated.
+            types:
+              type: object
+              description: Capabilities of web scraper for this website and brand.
+              properties:
+                shirts:
+                  type: string
+                  description: URL used by the scraper for shirts for this website and brand integration.
+                trousers:
+                  type: string
+                  description: URL used by the scraper for trousers for this website and brand integration.
+                shoes:
+                  type: string
+                  description: URL used by the scraper for shoes for this website and brand integration.
+        example: {
+          "website": "example",
+          "brand": "ExampleBrand",
+          "types": {
+            "shirts": "https://example.com/shirts",
+            "trousers": "https://example.com/trousers",
+            "shoes": "https://example.com/shoes"
+          }
+        }
+
+  '400':
+    $ref: './openapi/components/errors/400.yml'
+  '401':
+    $ref: './openapi/components/errors/401.yml'
+  '403':
+    $ref: './openapi/components/errors/403.yml'
