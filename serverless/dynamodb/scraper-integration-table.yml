@@ -15,3 +15,14 @@ ScraperIntegrationTable:
     ProvisionedThroughput:
       ReadCapacityUnits: 5
       WriteCapacityUnits: 5
+
+    GlobalSecondaryIndexes:
+      - IndexName: brand-gsi
+        KeySchema:
+          - AttributeName: brand
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
