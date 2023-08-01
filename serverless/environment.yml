@@ -4,6 +4,9 @@ dev:
   APP_SCAN_TABLE_GSI_NAME: 'userName-gsi'
   APP_S3_SCAN_BUCKET: 'clothes-detection-scan-bucket'
   APP_DYNAMODB_SCAN_TABLE: 'scan-table'
+ 
+  APP_DYNAMODB_INTEGRATIONS_TABLE: 'scraper-integration-table'
+  APP_INTEGRATIONS_TABLE_GSI_NAME: 'brand-gsi'
 
   APP_DYNAMODB_SHIRTS_TABLE: 'shirts-table'
   APP_S3_SHIRTS_BUCKET: 'clothes-detection-shirts-bucket'
