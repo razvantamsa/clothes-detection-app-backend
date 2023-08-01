@@ -48,4 +48,4 @@ responses:
   '403':
     $ref: './openapi/components/errors/403.yml'
   '404':
-    $ref: './openapi/components/errors/403.yml'
+    $ref: './openapi/components/errors/404.yml'
