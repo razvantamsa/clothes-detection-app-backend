@@ -52,10 +52,10 @@ paths:
     /scraper/integration:
       post: 
         $ref: ./openapi/scraper/add-integration.yml
-      # get: 
-      #   $ref: ./openapi/scraper/get-integrations.yml
-      # delete: 
-      #   $ref: ./openapi/scraper/delete-integration.yml
+      get: 
+        $ref: ./openapi/scraper/get-integrations.yml
+      delete: 
+        $ref: ./openapi/scraper/delete-integration.yml
 
     # scan
     /scan:

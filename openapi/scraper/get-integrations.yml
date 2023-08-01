@@ -1,0 +1,81 @@
+tags:
+  - Web Scraping
+summary: Get Integration
+description: |
+  This endpoint lists all the available scraping integrations provided by StyleSpotter.
+  It can filter the result based on the 'website' and 'brand' headers.
+parameters:
+  - name: website
+    in: header
+    description: The website of the integration record
+    required: false
+    style: simple
+    schema:
+      type: string
+      example: example-website
+  - name: brand
+    in: header
+    description: The brand of the integration record
+    required: false
+    style: simple
+    schema:
+      type: string
+      example: example-brand
+responses:
+  '200':
+    description: OK
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              website:
+                type: string
+                description: The name of the integration website.
+              brand:
+                type: string
+                description: The name of the brand for which the website is integrated.
+              types:
+                type: object
+                description: Capabilities of the web scraper for this website and brand.
+                properties:
+                  shirts:
+                    type: string
+                    description: URL used by the scraper for shirts for this website and brand integration.
+                  trousers:
+                    type: string
+                    description: URL used by the scraper for trousers for this website and brand integration.
+                  shoes:
+                    type: string
+                    description: URL used by the scraper for shoes for this website and brand integration.
+        example: [
+          {
+            "website": "snkrind",
+            "brand": "nike",
+            "types": {
+              "trousers": "www.snkrind.com/trousers/nike",
+              "shirts": "www.snkrind.com/shirts/nike",
+              "shoes": "www.snkrind.com/shoes/nike"
+            }
+          },
+          {
+            "website": "epantofi",
+            "brand": "nike",
+            "types": {
+              "trousers": "www.epantofi.com/trousers/nike",
+              "shirts": "www.epantofi.com/shirts/nike",
+              "shoes": "www.epantofi.com/shoes/nike"
+            }
+          }
+        ]
+  
+  '400':
+    $ref: './openapi/components/errors/400.yml'
+  '401':
+    $ref: './openapi/components/errors/401.yml'
+  '403':
+    $ref: './openapi/components/errors/403.yml'
+  '404':
+    $ref: './openapi/components/errors/404.yml'
