@@ -4,18 +4,17 @@ const serverless = require('serverless-http');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const startScrapingProcess = require('./requests/startScrapingProcess');
-const { authorizerMiddleware } = require('../utils/authorizer/authorizer');
-const { verifyTypeHeader } = require('../utils/middelware/verifyTypeHeader');
+const getScrapingIntegrations = require('./requests/getScrapingIntegrations');
 
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(fileUpload());
-app.use(authorizerMiddleware, verifyTypeHeader);
 
 app.use('/scrape',
-    startScrapingProcess
+    startScrapingProcess,
+    getScrapingIntegrations
 );
 
 if(process.env.ENVIRONMENT === 'local'){
