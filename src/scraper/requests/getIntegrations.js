@@ -3,7 +3,7 @@ const { scanTable } = require('../../utils/aws/dynamodb');
 const logger = require('../../utils/logger')();
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/integration', async (req, res) => {
     try {
         const items = await scanTable('scraper-integration-table')
         return res.status(200).send(items);

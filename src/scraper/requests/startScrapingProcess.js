@@ -5,7 +5,7 @@ const { authorizerMiddleware } = require('../../utils/authorizer/authorizer');
 const { verifyTypeHeader } = require('../../utils/middelware/verifyTypeHeader');
 const router = express.Router();
 
-router.post('/:brand', [authorizerMiddleware, verifyTypeHeader], async (req, res) => {
+router.post('/start/:brand', [authorizerMiddleware, verifyTypeHeader], async (req, res) => {
     try {
         const { brand } = req.params;
         const { baseUrl } = req.body;
