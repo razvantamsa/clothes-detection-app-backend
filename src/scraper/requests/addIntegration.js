@@ -2,10 +2,11 @@ const express = require('express');
 const { postItem } = require('../../utils/aws/dynamodb');
 const logger = require('../../utils/logger')();
 const router = express.Router();
+const { authorizerMiddleware } = require('../../utils/authorizer/authorizer');
 
 const { APP_DYNAMODB_INTEGRATIONS_TABLE } = process.env;
 
-router.post('/integration', async (req, res) => {
+router.post('/integration', authorizerMiddleware, async (req, res) => {
     try {
         await postItem(APP_DYNAMODB_INTEGRATIONS_TABLE, req.body);
         return res.status(200).send(req.body);
