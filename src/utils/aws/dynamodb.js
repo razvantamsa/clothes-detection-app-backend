@@ -135,10 +135,9 @@ const scanTableByHash = async (TableName, expressionObject) => {
   }
 }
 
-const listAllTableEntries = async (TableName, ProjectionExpression) => {
-  const params = { TableName, ProjectionExpression };
+const scanTable = async (TableName) => {
   try {
-    const result = await dynamoDB.scan(params).promise();
+    const result = await dynamoDB.scan({ TableName }).promise();
     return result.Items;
   } catch (err) {
     throw new Error(err);
@@ -153,5 +152,5 @@ module.exports = {
   deleteItem,
   queryTableByGSI,
   scanTableByHash,
-  listAllTableEntries
+  scanTable
 }
