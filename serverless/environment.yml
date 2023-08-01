@@ -17,5 +17,8 @@ dev:
 
   REDIS_CACHE_CLUSTER: 'redis-cache-cluster'
 
+  SENDER_MAIL: 'stylespotterapp@gmail.com'
+  RECEIVER_MAIL: 'razvantamsa295@gmail.com' 
+
 
   APP_MAX_PRODUCT_LIMIT: 400
