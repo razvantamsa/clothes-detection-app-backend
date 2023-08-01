@@ -45,9 +45,17 @@ paths:
         $ref: ./openapi/rest/delete.yml
 
     # web scraping
-    /scrape/{brand}:
+    /scraper/start/{brand}:
       post: 
         $ref: ./openapi/scraper/start-scraping.yml
+
+    /scraper/integration:
+      post: 
+        $ref: ./openapi/scraper/add-integration.yml
+      get: 
+        $ref: ./openapi/scraper/get-integrations.yml
+      delete: 
+        $ref: ./openapi/scraper/delete-integration.yml
 
     # scan
     /scan:

@@ -1,0 +1,28 @@
+ScraperIntegrationTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: scraper-integration-table
+    AttributeDefinitions:
+      - AttributeName: website
+        AttributeType: S
+      - AttributeName: brand
+        AttributeType: S
+    KeySchema:
+      - AttributeName: website
+        KeyType: HASH
+      - AttributeName: brand
+        KeyType: RANGE
+    ProvisionedThroughput:
+      ReadCapacityUnits: 5
+      WriteCapacityUnits: 5
+
+    GlobalSecondaryIndexes:
+      - IndexName: brand-gsi
+        KeySchema:
+          - AttributeName: brand
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5

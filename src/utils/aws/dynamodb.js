@@ -36,12 +36,14 @@ const getItem = async (TableName, Key) => {
     }
 };
 
-const getItemByPk = async (TableName, pkName, pkValue) => {
+const getItemByPk = async (TableName, expressionObject) => {
+  const [key, value] = Object.entries(expressionObject)[0];
+
   const params = {
     TableName,
-    KeyConditionExpression: `${pkName} = :${pkName}`,
+    KeyConditionExpression: `${key} = :${key}`,
     ExpressionAttributeValues: {
-      [`:${pkName}`]: pkValue
+      [`:${key}`]: value
     }
   };
   try {
@@ -135,6 +137,15 @@ const scanTableByHash = async (TableName, expressionObject) => {
   }
 }
 
+const scanTable = async (TableName) => {
+  try {
+    const result = await dynamoDB.scan({ TableName }).promise();
+    return result.Items;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
 module.exports = {
   getItem,
   getItemByPk,
@@ -143,4 +154,5 @@ module.exports = {
   deleteItem,
   queryTableByGSI,
   scanTableByHash,
+  scanTable
 }
