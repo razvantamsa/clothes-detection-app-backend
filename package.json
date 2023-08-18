@@ -35,7 +35,6 @@
   },
   "devDependencies": {
     "openapi-to-postmanv2": "^4.10.2",
-    "serverless-hooks-plugin": "^1.1.0",
     "serverless-offline": "^12.0.4",
     "serverless-webpack": "^5.11.0",
     "webpack": "^5.88.1",
