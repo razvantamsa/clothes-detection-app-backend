@@ -2,7 +2,6 @@ service: clothes-detection-rest
 frameworkVersion: '3'
 
 plugins:
-  - serverless-hooks-plugin
   - serverless-webpack
 
 provider:
@@ -23,16 +22,12 @@ provider:
         - s3:*
         - lambda:*
         - secretsmanager:*
-        - logs:*
       Resource: "*"
 
 functions:
   rest: ${file(./serverless/lambda/rest.yml):rest}
 
 custom:
-  hooks:
-    after:deploy:finalize:
-      - node src/utils/hooks/remove-logs.hook.js rest
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules:

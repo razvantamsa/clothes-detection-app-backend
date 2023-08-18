@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { updateItem: updateDynamoDB } = require('../../utils/aws/dynamodb');
 const { postItem: postS3 } = require('../../utils/aws/s3');
-const logger = require('../../utils/logger')();
 
 router.put('/:brand/:model', async (req, res) => {
     const { DYNAMODB_TABLE, S3_BUCKET } = process.env;
@@ -25,7 +24,7 @@ router.put('/:brand/:model', async (req, res) => {
         await updateDynamoDB(DYNAMODB_TABLE, req.params, req.body);
         res.status(200).send({ data: req.body, images });
     } catch (err) {
-        logger.error(err);
+        console.error(err);
         res.status(400).send(err.message);
     }
 });
