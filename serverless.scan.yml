@@ -2,7 +2,6 @@ service: clothes-detection-scan
 frameworkVersion: '3'
 
 plugins:
-  - serverless-hooks-plugin
   - serverless-webpack
 
 provider:
@@ -24,7 +23,6 @@ provider:
         - lambda:*
         - rekognition:*
         - secretsmanager:*
-        - logs:*
       Resource: "*"
 
 functions:
@@ -33,9 +31,6 @@ functions:
   detection: ${file(./serverless/lambda/scan.yml):detection}
 
 custom:
-  hooks:
-    after:deploy:finalize:
-      - node src/utils/hooks/remove-logs.hook.js scan
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules:

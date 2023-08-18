@@ -1,18 +1,17 @@
 const { updateItem: updateDynamoDB } = require("../../utils/aws/dynamodb");
 const { invokeSyncFunction } = require("../../utils/aws/lambda");
 const { parseResponseBody, capitalize } = require("../../utils/scanning/parse");
-const logger = require('../../utils/logger')();
 
 const { APP_DYNAMODB_SCAN_TABLE } = process.env;
 
 exports.handler = async (event, context) => {
-    logger.info('Event payload: ', event);
+    console.log('Event payload: ', event);
     try {
         const { parentDataId, dataId, type } = event;
     
         const types = ['shirts', 'trousers', 'shoes'];
         if(!types.includes(type)) {
-            logger.info(`Type ${type} is not valid`)
+            console.log(`Type ${type} is not valid`)
             return;
         }
     
@@ -32,6 +31,6 @@ exports.handler = async (event, context) => {
             { status: 'processed', brand: inferenceBrand.predicted_class, model: inferenceModel.predicted_class },
         );
     } catch (err) {
-        logger.error(err);
+        console.error(err);
     }
 };
