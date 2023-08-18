@@ -3,7 +3,6 @@ const router = express.Router();
 const { getItem: getDynamoDB, queryTableByGSI, scanTableByHash, getItem } = require('../../utils/aws/dynamodb');
 const { getSignedUrl } = require('../../utils/aws/s3');
 const { selectResources } = require('../../utils/middelware/verifyTypeHeader');
-const logger = require('../../utils/logger')();
 
 // workflow:
 /**
@@ -65,7 +64,7 @@ router.get('/:dataId', async (req, res) => {
 
         res.status(200).send({ scanResult, image });
     } catch (err) {
-        logger.error(err);
+        console.error(err);
         res.status(400).send(err);
     }
 });

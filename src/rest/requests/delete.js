@@ -21,7 +21,7 @@ router.delete('/:brand/:model', async (req, res) => {
         
         res.status(200).send(`Successfully deleted ${req.params.brand} ${req.params.model}`);
     } catch (err) {
-        logger.error(err);
+        console.error(err);
         res.status(400).send(err.message);
     }
 });

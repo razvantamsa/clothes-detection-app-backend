@@ -5,14 +5,12 @@ try:
     import numpy as np
     from PIL import Image
 
-    from utils.logging import handler as init_logger
-    logger = init_logger()
     from utils.get_list_of_classes import handler as get_list_of_classes
     from utils.model_config import handler as model_config
 
-    logger['info']("All imports ok ...")
+    print("All imports ok ...")
 except Exception as e:
-    logger['error']("Error Imports : {} ".format(e))
+    print("Error Imports : {} ".format(e))
 
 # parameters
 weight_file_name = os.getenv('WEIGHT_FILE_NAME')
@@ -31,15 +29,15 @@ try:
     classes = get_list_of_classes(s3, data_bucket, prefix)
     model = model_config(classes)
     model.load_weights('/tmp/model_weights.h5')
-    logger['info']('Model initialized')
+    print('Model initialized')
 except Exception as e:
-    logger['error']("Error init model: {}".format(e))
+    print("Error init model: {}".format(e))
 
 
 
 def handler(event, context):
     try:
-        logger['info']('Event payload: ', event)
+        print('Event payload: ', event)
         data_id = event['dataId']
         s3.download_file(s3_scan_bucket, data_id, '/tmp/image.jpg')
 
@@ -57,8 +55,8 @@ def handler(event, context):
         predicted_class = np.argmax(predictions)  # Get the index of the highest predicted probability
         confidence = predictions[0, predicted_class]  # Get the confidence score for the predicted class
 
-        logger['info'](f"Predicted class: {classes[predicted_class]}")
-        logger['info'](f"Confidence: {confidence}")
+        print(f"Predicted class: {classes[predicted_class]}")
+        print(f"Confidence: {confidence}")
 
         return {
             'statusCode': 200,
@@ -73,4 +71,4 @@ def handler(event, context):
             }
         }
     except Exception as e:
-        logger['error'](e)
+        print(e)

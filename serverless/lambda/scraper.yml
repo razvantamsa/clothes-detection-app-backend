@@ -1,7 +1,5 @@
 startScrapingProcess:
   handler: src/scraper/index.handler
-  environment:
-    SERVICE: scraper
   events:
     - http:
         method: post
@@ -9,12 +7,8 @@ startScrapingProcess:
 
 scrapeProductDetail:
   handler: src/scraper/lambdas/scrapeProductDetail.handler
-  environment:
-    SERVICE: scraper
   timeout: 900
 
 scrapeProductCatalog:
   handler: src/scraper/lambdas/scrapeProductCatalog.handler
-  environment:
-    SERVICE: scraper
   timeout: 900

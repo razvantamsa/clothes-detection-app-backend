@@ -1,7 +1,5 @@
 rest:
   handler: src/rest/index.handler
-  environment:
-    SERVICE: rest
   events:
     - http:
         method: post

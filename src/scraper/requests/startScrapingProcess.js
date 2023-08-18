@@ -1,6 +1,5 @@
 const express = require('express');
 const { invokeAsyncFunction } = require('../../utils/aws/lambda');
-const logger = require('../../utils/logger')();
 const { authorizerMiddleware } = require('../../utils/authorizer/authorizer');
 const { verifyTypeHeader } = require('../../utils/middelware/verifyTypeHeader');
 const { sendEmail } = require('../../utils/aws/ses');
@@ -20,7 +19,7 @@ router.post('/start/:brand', [authorizerMiddleware, verifyTypeHeader], async (re
 
         return res.status(200).send(`Started scraping for ${brand}'s ${type}`);
     } catch (err) {
-        logger.error(err);
+        console.error(err);
         res.status(400).send(err.message);
     }
 });

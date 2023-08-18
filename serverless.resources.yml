@@ -2,7 +2,6 @@ service: clothes-detection-resources
 frameworkVersion: "3"
 
 plugins:
-  - serverless-hooks-plugin
   - serverless-webpack
 
 provider:
@@ -15,7 +14,6 @@ provider:
       Action:
         - lambda:*
         - secretsmanager:*
-        - logs:*
       Resource: "*"
 
 functions:
@@ -37,42 +35,8 @@ resources:
     ScanTable: ${file(./serverless/dynamodb/scan-table.yml):ScanTable}
     ScraperIntegrationTable: ${file(./serverless/dynamodb/scraper-integration-table.yml):ScraperIntegrationTable}
 
-    ### Monitoring
-    StatusLogGroup: ${file(./serverless/cloudwatch/status.yml):StatusLogGroup}
-    StatusLogStream: ${file(./serverless/cloudwatch/status.yml):StatusLogStream}
-    StatusSuccessMetricFilter: ${file(./serverless/cloudwatch/status.yml):StatusSuccessMetricFilter}
-    StatusErrorMetricFilter: ${file(./serverless/cloudwatch/status.yml):StatusErrorMetricFilter}
-
-    RESTLogGroup: ${file(./serverless/cloudwatch/rest.yml):RESTLogGroup}
-    RESTLogStream: ${file(./serverless/cloudwatch/rest.yml):RESTLogStream}
-    RESTSuccessMetricFilter: ${file(./serverless/cloudwatch/rest.yml):RESTSuccessMetricFilter}
-    RESTErrorMetricFilter: ${file(./serverless/cloudwatch/rest.yml):RESTErrorMetricFilter}
-
-    ResourcesLogGroup: ${file(./serverless/cloudwatch/resources.yml):ResourcesLogGroup}
-    ResourcesLogStream: ${file(./serverless/cloudwatch/resources.yml):ResourcesLogStream}
-    ResourcesSuccessMetricFilter: ${file(./serverless/cloudwatch/resources.yml):ResourcesSuccessMetricFilter}
-    ResourcesErrorMetricFilter: ${file(./serverless/cloudwatch/resources.yml):ResourcesErrorMetricFilter}
-
-    ScraperLogGroup: ${file(./serverless/cloudwatch/scraper.yml):ScraperLogGroup}
-    ScraperLogStream: ${file(./serverless/cloudwatch/scraper.yml):ScraperLogStream}
-    ScraperSuccessMetricFilter: ${file(./serverless/cloudwatch/scraper.yml):ScraperSuccessMetricFilter}
-    ScraperErrorMetricFilter: ${file(./serverless/cloudwatch/scraper.yml):ScraperErrorMetricFilter}
-
-    ScanLogGroup: ${file(./serverless/cloudwatch/scan.yml):ScanLogGroup}
-    ScanLogStream: ${file(./serverless/cloudwatch/scan.yml):ScanLogStream}
-    ScanSuccessMetricFilter: ${file(./serverless/cloudwatch/scan.yml):ScanSuccessMetricFilter}
-    ScanErrorMetricFilter: ${file(./serverless/cloudwatch/scan.yml):ScanErrorMetricFilter}
-
-    InferenceLogGroup: ${file(./serverless/cloudwatch/inference.yml):InferenceLogGroup}
-    InferenceLogStream: ${file(./serverless/cloudwatch/inference.yml):InferenceLogStream}
-    InferenceSuccessMetricFilter: ${file(./serverless/cloudwatch/inference.yml):InferenceSuccessMetricFilter}
-    InferenceErrorMetricFilter: ${file(./serverless/cloudwatch/inference.yml):InferenceErrorMetricFilter}
-
 
 custom:
-  hooks:
-    after:deploy:removeLogs:
-      - node src/utils/hooks/remove-logs.hook.js resources
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules:

@@ -1,7 +1,5 @@
 status:
     handler: src/status/index.handler
-    environment:
-        SERVICE: status
     events:
     - http:
         method: get

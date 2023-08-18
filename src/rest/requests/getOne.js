@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { getItem: getDynamoDB } = require('../../utils/aws/dynamodb');
 const { listItemsFromPath, getSignedUrl } = require('../../utils/aws/s3');
-const logger = require('../../utils/logger')();
 
 router.get('/:brand/:model', async (req, res) => {
     const { DYNAMODB_TABLE, S3_BUCKET } = process.env;
@@ -20,7 +19,7 @@ router.get('/:brand/:model', async (req, res) => {
 
         return res.status(200).send({ data: body, images: await Promise.all(images) });
     } catch (err) {
-        logger.error(err);
+        console.error(err);
         return res.status(400).send(err.message);
     }
 });

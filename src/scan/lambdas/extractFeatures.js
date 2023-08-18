@@ -5,23 +5,22 @@ const { detectImageLabels } = require("../../utils/aws/rekognition");
 const { getItem: getS3, postItem: postS3 } = require("../../utils/aws/s3");
 const { cropImage } = require("../../utils/scanning/cropImage");
 const { nonOverlapingLabels } = require("../../utils/scanning/nonOverlapingLabels");
-const logger = require('../../utils/logger')();
 
 const { APP_DYNAMODB_SCAN_TABLE, APP_S3_SCAN_BUCKET } = process.env;
 
 exports.handler = async (event, context) => {
-    logger.info('Event payload: ', event);
+    console.log('Event payload: ', event);
     try{
         const { dataId, userName } = event;
     
         const labels = await detectImageLabels(APP_S3_SCAN_BUCKET, dataId);
-        logger.info(labels);
+        console.log(labels);
         const filteredLabels =  [
             ...nonOverlapingLabels(labels, 'shirts'),
             ...nonOverlapingLabels(labels, 'trousers'),
             ...nonOverlapingLabels(labels, 'shoes')
         ];
-        logger.info(filteredLabels);
+        console.log(filteredLabels);
     
         const image = await getS3(APP_S3_SCAN_BUCKET, dataId);
         const croppedImages = await Promise.all(filteredLabels.map(async (label) => {
@@ -65,6 +64,6 @@ exports.handler = async (event, context) => {
             { status: 'processed' },
         );
     } catch (err) {
-        logger.error(err);
+        console.error(err);
     }
 };
