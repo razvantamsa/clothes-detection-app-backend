@@ -2,7 +2,6 @@ service: clothes-detection-status
 frameworkVersion: '3'
 
 plugins:
-  - serverless-hooks-plugin
   - serverless-webpack
 
 provider:
@@ -21,16 +20,12 @@ provider:
         - s3:*
         - lambda:*
         - secretsmanager:*
-        - logs:*
       Resource: "*"
 
 functions:
   status: ${file(./serverless/lambda/status.yml):status}
 
 custom:
-  hooks:
-    after:deploy:finalize:
-      - node src/utils/hooks/remove-logs.hook.js status
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules:
