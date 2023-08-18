@@ -1,6 +1,5 @@
 const express = require('express');
 const { scanTable, getItemByPk, queryTableByGSI, getItem } = require('../../utils/aws/dynamodb');
-const logger = require('../../utils/logger')();
 const router = express.Router();
 
 const { 
@@ -24,7 +23,7 @@ router.get('/integration', async (req, res) => {
         }
         return res.status(200).send(items);
     } catch (err) {
-        logger.error(err);
+        console.error(err);
         res.status(400).send(err.message);
     }
 });

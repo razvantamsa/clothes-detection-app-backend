@@ -1,6 +1,5 @@
 const express = require('express');
 const { postItem } = require('../../utils/aws/dynamodb');
-const logger = require('../../utils/logger')();
 const router = express.Router();
 const { authorizerMiddleware } = require('../../utils/authorizer/authorizer');
 
@@ -11,7 +10,7 @@ router.post('/integration', authorizerMiddleware, async (req, res) => {
         await postItem(APP_DYNAMODB_INTEGRATIONS_TABLE, req.body);
         return res.status(200).send(req.body);
     } catch (err) {
-        logger.error(err);
+        console.error(err);
         res.status(400).send(err.message);
     }
 });
