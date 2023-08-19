@@ -22,6 +22,7 @@ dev:
 
   MESSAGE_GROUP_ID: 'base-message-group-id'
   SQS_PRODUCT_CATALOG_QUEUE_URL: 'https://sqs.us-west-2.amazonaws.com/367859350018/catalog-queue.fifo'
+  SQS_PRODUCT_DETAIL_QUEUE_URL: 'https://sqs.us-west-2.amazonaws.com/367859350018/detail-queue.fifo'
 
 
   APP_MAX_PRODUCT_LIMIT: 400

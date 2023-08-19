@@ -29,7 +29,17 @@ functions:
   start: ${file(./serverless/lambda/scraper.yml):start}
   integration: ${file(./serverless/lambda/scraper.yml):integration}
   productCatalog: ${file(./serverless/lambda/scraper.yml):productCatalog}
-  productDetail: ${file(./serverless/lambda/scraper.yml):productDetail}
+
+  productDetail-1: ${file(./serverless/lambda/scraper.yml):productDetail}
+  productDetail-2: ${file(./serverless/lambda/scraper.yml):productDetail}
+  productDetail-3: ${file(./serverless/lambda/scraper.yml):productDetail}
+  productDetail-4: ${file(./serverless/lambda/scraper.yml):productDetail}
+  productDetail-5: ${file(./serverless/lambda/scraper.yml):productDetail}
+  productDetail-6: ${file(./serverless/lambda/scraper.yml):productDetail}
+  productDetail-7: ${file(./serverless/lambda/scraper.yml):productDetail}
+  productDetail-8: ${file(./serverless/lambda/scraper.yml):productDetail}
+  productDetail-9: ${file(./serverless/lambda/scraper.yml):productDetail}
+  productDetail-10: ${file(./serverless/lambda/scraper.yml):productDetail}
 
 custom:
   webpack:
