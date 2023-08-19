@@ -1,0 +1,7 @@
+ScraperCatalogQueue:
+  Type: AWS::SQS::Queue
+  Properties:
+    QueueName: catalog-queue.fifo
+    FifoQueue: true
+    ContentBasedDeduplication: true
+    VisibilityTimeout: 900
