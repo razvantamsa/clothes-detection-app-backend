@@ -36,6 +36,7 @@ resources:
     ScraperIntegrationTable: ${file(./serverless/dynamodb/scraper-integration-table.yml):ScraperIntegrationTable}
 
     ScraperCatalogQueue: ${file(./serverless/sqs/scraper.yml):ScraperCatalogQueue}
+    ScraperDetailQueue: ${file(./serverless/sqs/scraper.yml):ScraperDetailQueue}
 
 custom:
   webpack:

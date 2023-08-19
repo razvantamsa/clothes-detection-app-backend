@@ -5,3 +5,11 @@ ScraperCatalogQueue:
     FifoQueue: true
     ContentBasedDeduplication: true
     VisibilityTimeout: 900
+
+ScraperDetailQueue:
+  Type: AWS::SQS::Queue
+  Properties:
+    QueueName: detail-queue.fifo
+    FifoQueue: true
+    ContentBasedDeduplication: true
+    VisibilityTimeout: 900
