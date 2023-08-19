@@ -1,10 +1,10 @@
 const { getSecretValue } = require("../aws/secrets-manager");
 
 async function authorizerMiddleware (req, res, next) {
-    const authToken = req.headers['authorization'];
+    const { authorization } = req.headers;
     const secret = (await getSecretValue('authorization'));
 
-    if(authToken !== secret) {
+    if(authorization !== secret) {
         return res.status(401).send('Unauthorized');
     }
 
