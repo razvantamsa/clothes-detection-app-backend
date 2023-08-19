@@ -26,9 +26,10 @@ provider:
       Resource: "*"
 
 functions:
-  startScrapingProcess: ${file(./serverless/lambda/scraper.yml):startScrapingProcess}
-  scrapeProductCatalog: ${file(./serverless/lambda/scraper.yml):scrapeProductCatalog}
-  scrapeProductDetail: ${file(./serverless/lambda/scraper.yml):scrapeProductDetail}
+  start: ${file(./serverless/lambda/scraper.yml):start}
+  integration: ${file(./serverless/lambda/scraper.yml):integration}
+  productCatalog: ${file(./serverless/lambda/scraper.yml):productCatalog}
+  productDetail: ${file(./serverless/lambda/scraper.yml):productDetail}
 
 custom:
   webpack:

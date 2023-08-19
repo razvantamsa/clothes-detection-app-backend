@@ -1,14 +1,30 @@
-startScrapingProcess:
+start:
   handler: src/scraper/index.handler
   events:
     - http:
         method: post
-        path: scrape/{brand}
+        path: scraper/start
 
-scrapeProductDetail:
-  handler: src/scraper/lambdas/scrapeProductDetail.handler
+integration:
+  handler: src/scraper/index.handler
+  events:
+    - http:
+        method: get
+        path: scraper/integration
+    - http:
+        method: post
+        path: scraper/integration
+    - http:
+        method: delete
+        path: scraper/integration
+
+productCatalog:
+  handler: src/scraper/lambdas/productCatalog.handler
   timeout: 900
+  events:
+  - sqs:
+      arn: arn:aws:sqs:us-west-2:367859350018:catalog-queue.fifo
 
-scrapeProductCatalog:
-  handler: src/scraper/lambdas/scrapeProductCatalog.handler
+productDetail:
+  handler: src/scraper/lambdas/productDetail.handler
   timeout: 900
