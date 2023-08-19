@@ -7,7 +7,11 @@ const { sendEmail } = require('../../utils/aws/ses');
 const { sendMessageToQueue } = require('../../utils/aws/sqs');
 const router = express.Router();
 
-const { APP_DYNAMODB_INTEGRATIONS_TABLE } = process.env;
+const { 
+    APP_DYNAMODB_INTEGRATIONS_TABLE,
+    SQS_PRODUCT_CATALOG_QUEUE_URL,
+    MESSAGE_GROUP_ID
+} = process.env;
 
 router.post('/start', [authorizerMiddleware, verifyTypeHeader], async (req, res) => {
     try {
@@ -29,8 +33,8 @@ router.post('/start', [authorizerMiddleware, verifyTypeHeader], async (req, res)
 
         await sendMessageToQueue(
             JSON.stringify({Subject, Body}), 
-            'https://sqs.us-west-2.amazonaws.com/367859350018/catalog-queue.fifo',
-            'base-group-id'
+            SQS_PRODUCT_CATALOG_QUEUE_URL,
+            MESSAGE_GROUP_ID
         );
 
         return res.status(200).send(`Started scraping for ${brand}'s ${type}`);
