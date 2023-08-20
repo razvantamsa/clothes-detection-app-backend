@@ -3,7 +3,6 @@ ScraperCatalogQueue:
   Properties:
     QueueName: catalog-queue.fifo
     FifoQueue: true
-    ContentBasedDeduplication: true
     VisibilityTimeout: 900
 
 ScraperDetailQueue:
@@ -11,5 +10,4 @@ ScraperDetailQueue:
   Properties:
     QueueName: detail-queue.fifo
     FifoQueue: true
-    ContentBasedDeduplication: true
     VisibilityTimeout: 900

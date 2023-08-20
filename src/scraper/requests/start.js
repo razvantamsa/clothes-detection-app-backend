@@ -29,7 +29,7 @@ router.post('/start', [authorizerMiddleware, verifyTypeHeader], async (req, res)
         // await sendEmail(Subject, Body);
 
         await sendMessageToQueue(
-            JSON.stringify({ integration, type }), 
+            JSON.stringify({ integration, type }),
             SQS_PRODUCT_CATALOG_QUEUE_URL,
             MESSAGE_GROUP_ID
         );
