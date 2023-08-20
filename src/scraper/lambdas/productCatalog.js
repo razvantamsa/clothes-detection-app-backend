@@ -2,7 +2,13 @@ const { invokeAsyncFunction } = require('../../utils/aws/lambda');
 const utils = require('../../utils/scraping/cheerio/catalog.utils');
 const { loadHtml } = require('../../utils/scraping/cheerio/init');
 
-const { APP_MAX_PRODUCT_LIMIT } = process.env;
+// const { APP_MAX_PRODUCT_LIMIT } = process.env;
+
+const { 
+    // APP_DYNAMODB_INTEGRATIONS_TABLE,
+    SQS_PRODUCT_DETAIL_QUEUE_URL,
+    MESSAGE_GROUP_ID
+} = process.env;
 
 exports.handler = async (event) => {
     // console.log('Event payload: ', event);
@@ -28,10 +34,26 @@ exports.handler = async (event) => {
     //     'clothes-detection-scraper-dev-scrapeProductDetail',
     //     { type, hrefs: products, brand },
     // );
+
     console.log('Received event:', JSON.stringify(event, null, 2));
-    for (const record of event.Records) {
-      console.log('Processing message:', record.body);
-      // Add your processing logic here
+
+    try {
+        const { integration, type } =  event.Records[0].body;
+        let url = integration.types[type];
+        console.log(url);
+
+        for (let i = 1; i <= 50; i++) {
+            console.log(i);
+            // await sendMessageToQueue(
+            //     JSON.stringify({ counter: i, content: 'testing the flows' }), 
+            //     SQS_PRODUCT_DETAIL_QUEUE_URL,
+            //     MESSAGE_GROUP_ID
+            // );
+          }
+
+    } catch (error) {
+        throw new Error(error);
     }
+
     return { statusCode: 200 };
 };

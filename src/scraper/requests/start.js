@@ -1,5 +1,4 @@
 const express = require('express');
-const { invokeAsyncFunction } = require('../../utils/aws/lambda');
 const { authorizerMiddleware } = require('../../utils/authorizer/authorizer');
 const { verifyTypeHeader } = require('../../utils/middelware/verifyTypeHeader');
 const { getItem } = require('../../utils/aws/dynamodb');
@@ -25,14 +24,12 @@ router.post('/start', [authorizerMiddleware, verifyTypeHeader], async (req, res)
             return res.status(400).send(`Integration for ${brand} on ${website} does not accept ${type}`);
         }
 
-        // await invokeAsyncFunction(`clothes-detection-scraper-dev-scrapeProductCatalog`, { type, brand, baseUrl });
-
         const Subject = 'Web Scraping API';
         const Body = `Scraping ${website} for ${brand} ${type}, started on ${(new Date(Date.now())).toUTCString()}`;
         // await sendEmail(Subject, Body);
 
         await sendMessageToQueue(
-            JSON.stringify({Subject, Body}), 
+            JSON.stringify({ integration, type }), 
             SQS_PRODUCT_CATALOG_QUEUE_URL,
             MESSAGE_GROUP_ID
         );
