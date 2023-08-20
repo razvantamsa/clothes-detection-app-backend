@@ -1,11 +1,5 @@
 require('dotenv').config({ path: 'src/utils/aws/credentials.env' });
 const AWS = require('aws-sdk');
-const crypto = require('crypto');
-
-function generateRandomString(length) {
-  const bytes = crypto.randomBytes(Math.ceil(length / 2));
-  return bytes.toString('hex').slice(0, length);
-}
 
 if (!process.env.AWS_EXECUTION_ENV) {
   AWS.config.update({
@@ -17,12 +11,11 @@ if (!process.env.AWS_EXECUTION_ENV) {
 
 const sqs = new AWS.SQS();
 
-async function sendMessageToQueue(MessageBody, QueueUrl, MessageGroupId) {
+async function sendMessageToQueue(MessageBody, QueueUrl) {
     const params = { 
         MessageBody, 
         QueueUrl, 
-        MessageGroupId,
-        MessageDeduplicationId: generateRandomString(16),
+        DelaySeconds: 30,
     };
     try {
       const data = await sqs.sendMessage(params).promise();

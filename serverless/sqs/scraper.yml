@@ -1,13 +1,11 @@
 ScraperCatalogQueue:
   Type: AWS::SQS::Queue
   Properties:
-    QueueName: catalog-queue.fifo
-    FifoQueue: true
+    QueueName: catalog-queue
     VisibilityTimeout: 900
 
 ScraperDetailQueue:
   Type: AWS::SQS::Queue
   Properties:
-    QueueName: detail-queue.fifo
-    FifoQueue: true
+    QueueName: detail-queue
     VisibilityTimeout: 900

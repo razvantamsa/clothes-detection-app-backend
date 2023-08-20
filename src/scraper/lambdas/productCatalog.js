@@ -1,4 +1,5 @@
 const { invokeAsyncFunction } = require('../../utils/aws/lambda');
+const { sendMessageToQueue } = require('../../utils/aws/sqs');
 const utils = require('../../utils/scraping/cheerio/catalog.utils');
 const { loadHtml } = require('../../utils/scraping/cheerio/init');
 
@@ -7,7 +8,6 @@ const { loadHtml } = require('../../utils/scraping/cheerio/init');
 const { 
     // APP_DYNAMODB_INTEGRATIONS_TABLE,
     SQS_PRODUCT_DETAIL_QUEUE_URL,
-    MESSAGE_GROUP_ID
 } = process.env;
 
 exports.handler = async (event) => {
@@ -35,21 +35,21 @@ exports.handler = async (event) => {
     //     { type, hrefs: products, brand },
     // );
 
-    console.log('Received event:', JSON.stringify(event, null, 2));
+    // console.log('Received event:', JSON.stringify(event, null, 2));
+    const delay = () => new Promise((resolve) => setTimeout(resolve, 5000));
 
     try {
-        const { integration, type } =  event.Records[0].body;
-        let url = integration.types[type];
-        console.log(url);
+        const { integration, type } =  JSON.parse(event.Records[0].body);
+        console.log(integration, type);
+        console.log(integration.types[type]);
 
-        for (let i = 1; i <= 50; i++) {
-            console.log(i);
-            // await sendMessageToQueue(
-            //     JSON.stringify({ counter: i, content: 'testing the flows' }), 
-            //     SQS_PRODUCT_DETAIL_QUEUE_URL,
-            //     MESSAGE_GROUP_ID
-            // );
-          }
+        for (let i = 0; i < 50; i++) {
+            await delay();
+            await sendMessageToQueue(
+                JSON.stringify({ counter: i, content: 'testing the flows' }), 
+                SQS_PRODUCT_DETAIL_QUEUE_URL,
+            );
+        }
 
     } catch (error) {
         throw new Error(error);

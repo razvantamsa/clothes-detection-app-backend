@@ -9,7 +9,6 @@ const router = express.Router();
 const { 
     APP_DYNAMODB_INTEGRATIONS_TABLE,
     SQS_PRODUCT_CATALOG_QUEUE_URL,
-    MESSAGE_GROUP_ID
 } = process.env;
 
 router.post('/start', [authorizerMiddleware, verifyTypeHeader], async (req, res) => {
@@ -31,7 +30,6 @@ router.post('/start', [authorizerMiddleware, verifyTypeHeader], async (req, res)
         await sendMessageToQueue(
             JSON.stringify({ integration, type }),
             SQS_PRODUCT_CATALOG_QUEUE_URL,
-            MESSAGE_GROUP_ID
         );
 
         return res.status(200).send(`Started scraping for ${brand}'s ${type}`);
