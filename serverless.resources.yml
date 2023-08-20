@@ -38,6 +38,9 @@ resources:
     ScraperCatalogQueue: ${file(./serverless/sqs/scraper.yml):ScraperCatalogQueue}
     ScraperDetailQueue: ${file(./serverless/sqs/scraper.yml):ScraperDetailQueue}
 
+    ProductDetailLogGroup: ${file(./serverless/cloudwatch/scraper.yml):ProductDetailLogGroup}
+    ProductDetailLogStream: ${file(./serverless/cloudwatch/scraper.yml):ProductDetailLogStream}
+
 custom:
   webpack:
     webpackConfig: ./webpack.config.js

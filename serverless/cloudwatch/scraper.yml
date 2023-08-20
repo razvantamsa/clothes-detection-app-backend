@@ -1,0 +1,11 @@
+ProductDetailLogGroup:
+  Type: AWS::Logs::LogGroup
+  Properties:
+    LogGroupName: /aws/lambda/clothes-detection-resources-dev-productDetail
+    RetentionInDays: 14
+
+ProductDetailLogStream:
+  Type: AWS::Logs::LogStream
+  Properties:
+    LogGroupName: /aws/lambda/clothes-detection-resources-dev-productDetail
+    LogStreamName: index
