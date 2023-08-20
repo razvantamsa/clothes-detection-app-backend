@@ -8,6 +8,7 @@ const { uploadStreamToS3 } = require('../../utils/aws/s3');
 const { postItem: postDynamoDB } = require("../../utils/aws/dynamodb");
 const { default: axios } = require('axios');
 const { selectResources } = require('../../utils/middelware/verifyTypeHeader');
+const { logToCloudWatch } = require('../../utils/aws/cloudwatch');
 
 const { 
     AWS_LAMBDA_FUNCTION_NAME,
@@ -23,8 +24,11 @@ exports.handler = async (event, context) => {
         // if((counter + 1) % parseInt(NUMBER_OF_WORKERS) !== lastElement) {
         //     return;
         // }
-        console.log(`Worker ${lastElement} picked ${counter + 1}, ${content}`);
-
+        await logToCloudWatch(
+            '/aws/lambda/clothes-detection-resources-dev-productDetail',
+            'index',
+            `Worker ${lastElement} picked ${counter + 1}, ${content}`
+        );
     } catch (error) {
         throw new Error(error);
     }

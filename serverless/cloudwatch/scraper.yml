@@ -5,6 +5,7 @@ ProductDetailLogGroup:
     RetentionInDays: 14
 
 ProductDetailLogStream:
+  DependsOn: ProductDetailLogGroup
   Type: AWS::Logs::LogStream
   Properties:
     LogGroupName: /aws/lambda/clothes-detection-resources-dev-productDetail
