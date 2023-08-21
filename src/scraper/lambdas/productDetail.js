@@ -11,6 +11,8 @@ const { selectResources } = require('../../utils/middelware/verifyTypeHeader');
 const { logToCloudWatch } = require('../../utils/aws/cloudwatch');
 
 const { 
+    DEPLOYMENT_NAME,
+    ENVIRONMENT,
     AWS_LAMBDA_FUNCTION_NAME,
 } = process.env;
 
@@ -25,10 +27,15 @@ exports.handler = async (event, context) => {
         //     return;
         // }
         await logToCloudWatch(
-            '/aws/lambda/clothes-detection-resources-dev-productDetail',
+            `/aws/lambda/${DEPLOYMENT_NAME}-${ENVIRONMENT}-productDetail`,
             'index',
             `Worker ${lastElement} picked ${counter + 1}, ${content}`
         );
+
+            //         await sendMessageToQueue(
+    //             JSON.stringify({ counter: i, content: 'testing the flows' }), 
+    //             SQS_PRODUCT_DETAIL_QUEUE_URL,
+    //         );
     } catch (error) {
         throw new Error(error);
     }
