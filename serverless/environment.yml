@@ -1,4 +1,7 @@
 dev: 
+  DEPLOYMENT_NAME: ${self:service}
+  ENVIRONMENT: ${self:provider.stage}
+  
   APP_S3_ASSETS_BUCKET: 'clothes-detection-assets-bucket'
 
   APP_SCAN_TABLE_GSI_NAME: 'userName-gsi'
