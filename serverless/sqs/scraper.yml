@@ -9,3 +9,9 @@ ScraperDetailQueue:
   Properties:
     QueueName: detail-queue
     VisibilityTimeout: 900
+
+UploadProductDataQueue:
+  Type: AWS::SQS::Queue
+  Properties:
+    QueueName: upload-product-data-queue
+    VisibilityTimeout: 120

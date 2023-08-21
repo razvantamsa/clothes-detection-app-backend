@@ -37,9 +37,12 @@ resources:
 
     ScraperCatalogQueue: ${file(./serverless/sqs/scraper.yml):ScraperCatalogQueue}
     ScraperDetailQueue: ${file(./serverless/sqs/scraper.yml):ScraperDetailQueue}
+    UploadProductDataQueue: ${file(./serverless/sqs/scraper.yml):UploadProductDataQueue}
 
     ProductDetailLogGroup: ${file(./serverless/cloudwatch/scraper.yml):ProductDetailLogGroup}
     ProductDetailLogStream: ${file(./serverless/cloudwatch/scraper.yml):ProductDetailLogStream}
+    UploadProductDataLogGroup: ${file(./serverless/cloudwatch/scraper.yml):UploadProductDataLogGroup}
+    UploadProductDataLogStream: ${file(./serverless/cloudwatch/scraper.yml):UploadProductDataLogStream}
 
 custom:
   webpack:

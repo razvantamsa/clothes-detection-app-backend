@@ -22,6 +22,6 @@ dev:
 
   SQS_PRODUCT_CATALOG_QUEUE_URL: 'https://sqs.us-west-2.amazonaws.com/367859350018/catalog-queue'
   SQS_PRODUCT_DETAIL_QUEUE_URL: 'https://sqs.us-west-2.amazonaws.com/367859350018/detail-queue'
-
+  SQS_UPLOAD_PRODUCT_DATA_QUEUE_URL: 'https://sqs.us-west-2.amazonaws.com/367859350018/upload-product-data-queue'
 
   APP_MAX_PRODUCT_LIMIT: 400
