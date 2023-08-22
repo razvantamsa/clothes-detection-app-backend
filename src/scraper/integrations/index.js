@@ -1,5 +1,5 @@
 const IntegrationUtils = {
-    ping: require('./ping/cheerio'),
+    ping: require('./ping'),
 }
 
 module.exports = IntegrationUtils;

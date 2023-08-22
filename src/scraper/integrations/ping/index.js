@@ -17,5 +17,18 @@ const Utils = {
         for (let i = 0; i < 50; i++) {
             await sendToWorker({ integration, type, href: generateRandomHref() });
         }
+    },
+
+    scrapeProductDetail: async (integration, type, href) => {
+      let unixTimestamp = Math.floor(Date.now() / 1000);
+      unixTimestamp = unixTimestamp.toString();
+
+      return {
+          model: `ping-${unixTimestamp}`,
+          productData: {},
+          productImages: [],
+      }
     }
 }
+
+module.exports = Utils;
