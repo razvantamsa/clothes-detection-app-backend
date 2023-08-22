@@ -3,7 +3,7 @@ const cors = require('cors');
 const serverless = require('serverless-http');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
-const startScrapingProcess = require('./requests/startScrapingProcess');
+const start = require('./requests/start');
 const getIntegrations = require('./requests/getIntegrations');
 const addIntegration = require('./requests/addIntegration');
 const deleteIntegration = require('./requests/deleteIntegration');
@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use(fileUpload());
 
 app.use('/scraper',
-    startScrapingProcess,
+    start,
     addIntegration,
     getIntegrations,
     deleteIntegration

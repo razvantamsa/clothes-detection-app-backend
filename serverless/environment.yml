@@ -1,4 +1,7 @@
 dev: 
+  DEPLOYMENT_NAME: ${self:service}
+  ENVIRONMENT: ${self:provider.stage}
+  
   APP_S3_ASSETS_BUCKET: 'clothes-detection-assets-bucket'
 
   APP_SCAN_TABLE_GSI_NAME: 'userName-gsi'
@@ -18,7 +21,10 @@ dev:
   REDIS_CACHE_CLUSTER: 'redis-cache-cluster'
 
   SENDER_MAIL: 'stylespotterapp@gmail.com'
-  RECEIVER_MAIL: 'razvantamsa295@gmail.com' 
+  RECEIVER_MAIL: 'razvantamsa295@gmail.com'
 
+  SQS_PRODUCT_CATALOG_QUEUE_URL: 'https://sqs.us-west-2.amazonaws.com/367859350018/catalog-queue'
+  SQS_PRODUCT_DETAIL_QUEUE_URL: 'https://sqs.us-west-2.amazonaws.com/367859350018/detail-queue'
+  SQS_UPLOAD_PRODUCT_DATA_QUEUE_URL: 'https://sqs.us-west-2.amazonaws.com/367859350018/upload-product-data-queue'
 
   APP_MAX_PRODUCT_LIMIT: 400

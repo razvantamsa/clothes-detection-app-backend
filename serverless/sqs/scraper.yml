@@ -1,0 +1,17 @@
+ScraperCatalogQueue:
+  Type: AWS::SQS::Queue
+  Properties:
+    QueueName: catalog-queue
+    VisibilityTimeout: 900
+
+ScraperDetailQueue:
+  Type: AWS::SQS::Queue
+  Properties:
+    QueueName: detail-queue
+    VisibilityTimeout: 900
+
+UploadProductDataQueue:
+  Type: AWS::SQS::Queue
+  Properties:
+    QueueName: upload-product-data-queue
+    VisibilityTimeout: 120

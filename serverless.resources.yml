@@ -9,6 +9,7 @@ provider:
   runtime: nodejs18.x
   profile: clothes-detection-app
   region: us-west-2
+  stage: dev
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -35,6 +36,14 @@ resources:
     ScanTable: ${file(./serverless/dynamodb/scan-table.yml):ScanTable}
     ScraperIntegrationTable: ${file(./serverless/dynamodb/scraper-integration-table.yml):ScraperIntegrationTable}
 
+    ScraperCatalogQueue: ${file(./serverless/sqs/scraper.yml):ScraperCatalogQueue}
+    ScraperDetailQueue: ${file(./serverless/sqs/scraper.yml):ScraperDetailQueue}
+    UploadProductDataQueue: ${file(./serverless/sqs/scraper.yml):UploadProductDataQueue}
+
+    ProductDetailLogGroup: ${file(./serverless/cloudwatch/scraper.yml):ProductDetailLogGroup}
+    ProductDetailLogStream: ${file(./serverless/cloudwatch/scraper.yml):ProductDetailLogStream}
+    UploadProductDataLogGroup: ${file(./serverless/cloudwatch/scraper.yml):UploadProductDataLogGroup}
+    UploadProductDataLogStream: ${file(./serverless/cloudwatch/scraper.yml):UploadProductDataLogStream}
 
 custom:
   webpack:

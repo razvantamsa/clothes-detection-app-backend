@@ -9,6 +9,7 @@ provider:
   runtime: nodejs18.x
   profile: clothes-detection-app
   region: us-west-2
+  stage: dev
   logRetentionInDays: 14
   timeout: 30
   apiGateway:
@@ -23,12 +24,26 @@ provider:
         - lambda:*
         - secretsmanager:*
         - ses:*
+        - sqs:*
+        - logs:*
       Resource: "*"
 
 functions:
-  startScrapingProcess: ${file(./serverless/lambda/scraper.yml):startScrapingProcess}
-  scrapeProductCatalog: ${file(./serverless/lambda/scraper.yml):scrapeProductCatalog}
-  scrapeProductDetail: ${file(./serverless/lambda/scraper.yml):scrapeProductDetail}
+  start: ${file(./serverless/lambda/scraper.yml):start}
+  integration: ${file(./serverless/lambda/scraper.yml):integration}
+  productCatalog: ${file(./serverless/lambda/scraper.yml):productCatalog}
+
+  productDetail-1: ${file(./serverless/lambda/scraper.yml):productDetail}
+  productDetail-2: ${file(./serverless/lambda/scraper.yml):productDetail}
+  productDetail-3: ${file(./serverless/lambda/scraper.yml):productDetail}
+  productDetail-4: ${file(./serverless/lambda/scraper.yml):productDetail}
+  productDetail-5: ${file(./serverless/lambda/scraper.yml):productDetail}
+
+  uploadProductData-1: ${file(./serverless/lambda/scraper.yml):uploadProductData}
+  uploadProductData-2: ${file(./serverless/lambda/scraper.yml):uploadProductData}
+  uploadProductData-3: ${file(./serverless/lambda/scraper.yml):uploadProductData}
+  uploadProductData-4: ${file(./serverless/lambda/scraper.yml):uploadProductData}
+  uploadProductData-5: ${file(./serverless/lambda/scraper.yml):uploadProductData}
 
 custom:
   webpack:
