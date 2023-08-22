@@ -35,7 +35,7 @@ exports.handler = async (event) => {
     await logToCloudWatch(
         '/aws/lambda/clothes-detection-resources-dev-uploadProductData',
         'index',
-        JSON.stringify({type, brand, model})
+        JSON.stringify({ type, brand, model })
     );
 
     try {
