@@ -27,16 +27,37 @@ const Utils = {
         }
     },
 
-//     scrapeProductDetail: async (integration, type, href) => {
-//       let unixTimestamp = Math.floor(Date.now() / 1000);
-//       unixTimestamp = unixTimestamp.toString();
+    scrapeProductDetail: async (integration, type, href) => {
+        const [page, closeBrowserCallback] = await loadDynamicPage();
+        await page.goto(href);
 
-//       return {
-//           model: `ping-${unixTimestamp}`,
-//           productData: {},
-//           productImages: [],
-//       }
-//     }
+        const model = await PuppeteerUtils.getModel(page);
+        const price = await PuppeteerUtils.getPrice(page);
+        const color = await PuppeteerUtils.getColor(page);
+        const productImages = await PuppeteerUtils.getImages(page);
+
+        await PuppeteerUtils.scrollDownOnPage(page);
+        const itemModelNumber = await PuppeteerUtils.getItemModelNumber(page);
+
+        console.log(model, price, itemModelNumber, color);
+
+        await closeBrowserCallback();
+
+        return {
+            model,
+            productData: {
+                price,
+                color,
+                itemModelNumber,
+                department: '',
+                rating: '',
+                nrOfReviews: '',
+                discontinued: '',
+                dateFirstAvailable: '',
+            },
+            productImages,
+        }
+    }
 }
 
 module.exports = Utils;

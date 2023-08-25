@@ -22,6 +22,44 @@ const PuppeteerUtils = {
         }, viewportHeight);
     
         await page.waitForTimeout(1000);
+    },
+
+    /**
+    * department - none
+    * rating - none
+    * nrOfReviews - none
+    * discontinued - none
+    * itemModelNumber
+    * dateFirstAvailable - none
+    * price
+    * color
+    * url
+    */
+
+    getModel: async (page) => { 
+        return page.$eval('h1[data-testid="productName"]', element => element.textContent.trim());
+    },
+
+    getPrice: async (page) => { 
+        return page.$eval('span[data-testid="finalPrice"]', element => element.textContent.trim());
+    },
+
+    getColor: async (page) => { 
+        return page.$eval('span[data-testid="productColorInfoSelectedOptionName"]', element => element.textContent.trim());
+    },
+
+    getItemModelNumber: async (page) => { 
+        return page.$eval('[data-testid="productDetailsArticleNumber"]', element => (element.textContent.split(' ')[2]).trim());
+    },
+
+    getImages: async (page) => {
+        const hrefs = [];
+        const imageList = await page.$$('button[data-testid="productImageGridImageButton"] > div[data-testid="productImage"] > img');
+        for(const image of imageList ) {
+            const href = await page.evaluate((el) => el.getAttribute('src'), image);
+            hrefs.push(href);
+        }
+        return [...new Set(hrefs)];
     }
 }
 
