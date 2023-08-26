@@ -31,16 +31,12 @@ const Utils = {
         const [page, closeBrowserCallback] = await loadDynamicPage();
         await page.goto(href);
 
+        await PuppeteerUtils.scrollDownOnPage(page);
         const model = await PuppeteerUtils.getModel(page);
         const price = await PuppeteerUtils.getPrice(page);
         const color = await PuppeteerUtils.getColor(page);
-        const productImages = await PuppeteerUtils.getImages(page);
-
-        await PuppeteerUtils.scrollDownOnPage(page);
         const itemModelNumber = await PuppeteerUtils.getItemModelNumber(page);
-
-        console.log(model, price, itemModelNumber, color);
-
+        const productImages = await PuppeteerUtils.getImages(page);
         await closeBrowserCallback();
 
         return {

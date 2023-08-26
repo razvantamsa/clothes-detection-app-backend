@@ -12,7 +12,7 @@ const determineWorker = () => {
     return stringArray[stringArray.length - 1];
 }
 
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
     try {
         const { integration, type, href } =  JSON.parse(event.Records[0].body);
         const Utils = IntegrationUtils[integration.website];
@@ -38,10 +38,11 @@ exports.handler = async (event, context) => {
         );
 
     } catch (error) {
+        console.log(error);
         await logToCloudWatch(
             '/aws/lambda/clothes-detection-resources-dev-productDetail',
             'index',
-            JSON.stringify(error)
+            error.message
         );
 
         return { statusCode: 500 }
