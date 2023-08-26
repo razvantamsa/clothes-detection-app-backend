@@ -48,8 +48,18 @@ const PuppeteerUtils = {
         return page.$eval('span[data-testid="productColorInfoSelectedOptionName"]', element => element.textContent.trim());
     },
 
-    getItemModelNumber: async (page) => { 
-        return page.$eval('[data-testid="productDetailsArticleNumber"]', element => (element.textContent.split(' ')[2]).trim());
+    getItemModelNumber: async (page) => {
+        try {
+            await PuppeteerUtils.scrollDownOnPage(page);
+            return page.$eval('[data-testid="productDetailsArticleNumber"]', element => (element.textContent.split(' ')[2]).trim());
+        } catch (error) {
+            try {
+                await PuppeteerUtils.scrollDownOnPage(page);
+                return page.$eval('[data-testid="productDetailsArticleNumber"]', element => (element.textContent.split(' ')[2]).trim());
+            } catch (error) {
+                return '-';
+            }
+        }
     },
 
     getImages: async (page) => {
