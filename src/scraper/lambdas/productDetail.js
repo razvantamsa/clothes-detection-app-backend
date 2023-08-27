@@ -12,17 +12,18 @@ const determineWorker = () => {
     return stringArray[stringArray.length - 1];
 }
 
+const log = async (message) => logToCloudWatch(
+    '/aws/lambda/clothes-detection-resources-dev-productDetail',
+    'index',
+    message
+);
+
 exports.handler = async (event) => {
     try {
         const { integration, type, href } =  JSON.parse(event.Records[0].body);
         const Utils = IntegrationUtils[integration.website];
 
-        await logToCloudWatch(
-            '/aws/lambda/clothes-detection-resources-dev-productDetail',
-            'index',
-            `Worker ${determineWorker()}: ${href}`
-        );
-
+        await log(`Worker ${determineWorker()}: ${href}`);
         const productDetails = await Utils.scrapeProductDetail(integration, type, href);
 
         await sendMessageToQueue(
@@ -37,15 +38,9 @@ exports.handler = async (event) => {
             SQS_UPLOAD_PRODUCT_DATA_QUEUE_URL,
         );
 
+        await log(`Success for ${integration.brand} ${productDetails.model}`);
     } catch (error) {
-        console.log(error);
-        await logToCloudWatch(
-            '/aws/lambda/clothes-detection-resources-dev-productDetail',
-            'index',
-            error.message
-        );
-
-        return { statusCode: 500 }
+        await log(error.message);
     }
 
     return { statusCode: 200 }

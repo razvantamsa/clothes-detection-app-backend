@@ -20,6 +20,11 @@ const { selectResources } = require("../../utils/middelware/verifyTypeHeader");
 //  * website
  */
 
+const log = async (message) => logToCloudWatch(
+    '/aws/lambda/clothes-detection-resources-dev-uploadProductData',
+    'index',
+    message
+);
 
 
 exports.handler = async (event) => {
@@ -32,13 +37,9 @@ exports.handler = async (event) => {
         productImages
     } = JSON.parse(event.Records[0].body);
 
-    await logToCloudWatch(
-        '/aws/lambda/clothes-detection-resources-dev-uploadProductData',
-        'index',
-        JSON.stringify({ type, brand, model })
-    );
-
+    
     try {
+        await log(`${type} ${brand} ${model}`);
         const [TABLE, BUCKET] = selectResources(type);
 
         for(const [index, imageLink] of productImages.entries()) {
@@ -53,18 +54,11 @@ exports.handler = async (event) => {
         }
 
         await postDynamoDB(TABLE, { brand, model, website, ...productData });
-
+        
+        await log(`Success for ${brand} ${model}`);
     } catch (error) {
-        await logToCloudWatch(
-            '/aws/lambda/clothes-detection-resources-dev-uploadProductData',
-            'index',
-            JSON.stringify(error)
-        );
-
-        return { statusCode: 500 }
+        await log(error.message);
     }
-
-
 
     return { statusCode: 200 };
 }
