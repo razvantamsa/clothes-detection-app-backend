@@ -20,19 +20,75 @@ integration:
 
 productCatalog:
   handler: src/scraper/lambdas/productCatalog.handler
-  timeout: 900
+  timeout: 300
   events:
   - sqs:
       arn: arn:aws:sqs:us-west-2:367859350018:catalog-queue
 
-productDetail:
+productDetail-1:
   handler: src/scraper/lambdas/productDetail.handler
-  timeout: 900
+  timeout: 300
   events:
   - sqs:
       arn: arn:aws:sqs:us-west-2:367859350018:detail-queue
 
-uploadProductData:
+productDetail-2:
+  handler: src/scraper/lambdas/productDetail.handler
+  timeout: 300
+  events:
+  - sqs:
+      arn: arn:aws:sqs:us-west-2:367859350018:detail-queue
+
+productDetail-3:
+  handler: src/scraper/lambdas/productDetail.handler
+  timeout: 300
+  events:
+  - sqs:
+      arn: arn:aws:sqs:us-west-2:367859350018:detail-queue
+
+productDetail-4:
+  handler: src/scraper/lambdas/productDetail.handler
+  timeout: 300
+  events:
+  - sqs:
+      arn: arn:aws:sqs:us-west-2:367859350018:detail-queue
+
+productDetail-5:
+  handler: src/scraper/lambdas/productDetail.handler
+  timeout: 300
+  events:
+  - sqs:
+      arn: arn:aws:sqs:us-west-2:367859350018:detail-queue
+
+uploadProductData-1:
+  handler: src/scraper/lambdas/uploadProductData.handler
+  timeout: 120
+  events:
+  - sqs:
+      arn: arn:aws:sqs:us-west-2:367859350018:upload-product-data-queue
+
+uploadProductData-2:
+  handler: src/scraper/lambdas/uploadProductData.handler
+  timeout: 120
+  events:
+  - sqs:
+      arn: arn:aws:sqs:us-west-2:367859350018:upload-product-data-queue
+
+uploadProductData-3:
+  handler: src/scraper/lambdas/uploadProductData.handler
+  timeout: 120
+  events:
+  - sqs:
+      arn: arn:aws:sqs:us-west-2:367859350018:upload-product-data-queue
+
+uploadProductData-4:
+  handler: src/scraper/lambdas/uploadProductData.handler
+  timeout: 120
+  events:
+  - sqs:
+      arn: arn:aws:sqs:us-west-2:367859350018:upload-product-data-queue
+
+uploadProductData-5:
   handler: src/scraper/lambdas/uploadProductData.handler
   timeout: 120
   events:

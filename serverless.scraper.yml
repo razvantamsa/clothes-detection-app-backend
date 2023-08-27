@@ -33,17 +33,17 @@ functions:
   integration: ${file(./serverless/lambda/scraper.yml):integration}
   productCatalog: ${file(./serverless/lambda/scraper.yml):productCatalog}
 
-  productDetail-1: ${file(./serverless/lambda/scraper.yml):productDetail}
-  productDetail-2: ${file(./serverless/lambda/scraper.yml):productDetail}
-  productDetail-3: ${file(./serverless/lambda/scraper.yml):productDetail}
-  productDetail-4: ${file(./serverless/lambda/scraper.yml):productDetail}
-  productDetail-5: ${file(./serverless/lambda/scraper.yml):productDetail}
+  productDetail-1: ${file(./serverless/lambda/scraper.yml):productDetail-1}
+  productDetail-2: ${file(./serverless/lambda/scraper.yml):productDetail-2}
+  productDetail-3: ${file(./serverless/lambda/scraper.yml):productDetail-3}
+  productDetail-4: ${file(./serverless/lambda/scraper.yml):productDetail-4}
+  productDetail-5: ${file(./serverless/lambda/scraper.yml):productDetail-5}
 
-  uploadProductData-1: ${file(./serverless/lambda/scraper.yml):uploadProductData}
-  uploadProductData-2: ${file(./serverless/lambda/scraper.yml):uploadProductData}
-  uploadProductData-3: ${file(./serverless/lambda/scraper.yml):uploadProductData}
-  uploadProductData-4: ${file(./serverless/lambda/scraper.yml):uploadProductData}
-  uploadProductData-5: ${file(./serverless/lambda/scraper.yml):uploadProductData}
+  uploadProductData-1: ${file(./serverless/lambda/scraper.yml):uploadProductData-1}
+  uploadProductData-2: ${file(./serverless/lambda/scraper.yml):uploadProductData-2}
+  uploadProductData-3: ${file(./serverless/lambda/scraper.yml):uploadProductData-3}
+  uploadProductData-4: ${file(./serverless/lambda/scraper.yml):uploadProductData-4}
+  uploadProductData-5: ${file(./serverless/lambda/scraper.yml):uploadProductData-5}
 
 custom:
   webpack:
