@@ -25,4 +25,13 @@ async function sendMessageToQueue(MessageBody, QueueUrl) {
     }
 }
 
-module.exports = { sendMessageToQueue };
+async function deleteMessageFromQueue(QueueUrl, ReceiptHandle) {
+  const params = { QueueUrl, ReceiptHandle};
+  try {  
+    await sqs.deleteMessage(params).promise();
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+module.exports = { sendMessageToQueue, deleteMessageFromQueue };

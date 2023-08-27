@@ -1,14 +1,26 @@
 const UserAgent = require('user-agents');
 const { default: puppeteer } = require("puppeteer-core");
-const { getChromiumParams } = require("../chromium");
+const chromium = require('@sparticuz/chromium');
 
 async function loadDynamicPage() {
-    const chromiumParams = await getChromiumParams();
-    const browser = await puppeteer.launch(chromiumParams);
+    const browser = await puppeteer.launch({
+        args: [...chromium.args],
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(),
+        headless: chromium.headless,
+        ignoreHTTPSErrors: true,
+        timeout: 120000,
+    });
     const page = await browser.newPage();
     const userAgent = new UserAgent({ deviceCategory: 'desktop' }).toString();
     await page.setUserAgent(userAgent);
-    const closeBrowserCallback = async () => browser.close();
+
+    const closeBrowserCallback = () => {
+        const browserPid = browser.process()?.pid;
+        if (browserPid) {
+            process.kill(browserPid);
+        }
+    };
 
     return [page, closeBrowserCallback];
 }

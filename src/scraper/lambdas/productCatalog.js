@@ -1,11 +1,12 @@
-const { sendMessageToQueue } = require('../../utils/aws/sqs');
+const { sendMessageToQueue, deleteMessageFromQueue } = require('../../utils/aws/sqs');
 const IntegrationUtils = require('../integrations');
 
-const { 
+const {
+    SQS_PRODUCT_CATALOG_QUEUE_URL,
     SQS_PRODUCT_DETAIL_QUEUE_URL,
 } = process.env;
 
-const delay = () => new Promise((resolve) => setTimeout(resolve, 5000));
+const delay = () => new Promise((resolve) => setTimeout(resolve, 1000));
 
 const sendToWorker = async (body) => {
     await delay();
@@ -22,8 +23,9 @@ exports.handler = async (event) => {
         const { integration, type } =  JSON.parse(event.Records[0].body);
         const Utils = IntegrationUtils[integration.website];
         await Utils.scrapeProductCatalog(integration, type, sendToWorker);
+        await deleteMessageFromQueue(SQS_PRODUCT_CATALOG_QUEUE_URL, event.Records[0].receiptHandle);
     } catch (error) {
-        throw new Error(error);
+        console.log(error);
     }
 
     return { statusCode: 200 };
