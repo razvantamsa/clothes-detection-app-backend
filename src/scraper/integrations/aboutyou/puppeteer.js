@@ -44,22 +44,36 @@ const PuppeteerUtils = {
         return page.$eval('span[data-testid="finalPrice"]', element => element.textContent.trim());
     },
 
-    getColor: async (page) => { 
-        return page.$eval('span[data-testid="productColorInfoSelectedOptionName"]', element => element.textContent.trim());
-    },
-
-    getItemModelNumber: async (page) => {
+    getColor: async (page) => {
+        let color = '-';
         try {
             await PuppeteerUtils.scrollDownOnPage(page);
-            return page.$eval('[data-testid="productDetailsArticleNumber"]', element => (element.textContent.split(' ')[2]).trim());
+            color = await page.$eval('span[data-testid="productColorInfoSelectedOptionName"]', element => element.textContent.trim());
         } catch (error) {
             try {
                 await PuppeteerUtils.scrollDownOnPage(page);
-                return page.$eval('[data-testid="productDetailsArticleNumber"]', element => (element.textContent.split(' ')[2]).trim());
+                color = await page.$eval('span[data-testid="productColorInfoSelectedOptionName"]', element => element.textContent.trim());
             } catch (error) {
-                return '-';
+                //
             }
         }
+        return color;
+    },
+
+    getItemModelNumber: async (page) => {
+        let itemModelNumber = '-';
+        try {
+            await PuppeteerUtils.scrollDownOnPage(page);
+            itemModelNumber = page.$eval('[data-testid="productDetailsArticleNumber"]', element => (element.textContent.split(' ')[2]).trim());
+        } catch (error) {
+            try {
+                await PuppeteerUtils.scrollDownOnPage(page);
+                itemModelNumber = page.$eval('[data-testid="productDetailsArticleNumber"]', element => (element.textContent.split(' ')[2]).trim());
+            } catch (error) {
+                //
+            }
+        }
+        return itemModelNumber;
     },
 
     getImages: async (page) => {

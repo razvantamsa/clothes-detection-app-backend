@@ -29,29 +29,34 @@ const Utils = {
 
     scrapeProductDetail: async (integration, type, href) => {
         const [page, closeBrowserCallback] = await loadDynamicPage();
-        await page.goto(href);
-
-        await PuppeteerUtils.scrollDownOnPage(page);
-        const model = await PuppeteerUtils.getModel(page);
-        const price = await PuppeteerUtils.getPrice(page);
-        const color = await PuppeteerUtils.getColor(page);
-        const itemModelNumber = await PuppeteerUtils.getItemModelNumber(page);
-        const productImages = await PuppeteerUtils.getImages(page);
-        await closeBrowserCallback();
-
-        return {
-            model,
-            productData: {
-                price,
-                color,
-                itemModelNumber,
-                department: '',
-                rating: '',
-                nrOfReviews: '',
-                discontinued: '',
-                dateFirstAvailable: '',
-            },
-            productImages,
+        try {
+            await page.goto(href, { timeout: 120000 });
+    
+            await PuppeteerUtils.scrollDownOnPage(page);
+            const model = await PuppeteerUtils.getModel(page);
+            const price = await PuppeteerUtils.getPrice(page);
+            const color = await PuppeteerUtils.getColor(page);
+            const itemModelNumber = await PuppeteerUtils.getItemModelNumber(page);
+            const productImages = await PuppeteerUtils.getImages(page);
+            await closeBrowserCallback();
+    
+            return {
+                model,
+                productData: {
+                    price,
+                    color,
+                    itemModelNumber,
+                    department: '',
+                    rating: '',
+                    nrOfReviews: '',
+                    discontinued: '',
+                    dateFirstAvailable: '',
+                },
+                productImages,
+            }
+        } catch (error) {
+            await closeBrowserCallback();
+            throw new Error(error.message);
         }
     }
 }
