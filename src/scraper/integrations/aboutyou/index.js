@@ -1,21 +1,22 @@
 const { loadDynamicPage } = require("../../../utils/scraping/puppeteer/init");
 const PuppeteerUtils = require("./puppeteer");
-const { APP_MAX_PRODUCT_LIMIT } = process.env;
+const { APP_MAX_PRODUCT_LIMIT, MAX_ATTEMPTS } = process.env;
 
 const Utils = {
     scrapeProductCatalog: async (integration, type, sendToWorker) => {
         const [page, closeBrowserCallback] = await loadDynamicPage();
         await page.goto(integration.types[type]);
         
-        let products = [];
+        let products = [], attempts = 0;
         try {
-            while(products.length <= APP_MAX_PRODUCT_LIMIT) {
+            while(products.length <= APP_MAX_PRODUCT_LIMIT && attempts <= MAX_ATTEMPTS) {
                 console.log(products.length);
         
                 const foundProducts = await PuppeteerUtils.scrapeProductsFromPage(page);
                 products.push(...foundProducts);
                 products = [ ...new Set(products)];
                 await PuppeteerUtils.scrollDownOnPage(page);
+                attempts+=1;
             }
         } catch (error) {
             throw error.message;
