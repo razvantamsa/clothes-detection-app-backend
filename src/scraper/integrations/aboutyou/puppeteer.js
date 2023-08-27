@@ -64,11 +64,11 @@ const PuppeteerUtils = {
         let itemModelNumber = '-';
         try {
             await PuppeteerUtils.scrollDownOnPage(page);
-            itemModelNumber = page.$eval('[data-testid="productDetailsArticleNumber"]', element => (element.textContent.split(' ')[2]).trim());
+            itemModelNumber = await page.$eval('[data-testid="productDetailsArticleNumber"]', element => (element.textContent.split(' ')[2]).trim());
         } catch (error) {
             try {
                 await PuppeteerUtils.scrollDownOnPage(page);
-                itemModelNumber = page.$eval('[data-testid="productDetailsArticleNumber"]', element => (element.textContent.split(' ')[2]).trim());
+                itemModelNumber = await page.$eval('[data-testid="productDetailsArticleNumber"]', element => (element.textContent.split(' ')[2]).trim());
             } catch (error) {
                 //
             }
