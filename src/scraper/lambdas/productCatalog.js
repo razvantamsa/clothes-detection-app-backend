@@ -6,7 +6,7 @@ const {
     SQS_PRODUCT_DETAIL_QUEUE_URL,
 } = process.env;
 
-const delay = () => new Promise((resolve) => setTimeout(resolve, 5000));
+const delay = () => new Promise((resolve) => setTimeout(resolve, 1000));
 
 const sendToWorker = async (body) => {
     await delay();
