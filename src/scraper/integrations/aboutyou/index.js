@@ -7,12 +7,14 @@ const Utils = {
         const [page, closeBrowserCallback] = await loadDynamicPage();
         await page.goto(integration.types[type]);
         
-        const products = [];
+        let products = [];
         try {
             while(products.length <= APP_MAX_PRODUCT_LIMIT) {
+                console.log(products.length);
         
                 const foundProducts = await PuppeteerUtils.scrapeProductsFromPage(page);
                 products.push(...foundProducts);
+                products = [ ...new Set(products)];
                 await PuppeteerUtils.scrollDownOnPage(page);
             }
         } catch (error) {
