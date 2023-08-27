@@ -1,9 +1,10 @@
 const { logToCloudWatch } = require('../../utils/aws/cloudwatch');
-const { sendMessageToQueue } = require('../../utils/aws/sqs');
+const { sendMessageToQueue, deleteMessageFromQueue } = require('../../utils/aws/sqs');
 const IntegrationUtils = require('../integrations');
 
 const { 
     AWS_LAMBDA_FUNCTION_NAME,
+    SQS_PRODUCT_DETAIL_QUEUE_URL,
     SQS_UPLOAD_PRODUCT_DATA_QUEUE_URL,
 } = process.env;
 
@@ -38,6 +39,7 @@ exports.handler = async (event) => {
             SQS_UPLOAD_PRODUCT_DATA_QUEUE_URL,
         );
 
+        await deleteMessageFromQueue(SQS_PRODUCT_DETAIL_QUEUE_URL, event.Records[0].receiptHandle);
         await log(`Success for ${integration.brand} ${productDetails.model}`);
     } catch (error) {
         await log(error.message);

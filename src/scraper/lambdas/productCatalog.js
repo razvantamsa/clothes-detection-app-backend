@@ -1,7 +1,8 @@
-const { sendMessageToQueue } = require('../../utils/aws/sqs');
+const { sendMessageToQueue, deleteMessageFromQueue } = require('../../utils/aws/sqs');
 const IntegrationUtils = require('../integrations');
 
-const { 
+const {
+    SQS_PRODUCT_CATALOG_QUEUE_URL,
     SQS_PRODUCT_DETAIL_QUEUE_URL,
 } = process.env;
 
@@ -22,6 +23,7 @@ exports.handler = async (event) => {
         const { integration, type } =  JSON.parse(event.Records[0].body);
         const Utils = IntegrationUtils[integration.website];
         await Utils.scrapeProductCatalog(integration, type, sendToWorker);
+        await deleteMessageFromQueue(SQS_PRODUCT_CATALOG_QUEUE_URL, event.Records[0].receiptHandle);
     } catch (error) {
         console.log(error);
     }

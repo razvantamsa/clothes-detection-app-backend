@@ -4,6 +4,9 @@ const { logToCloudWatch } = require("../../utils/aws/cloudwatch");
 const { postItem: postDynamoDB } = require('../../utils/aws/dynamodb');
 const { uploadStreamToS3: postS3 } = require('../../utils/aws/s3');
 const { selectResources } = require("../../utils/middelware/verifyTypeHeader");
+const { deleteMessageFromQueue } = require('../../utils/aws/sqs');
+
+const { SQS_UPLOAD_PRODUCT_DATA_QUEUE_URL } = process.env;
 
 /**
  * --- Product Data Structure ---
@@ -54,7 +57,8 @@ exports.handler = async (event) => {
         }
 
         await postDynamoDB(TABLE, { brand, model, website, ...productData });
-        
+
+        await deleteMessageFromQueue(SQS_UPLOAD_PRODUCT_DATA_QUEUE_URL, event.Records[0].receiptHandle);
         await log(`Success for ${brand} ${model}`);
     } catch (error) {
         await log(error.message);
