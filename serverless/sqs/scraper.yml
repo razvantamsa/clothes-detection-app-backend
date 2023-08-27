@@ -1,23 +1,35 @@
 ScraperCatalogQueue:
+  DependsOn: DeadLetterQueue
   Type: AWS::SQS::Queue
   Properties:
     QueueName: catalog-queue
     VisibilityTimeout: 300
     RedrivePolicy:
+      deadLetterTargetArn: arn:aws:sqs:us-west-2:367859350018:dead-letter-queue
       maxReceiveCount: 1
 
 ScraperDetailQueue:
+  DependsOn: DeadLetterQueue
   Type: AWS::SQS::Queue
   Properties:
     QueueName: detail-queue
     VisibilityTimeout: 300
     RedrivePolicy:
+      deadLetterTargetArn: arn:aws:sqs:us-west-2:367859350018:dead-letter-queue
       maxReceiveCount: 1
 
 UploadProductDataQueue:
+  DependsOn: DeadLetterQueue
   Type: AWS::SQS::Queue
   Properties:
     QueueName: upload-product-data-queue
     VisibilityTimeout: 120
     RedrivePolicy:
+      deadLetterTargetArn: arn:aws:sqs:us-west-2:367859350018:dead-letter-queue
       maxReceiveCount: 1
+
+DeadLetterQueue: 
+  Type: AWS::SQS::Queue
+  Properties:
+    QueueName: dead-letter-queue
+    MessageRetentionPeriod: 21600 
