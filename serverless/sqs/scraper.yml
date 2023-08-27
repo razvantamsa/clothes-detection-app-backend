@@ -2,16 +2,22 @@ ScraperCatalogQueue:
   Type: AWS::SQS::Queue
   Properties:
     QueueName: catalog-queue
-    VisibilityTimeout: 900
+    VisibilityTimeout: 300
+    RedrivePolicy:
+      maxReceiveCount: 1
 
 ScraperDetailQueue:
   Type: AWS::SQS::Queue
   Properties:
     QueueName: detail-queue
-    VisibilityTimeout: 900
+    VisibilityTimeout: 300
+    RedrivePolicy:
+      maxReceiveCount: 1
 
 UploadProductDataQueue:
   Type: AWS::SQS::Queue
   Properties:
     QueueName: upload-product-data-queue
     VisibilityTimeout: 120
+    RedrivePolicy:
+      maxReceiveCount: 1
