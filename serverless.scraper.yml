@@ -38,6 +38,11 @@ functions:
   productDetail-3: ${file(./serverless/lambda/scraper.yml):productDetail-3}
   productDetail-4: ${file(./serverless/lambda/scraper.yml):productDetail-4}
   productDetail-5: ${file(./serverless/lambda/scraper.yml):productDetail-5}
+  productDetail-6: ${file(./serverless/lambda/scraper.yml):productDetail-6}
+  productDetail-7: ${file(./serverless/lambda/scraper.yml):productDetail-7}
+  productDetail-8: ${file(./serverless/lambda/scraper.yml):productDetail-8}
+  productDetail-9: ${file(./serverless/lambda/scraper.yml):productDetail-9}
+  productDetail-10: ${file(./serverless/lambda/scraper.yml):productDetail-10}
 
   uploadProductData-1: ${file(./serverless/lambda/scraper.yml):uploadProductData-1}
   uploadProductData-2: ${file(./serverless/lambda/scraper.yml):uploadProductData-2}
