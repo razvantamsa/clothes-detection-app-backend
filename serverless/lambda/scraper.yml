@@ -20,77 +20,77 @@ integration:
 
 productCatalog:
   handler: src/scraper/lambdas/productCatalog.handler
-  timeout: 300
+  timeout: 600
   events:
   - sqs:
       arn: arn:aws:sqs:us-west-2:367859350018:catalog-queue
 
 productDetail-1:
   handler: src/scraper/lambdas/productDetail.handler
-  timeout: 300
+  timeout: 600
   events:
   - sqs:
       arn: arn:aws:sqs:us-west-2:367859350018:detail-queue
 
 productDetail-2:
   handler: src/scraper/lambdas/productDetail.handler
-  timeout: 300
+  timeout: 600
   events:
   - sqs:
       arn: arn:aws:sqs:us-west-2:367859350018:detail-queue
 
 productDetail-3:
   handler: src/scraper/lambdas/productDetail.handler
-  timeout: 300
+  timeout: 600
   events:
   - sqs:
       arn: arn:aws:sqs:us-west-2:367859350018:detail-queue
 
 productDetail-4:
   handler: src/scraper/lambdas/productDetail.handler
-  timeout: 300
+  timeout: 600
   events:
   - sqs:
       arn: arn:aws:sqs:us-west-2:367859350018:detail-queue
 
 productDetail-5:
   handler: src/scraper/lambdas/productDetail.handler
-  timeout: 300
+  timeout: 600
   events:
   - sqs:
       arn: arn:aws:sqs:us-west-2:367859350018:detail-queue
 
 productDetail-6:
   handler: src/scraper/lambdas/productDetail.handler
-  timeout: 300
+  timeout: 600
   events:
   - sqs:
       arn: arn:aws:sqs:us-west-2:367859350018:detail-queue
 
 productDetail-7:
   handler: src/scraper/lambdas/productDetail.handler
-  timeout: 300
+  timeout: 600
   events:
   - sqs:
       arn: arn:aws:sqs:us-west-2:367859350018:detail-queue
 
 productDetail-8:
   handler: src/scraper/lambdas/productDetail.handler
-  timeout: 300
+  timeout: 600
   events:
   - sqs:
       arn: arn:aws:sqs:us-west-2:367859350018:detail-queue
 
 productDetail-9:
   handler: src/scraper/lambdas/productDetail.handler
-  timeout: 300
+  timeout: 600
   events:
   - sqs:
       arn: arn:aws:sqs:us-west-2:367859350018:detail-queue
 
 productDetail-10:
   handler: src/scraper/lambdas/productDetail.handler
-  timeout: 300
+  timeout: 600
   events:
   - sqs:
       arn: arn:aws:sqs:us-west-2:367859350018:detail-queue

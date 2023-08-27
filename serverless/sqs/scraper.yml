@@ -2,13 +2,13 @@ ScraperCatalogQueue:
   Type: AWS::SQS::Queue
   Properties:
     QueueName: catalog-queue
-    VisibilityTimeout: 300
+    VisibilityTimeout: 600
 
 ScraperDetailQueue:
   Type: AWS::SQS::Queue
   Properties:
     QueueName: detail-queue
-    VisibilityTimeout: 300
+    VisibilityTimeout: 600
 
 UploadProductDataQueue:
   Type: AWS::SQS::Queue
