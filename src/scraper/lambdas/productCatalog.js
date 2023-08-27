@@ -23,7 +23,7 @@ exports.handler = async (event) => {
         const Utils = IntegrationUtils[integration.website];
         await Utils.scrapeProductCatalog(integration, type, sendToWorker);
     } catch (error) {
-        throw new Error(error);
+        console.log(error);
     }
 
     return { statusCode: 200 };
