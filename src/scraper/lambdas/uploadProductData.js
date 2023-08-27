@@ -49,7 +49,7 @@ exports.handler = async (event) => {
             });
             const uploadStream = new stream.PassThrough();
             response.data.pipe(uploadStream);
-            await postS3(BUCKET, `${brand}/${model}/pic${index}`, uploadStream);
+            await postS3(BUCKET, `${brand}/${model}/pic${index}.jpg`, uploadStream);
         }
 
         await postDynamoDB(TABLE, { brand, model, website, ...productData });
