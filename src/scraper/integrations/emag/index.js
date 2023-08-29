@@ -14,6 +14,8 @@ const Utils = {
                 console.log(products.length);
 
                 const $ = await loadHtml(url);
+                if(!$) { break; }
+
                 const foundProducts = CheerioUtils.scrapeProductsFromPage($); 
                 products.push(...foundProducts);
                 products = [ ...new Set(products)];

@@ -8,9 +8,14 @@ async function loadHtml(url) {
         'Accept-Language': 'en-US,en;q=0.9',
     }
 
-    const response = await axios.get(url, { headers });
-    const html = response.data;
-    return cheerio.load(html);
+    try {
+        const response = await axios.get(url, { headers });
+        const html = response.data;
+        return cheerio.load(html);
+    } catch (err) {
+        console.log(err.message);
+        return;
+    }
 }
 
 module.exports = { loadHtml };
