@@ -18,7 +18,7 @@ function getProductData($) {
         }
 
         if(label.includes('Department')) {
-            department = value.toLowerCase().replace(/s$/, "");;
+            department = value.toLowerCase().replace(/s$/, "");
         }
 
         if(label.includes('Date First Available')) {
