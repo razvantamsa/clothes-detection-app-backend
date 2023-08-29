@@ -2,7 +2,6 @@ const CheerioUtils = {
     nextPageUrl: (url) => {
         const paramPattern = /\/p(\d+)/;
         const paramMatch = url.match(paramPattern);
-        console.log(paramMatch);
         
         if (paramMatch) {
             const currentNumber = parseInt(paramMatch[1], 10);
