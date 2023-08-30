@@ -1,3 +1,4 @@
+const { getNumberOfReviews } = require("./src/utils/scraping/cheerio/detail.utils");
 const { loadHtml } = require("./src/utils/scraping/cheerio/init");
 
 const urls = [
@@ -8,25 +9,26 @@ const getModel = ($) => {
     return $('div.product-data__name').text().trim();
 };
 
-// getPrice: ($) => {
-//     let price = $('div#pret_produs > span.pret_redus').text().trim();
-//     if(!price) {
-//         price = $('div#pret_produs > span.pret_block').text().trim();
-//     }
-//     return price;
-// },
+const getPrice = ($) => {
+    return $('span.product-card-price__current').text().trim();
+};
 
-// getItemModelNumber: ($) => {
-//     return $('div.product-code > span#cod_produs').first().text().trim();
-// },
+const getColor = ($) => {
+    return $('p.product-data__color-text').text().trim();
+}
 
-// getDiscontinued: ($) => {
-//     return !$('div.product-code > span#cod_produs').eq(1).text().trim();
-// },
+const getRating = ($) => {
+    const stars = $('div.product-data__stars-wrapper > div > div > div > svg > path[fill="#A4030B"]');
+    return `${stars.length}/5`; 
+}
 
-// getDepartment: ($) => {
-//     return $('div.cat-breadcrumb > a.nivel > span[itemprop="name"]').first().text().trim().toLowerCase();
-// },
+const getNrOfReviews = ($) => {
+    return $('div.product-data__stars-wrapper > span').text().trim().replace(/\D/g, '');
+}
+
+const getDepartment = ($) => {
+    return $('li.breadcrumbs__item > div > a > span').eq(1).text().trim().toLowerCase();
+}
 
 const getImages = ($) => {
     const hrefs = [];
@@ -44,23 +46,26 @@ const getImages = ($) => {
 const scrapeProductDetail = async (integration, type, href) => {
     const $ = await loadHtml(href);
     try {
-        // await page.goto(href, { timeout: 120000 });
-
         const model = getModel($);
-        // const color = CheerioUtils.getColor($);
-        // const price = CheerioUtils.getPrice($);
-        // const itemModelNumber = getItemModelNumber($);
-        // const department = CheerioUtils.getDepartment($);
+        const color = getColor($);
+        const price = getPrice($);
+        const rating = getRating($);
+        const nrOfReviews = getNrOfReviews($);
+        const department = getDepartment($);
         const productImages = getImages($);
 
         return {
             model,
-            // productData: {
-            //     price,
-            //     color,
-                // itemModelNumber, - TODO
-            //     department,
-            // },
+            productData: {
+                price,
+                color,
+                itemModelNumber: '',
+                department,
+                rating,
+                nrOfReviews,
+                discontinued: '',
+                dateFirstAvailable: '',
+            },
             productImages,
         }
     } catch (error) {
