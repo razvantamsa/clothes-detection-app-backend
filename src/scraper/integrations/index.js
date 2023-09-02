@@ -8,6 +8,7 @@ const IntegrationUtils = {
     bonprix: require('./bonprix'),
     emag: require('./emag'),
     fashionup: require('./fashionup'),
+    zalando: require('./zalando'),
 }
 
 module.exports = IntegrationUtils;
