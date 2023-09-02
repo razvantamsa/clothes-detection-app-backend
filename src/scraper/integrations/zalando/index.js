@@ -1,5 +1,3 @@
-const CheerioUtils = require('./cheerio');
-const { loadHtml } = require("../../../utils/scraping/cheerio/init");
 const { loadDynamicPage } = require("../../../utils/scraping/puppeteer/init");
 const PuppeteerUtils = require('./puppeteer');
 const { APP_MAX_PRODUCT_LIMIT, MAX_ATTEMPTS } = process.env;
@@ -38,33 +36,36 @@ const Utils = {
     },
 
     scrapeProductDetail: async (integration, type, href) => {
-        // const $ = await loadHtml(href);
-        // try {
-        //     const model = CheerioUtils.getModel($);
-        //     const color = CheerioUtils.getColor($);
-        //     const price = CheerioUtils.getPrice($);
-        //     const rating = CheerioUtils.getRating($);
-        //     const nrOfReviews = CheerioUtils.getNrOfReviews($);
-        //     const department = CheerioUtils.getDepartment($);
-        //     const productImages = CheerioUtils.getImages($);
+        const [page, closeBrowserCallback] = await loadDynamicPage();
+        await page.goto(href);
+
+        try {
+            const model = await PuppeteerUtils.getModel(page);
+            const color = await PuppeteerUtils.getColor(page);
+            const price = await PuppeteerUtils.getPrice(page);
+            const department = await PuppeteerUtils.getDepartment(page);
+            const productImages = await PuppeteerUtils.getImages(page);
     
-        //     return {
-        //         model,
-        //         productData: {
-        //             price,
-        //             color,
-        //             itemModelNumber: '',
-        //             department,
-        //             rating,
-        //             nrOfReviews,
-        //             discontinued: '',
-        //             dateFirstAvailable: '',
-        //         },
-        //         productImages,
-        //     }
-        // } catch (error) {
-        //     throw new Error(error.message);
-        // }
+            await closeBrowserCallback();
+
+            return {
+                model,
+                productData: {
+                    price,
+                    color,
+                    itemModelNumber: '',
+                    department,
+                    rating: '',
+                    nrOfReviews: '',
+                    discontinued: '',
+                    dateFirstAvailable: '',
+                },
+                productImages,
+            }
+        } catch (error) {
+            await closeBrowserCallback();
+            throw new Error(error.message);
+        }
     }
 }
 
