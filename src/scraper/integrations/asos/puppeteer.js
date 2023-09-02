@@ -4,7 +4,7 @@ const PuppeteerUtils = {
     },
 
     getColor: async (page) => {
-        return page.$eval('div.a3gFz > div > p', (element) => element.textContent.toLowerCase());
+        return page.$eval('div[data-testid="productColour"] > p', (element) => element.textContent.toLowerCase());
     },
 };
 
