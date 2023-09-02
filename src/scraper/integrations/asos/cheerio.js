@@ -1,5 +1,27 @@
 const CheerioUtils = {
-    
+    nextPageUrl: (url) => {
+        const regex = /&page=(\d+)\b/;
+        const match = url.match(regex);
+
+        if (match) {
+            const currentPage = parseInt(match[1], 10);
+            url = url.replace(regex, `&page=${currentPage + 1}`);
+        } else {
+            url +=  '&page=2';
+        }
+
+        return url;
+    },
+
+    scrapeProductsFromPage: ($) => {
+        const products = [];
+        $('a.productLink_c18pi').each((_idx, el) => {
+            const link = $(el).attr('href');
+            products.push(link);
+        });
+        return products;
+    },
+
     /**
     * department - none
     * rating - none
